@@ -1,0 +1,2148 @@
+[
+  {
+    "id": "interview_001",
+    "mode": "interview",
+    "promptText": "Tell me about yourself",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.840Z"
+  },
+  {
+    "id": "interview_002",
+    "mode": "interview",
+    "promptText": "Walk me through your resume",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_003",
+    "mode": "interview",
+    "promptText": "Why do you want this role",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_004",
+    "mode": "interview",
+    "promptText": "Why do you want to work here",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_005",
+    "mode": "interview",
+    "promptText": "Tell me about a project you're proud of",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_006",
+    "mode": "interview",
+    "promptText": "Tell me about a challenge you faced",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_007",
+    "mode": "interview",
+    "promptText": "Tell me about a failure",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_008",
+    "mode": "interview",
+    "promptText": "Tell me about a time you solved a difficult problem",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_009",
+    "mode": "interview",
+    "promptText": "Tell me about a time you worked in a team",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_010",
+    "mode": "interview",
+    "promptText": "Tell me about a disagreement with a coworker",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_011",
+    "mode": "interview",
+    "promptText": "Tell me about a time you handled conflict",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_012",
+    "mode": "interview",
+    "promptText": "Tell me about a time you had to learn something quickly",
+    "tags": [
+      "interview",
+      "work-communication",
+      "conciseness"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_013",
+    "mode": "interview",
+    "promptText": "Tell me about a time you met a tight deadline",
+    "tags": [
+      "interview",
+      "work-communication",
+      "risk-management"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_014",
+    "mode": "interview",
+    "promptText": "Tell me about a time you improved a process",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_015",
+    "mode": "interview",
+    "promptText": "Tell me about a time you took initiative",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_016",
+    "mode": "interview",
+    "promptText": "Tell me about a time you led something",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_017",
+    "mode": "interview",
+    "promptText": "Tell me about a time you handled feedback",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_018",
+    "mode": "interview",
+    "promptText": "Tell me about a time you made a mistake",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_019",
+    "mode": "interview",
+    "promptText": "Tell me about a time you helped a teammate",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_020",
+    "mode": "interview",
+    "promptText": "Describe your biggest professional achievement",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_021",
+    "mode": "interview",
+    "promptText": "What are your strengths",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_022",
+    "mode": "interview",
+    "promptText": "What are your weaknesses",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_023",
+    "mode": "interview",
+    "promptText": "Where do you want to be in five years",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_024",
+    "mode": "interview",
+    "promptText": "Why should we hire you",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_025",
+    "mode": "interview",
+    "promptText": "Describe your work style",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_026",
+    "mode": "interview",
+    "promptText": "How do you handle pressure",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_027",
+    "mode": "interview",
+    "promptText": "How do you prioritize work",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_028",
+    "mode": "interview",
+    "promptText": "Describe a time you solved a customer problem",
+    "tags": [
+      "interview",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_029",
+    "mode": "interview",
+    "promptText": "Describe a time you had multiple deadlines",
+    "tags": [
+      "interview",
+      "work-communication",
+      "risk-management"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_030",
+    "mode": "interview",
+    "promptText": "Describe a time you adapted to change",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_031",
+    "mode": "interview",
+    "promptText": "Describe a time you disagreed with a decision",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_032",
+    "mode": "interview",
+    "promptText": "Describe a time you improved efficiency",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_033",
+    "mode": "interview",
+    "promptText": "Describe a time you handled ambiguity",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_034",
+    "mode": "interview",
+    "promptText": "Describe a time you learned from failure",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_035",
+    "mode": "interview",
+    "promptText": "Describe a time you delivered results",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_036",
+    "mode": "interview",
+    "promptText": "Describe a time you handled a difficult stakeholder",
+    "tags": [
+      "interview",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_037",
+    "mode": "interview",
+    "promptText": "Describe a time you had to persuade someone",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_038",
+    "mode": "interview",
+    "promptText": "Describe a time you handled criticism",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_039",
+    "mode": "interview",
+    "promptText": "Describe a time you exceeded expectations",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_040",
+    "mode": "interview",
+    "promptText": "Describe a time you fixed a broken process",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_041",
+    "mode": "interview",
+    "promptText": "Describe a time you worked cross-functionally",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_042",
+    "mode": "interview",
+    "promptText": "Describe a time you handled responsibility",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_043",
+    "mode": "interview",
+    "promptText": "Describe a time you worked independently",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_044",
+    "mode": "interview",
+    "promptText": "Describe a time you managed your time well",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_045",
+    "mode": "interview",
+    "promptText": "Describe a time you helped improve a team",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_046",
+    "mode": "interview",
+    "promptText": "Describe a time you faced uncertainty",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_047",
+    "mode": "interview",
+    "promptText": "Describe a time you handled pressure",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_048",
+    "mode": "interview",
+    "promptText": "Describe a time you went beyond your role",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_049",
+    "mode": "interview",
+    "promptText": "Describe a time you solved something creatively",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "interview_050",
+    "mode": "interview",
+    "promptText": "Describe a time you handled a difficult situation",
+    "tags": [
+      "interview",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_001",
+    "mode": "workplace",
+    "promptText": "Give a quick standup update",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "conciseness"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_002",
+    "mode": "workplace",
+    "promptText": "Explain what you worked on yesterday",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_003",
+    "mode": "workplace",
+    "promptText": "Explain what you're working on today",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_004",
+    "mode": "workplace",
+    "promptText": "Explain a blocker to your manager",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_005",
+    "mode": "workplace",
+    "promptText": "Summarize a meeting outcome",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "conciseness"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_006",
+    "mode": "workplace",
+    "promptText": "Explain the status of a project",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_007",
+    "mode": "workplace",
+    "promptText": "Explain why a deadline moved",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "risk-management",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_008",
+    "mode": "workplace",
+    "promptText": "Explain progress on a feature",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_009",
+    "mode": "workplace",
+    "promptText": "Explain an issue you're investigating",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_010",
+    "mode": "workplace",
+    "promptText": "Explain a bug to your team",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_011",
+    "mode": "workplace",
+    "promptText": "Explain a solution you propose",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_012",
+    "mode": "workplace",
+    "promptText": "Explain a decision you made",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_013",
+    "mode": "workplace",
+    "promptText": "Explain why something failed",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_014",
+    "mode": "workplace",
+    "promptText": "Explain a change in priorities",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_015",
+    "mode": "workplace",
+    "promptText": "Explain the next steps of a project",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_016",
+    "mode": "workplace",
+    "promptText": "Explain a product feature",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_017",
+    "mode": "workplace",
+    "promptText": "Explain a concept to a non-technical colleague",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_018",
+    "mode": "workplace",
+    "promptText": "Explain a delay to a stakeholder",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "stakeholder",
+      "risk-management",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_019",
+    "mode": "workplace",
+    "promptText": "Explain a project outcome",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_020",
+    "mode": "workplace",
+    "promptText": "Explain the key takeaway from a report",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_021",
+    "mode": "workplace",
+    "promptText": "Answer a question from your manager",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_022",
+    "mode": "workplace",
+    "promptText": "Answer why a project is delayed",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "risk-management"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_023",
+    "mode": "workplace",
+    "promptText": "Answer why an approach changed",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_024",
+    "mode": "workplace",
+    "promptText": "Answer a question about your analysis",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_025",
+    "mode": "workplace",
+    "promptText": "Answer a question about your results",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_026",
+    "mode": "workplace",
+    "promptText": "Push back on an unrealistic deadline",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "risk-management"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_027",
+    "mode": "workplace",
+    "promptText": "Push back on a request politely",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_028",
+    "mode": "workplace",
+    "promptText": "Suggest a better approach",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_029",
+    "mode": "workplace",
+    "promptText": "Propose an idea to your team",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_030",
+    "mode": "workplace",
+    "promptText": "Recommend a decision",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_031",
+    "mode": "workplace",
+    "promptText": "Ask your manager for clarification",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_032",
+    "mode": "workplace",
+    "promptText": "Ask for help on a blocker",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_033",
+    "mode": "workplace",
+    "promptText": "Ask for additional resources",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_034",
+    "mode": "workplace",
+    "promptText": "Ask a teammate for support",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_035",
+    "mode": "workplace",
+    "promptText": "Give constructive feedback to a colleague",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_036",
+    "mode": "workplace",
+    "promptText": "Explain a mistake to your manager",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_037",
+    "mode": "workplace",
+    "promptText": "Explain what you learned from a mistake",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_038",
+    "mode": "workplace",
+    "promptText": "Explain a difficult problem you solved",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_039",
+    "mode": "workplace",
+    "promptText": "Walk a stakeholder through a proposal",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_040",
+    "mode": "workplace",
+    "promptText": "Present a quick project summary",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "conciseness"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_041",
+    "mode": "workplace",
+    "promptText": "Explain key metrics to leadership",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_042",
+    "mode": "workplace",
+    "promptText": "Explain an improvement idea",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_043",
+    "mode": "workplace",
+    "promptText": "Respond to a challenge to your idea",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_044",
+    "mode": "workplace",
+    "promptText": "Respond to criticism of your work",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_045",
+    "mode": "workplace",
+    "promptText": "Respond when someone disagrees with you",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_046",
+    "mode": "workplace",
+    "promptText": "Explain your reasoning behind a decision",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_047",
+    "mode": "workplace",
+    "promptText": "Explain why something is important",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_048",
+    "mode": "workplace",
+    "promptText": "Clarify a misunderstanding",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_049",
+    "mode": "workplace",
+    "promptText": "Correct incorrect information politely",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_050",
+    "mode": "workplace",
+    "promptText": "Explain an idea quickly in 30 seconds",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity",
+      "conciseness"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_051",
+    "mode": "workplace",
+    "promptText": "Explain a complex topic simply",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_052",
+    "mode": "workplace",
+    "promptText": "Give a quick recommendation",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "conciseness"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_053",
+    "mode": "workplace",
+    "promptText": "Summarize three options",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "conciseness"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_054",
+    "mode": "workplace",
+    "promptText": "Explain risks in a project",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "risk-management",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_055",
+    "mode": "workplace",
+    "promptText": "Explain tradeoffs in a decision",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_056",
+    "mode": "workplace",
+    "promptText": "Give next steps after a meeting",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_057",
+    "mode": "workplace",
+    "promptText": "Explain what success looks like",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_058",
+    "mode": "workplace",
+    "promptText": "Explain how you prioritized work",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_059",
+    "mode": "workplace",
+    "promptText": "Explain how you solved a difficult issue",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_060",
+    "mode": "workplace",
+    "promptText": "Give a status update to leadership in one minute",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_061",
+    "mode": "workplace",
+    "promptText": "Present a proposal with one clear recommendation",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_062",
+    "mode": "workplace",
+    "promptText": "Handle a meeting interruption professionally",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_063",
+    "mode": "workplace",
+    "promptText": "Explain a scope change to your team",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_064",
+    "mode": "workplace",
+    "promptText": "Respond to an unexpected question in a meeting",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_065",
+    "mode": "workplace",
+    "promptText": "Escalate a risk to your manager",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "risk-management"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_066",
+    "mode": "workplace",
+    "promptText": "Request timeline relief with clear rationale",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_067",
+    "mode": "workplace",
+    "promptText": "Align two teams on a shared next step",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_068",
+    "mode": "workplace",
+    "promptText": "Summarize action items at meeting close",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "conciseness"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_069",
+    "mode": "workplace",
+    "promptText": "Explain why a tradeoff was necessary",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_070",
+    "mode": "workplace",
+    "promptText": "Share a progress update with limited data",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_071",
+    "mode": "workplace",
+    "promptText": "State a disagreement respectfully in a meeting",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_072",
+    "mode": "workplace",
+    "promptText": "Ask a clarifying follow-up question",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_073",
+    "mode": "workplace",
+    "promptText": "Explain a technical dependency to product",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_074",
+    "mode": "workplace",
+    "promptText": "Explain why quality checks are needed",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_075",
+    "mode": "workplace",
+    "promptText": "Ask for feedback after presenting work",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_076",
+    "mode": "workplace",
+    "promptText": "Set expectations for an uncertain timeline",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_077",
+    "mode": "workplace",
+    "promptText": "Deliver a concise risk-benefit summary",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "risk-management",
+      "conciseness"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_078",
+    "mode": "workplace",
+    "promptText": "Respond to a missed deadline update",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "risk-management"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_079",
+    "mode": "workplace",
+    "promptText": "Explain what changed after new requirements",
+    "tags": [
+      "workplace",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "workplace_080",
+    "mode": "workplace",
+    "promptText": "Recap a decision and owner assignments",
+    "tags": [
+      "workplace",
+      "work-communication"
+    ],
+    "difficulty": "hard",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_001",
+    "mode": "customer",
+    "promptText": "Explain your product to a customer",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_002",
+    "mode": "customer",
+    "promptText": "Explain a feature to a new user",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_003",
+    "mode": "customer",
+    "promptText": "Respond to a customer complaint",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_004",
+    "mode": "customer",
+    "promptText": "Explain how a solution works",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_005",
+    "mode": "customer",
+    "promptText": "Explain the benefits of a product",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_006",
+    "mode": "customer",
+    "promptText": "Explain pricing clearly",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_007",
+    "mode": "customer",
+    "promptText": "Clarify a misunderstanding",
+    "tags": [
+      "customer",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_008",
+    "mode": "customer",
+    "promptText": "Respond to a customer objection",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_009",
+    "mode": "customer",
+    "promptText": "Walk a customer through a solution",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_010",
+    "mode": "customer",
+    "promptText": "Explain why something cannot be done",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_011",
+    "mode": "customer",
+    "promptText": "Explain alternatives to a customer",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_012",
+    "mode": "customer",
+    "promptText": "Explain a delay to a client",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder",
+      "risk-management",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_013",
+    "mode": "customer",
+    "promptText": "Explain next steps to a client",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_014",
+    "mode": "customer",
+    "promptText": "Explain the outcome of a support ticket",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_015",
+    "mode": "customer",
+    "promptText": "Summarize a client meeting",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder",
+      "conciseness"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_016",
+    "mode": "customer",
+    "promptText": "Explain how to get started",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_017",
+    "mode": "customer",
+    "promptText": "Explain how to solve a problem",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_018",
+    "mode": "customer",
+    "promptText": "Explain the value of your solution",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_019",
+    "mode": "customer",
+    "promptText": "Handle a skeptical customer question",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_020",
+    "mode": "customer",
+    "promptText": "Respond to a request for clarification",
+    "tags": [
+      "customer",
+      "work-communication"
+    ],
+    "difficulty": "easy",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_021",
+    "mode": "customer",
+    "promptText": "Explain a technical concept simply",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_022",
+    "mode": "customer",
+    "promptText": "Explain a feature limitation",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_023",
+    "mode": "customer",
+    "promptText": "Explain a roadmap item",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_024",
+    "mode": "customer",
+    "promptText": "Explain a change to a customer",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_025",
+    "mode": "customer",
+    "promptText": "Explain a fix to a problem",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_026",
+    "mode": "customer",
+    "promptText": "Explain a process step",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_027",
+    "mode": "customer",
+    "promptText": "Explain how to troubleshoot something",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_028",
+    "mode": "customer",
+    "promptText": "Guide a customer through an issue",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_029",
+    "mode": "customer",
+    "promptText": "Explain what happens next",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_030",
+    "mode": "customer",
+    "promptText": "Explain how long something will take",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_031",
+    "mode": "customer",
+    "promptText": "Explain the outcome of an investigation",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_032",
+    "mode": "customer",
+    "promptText": "Explain a recommended solution",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_033",
+    "mode": "customer",
+    "promptText": "Explain why a feature matters",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_034",
+    "mode": "customer",
+    "promptText": "Explain the results of a change",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_035",
+    "mode": "customer",
+    "promptText": "Explain how to measure success",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_036",
+    "mode": "customer",
+    "promptText": "Explain how to use a tool",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_037",
+    "mode": "customer",
+    "promptText": "Explain how to configure something",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_038",
+    "mode": "customer",
+    "promptText": "Explain the best next step",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_039",
+    "mode": "customer",
+    "promptText": "Explain what to expect",
+    "tags": [
+      "customer",
+      "work-communication",
+      "clarity"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  },
+  {
+    "id": "customer_040",
+    "mode": "customer",
+    "promptText": "Summarize support options for a customer",
+    "tags": [
+      "customer",
+      "work-communication",
+      "stakeholder",
+      "conciseness"
+    ],
+    "difficulty": "medium",
+    "active": true,
+    "createdAt": "2026-03-04T20:18:14.841Z"
+  }
+]

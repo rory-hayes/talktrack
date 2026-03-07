@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Xcode
+DerivedData/
+*.xcworkspace/
+*.xcodeproj/project.xcworkspace/
+*.xcuserdata/
+
+# Firebase
+.firebase/
+firestore-debug.log
+ui-debug.log
+
+# Node
+node_modules/
+npm-debug.log*
+backend/functions/lib/
+backend/functions/node_modules/
+
+# Environment
+.env
+.env.*
+
+# Build
+build/
+dist/
+coverage/
