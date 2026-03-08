@@ -2,6 +2,31 @@ import FirebaseAuth
 import FirebaseFirestore
 import Foundation
 
+func resolvePreferredName(existingName: String?, displayName: String?, email: String?) -> String {
+    if let existingName {
+        let trimmed = existingName.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmed.isEmpty, trimmed.caseInsensitiveCompare("there") != .orderedSame {
+            return trimmed
+        }
+    }
+
+    if let displayName {
+        let trimmed = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmed.isEmpty {
+            return trimmed.components(separatedBy: .whitespacesAndNewlines).first ?? trimmed
+        }
+    }
+
+    if let email {
+        let trimmed = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmed.isEmpty {
+            return trimmed.split(separator: "@").first.map(String.init) ?? ""
+        }
+    }
+
+    return ""
+}
+
 enum UserProfileServiceError: LocalizedError {
     case missingPreferredName
 
@@ -263,26 +288,11 @@ final class UserProfileService {
     }
 
     private func derivedPreferredName(for user: User, existingName: String?) -> String {
-        if let existingName {
-            let trimmed = existingName.trimmingCharacters(in: .whitespacesAndNewlines)
-            if !trimmed.isEmpty, trimmed.caseInsensitiveCompare("there") != .orderedSame { return trimmed }
-        }
-
-        if
-            let displayName = user.displayName?.trimmingCharacters(in: .whitespacesAndNewlines),
-            !displayName.isEmpty
-        {
-            return displayName.components(separatedBy: .whitespaces).first ?? displayName
-        }
-
-        if
-            let email = user.email?.trimmingCharacters(in: .whitespacesAndNewlines),
-            !email.isEmpty
-        {
-            return email.split(separator: "@").first.map(String.init) ?? ""
-        }
-
-        return ""
+        resolvePreferredName(
+            existingName: existingName,
+            displayName: user.displayName,
+            email: user.email
+        )
     }
 
     private func normalizedProfile(_ profile: UserProfileRecord?, for user: User) -> UserProfileRecord? {

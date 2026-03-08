@@ -54,7 +54,7 @@ final class HomeViewModel: ObservableObject {
                 roleTrack: roleTrack,
                 experienceLevel: experienceLevel
             )
-            recommendedScenario = dependencies.scenarioRepository.personalizedRecommendation(
+            recommendedScenario = await dependencies.scenarioRepository.personalizedRecommendation(
                 for: selectedMode,
                 weakestFocus: weakestFocus,
                 roleTrack: roleTrack,

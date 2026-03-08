@@ -1,0 +1,319 @@
+{
+  "_type" : {
+    "_name" : "ActionTestPlanRunSummaries"
+  },
+  "summaries" : {
+    "_type" : {
+      "_name" : "Array"
+    },
+    "_values" : [
+      {
+        "_type" : {
+          "_name" : "ActionTestPlanRunSummary",
+          "_supertype" : {
+            "_name" : "ActionAbstractTestSummary"
+          }
+        },
+        "name" : {
+          "_type" : {
+            "_name" : "String"
+          },
+          "_value" : "Test Scheme Action"
+        },
+        "testableSummaries" : {
+          "_type" : {
+            "_name" : "Array"
+          },
+          "_values" : [
+            {
+              "_type" : {
+                "_name" : "ActionTestableSummary",
+                "_supertype" : {
+                  "_name" : "ActionAbstractTestSummary"
+                }
+              },
+              "diagnosticsDirectoryName" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : ""
+              },
+              "identifierURL" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : "test:\/\/com.apple.xcode\/Clearify\/ClearifyUITests"
+              },
+              "name" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : "ClearifyUITests"
+              },
+              "projectRelativePath" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : "Clearify.xcodeproj"
+              },
+              "targetName" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : "ClearifyUITests"
+              },
+              "testKind" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : "UI"
+              },
+              "testLanguage" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : ""
+              },
+              "testRegion" : {
+                "_type" : {
+                  "_name" : "String"
+                },
+                "_value" : ""
+              },
+              "tests" : {
+                "_type" : {
+                  "_name" : "Array"
+                },
+                "_values" : [
+                  {
+                    "_type" : {
+                      "_name" : "ActionTestSummaryGroup",
+                      "_supertype" : {
+                        "_name" : "ActionTestSummaryIdentifiableObject",
+                        "_supertype" : {
+                          "_name" : "ActionAbstractTestSummary"
+                        }
+                      }
+                    },
+                    "duration" : {
+                      "_type" : {
+                        "_name" : "Double"
+                      },
+                      "_value" : "67.66932797431946"
+                    },
+                    "identifier" : {
+                      "_type" : {
+                        "_name" : "String"
+                      },
+                      "_value" : "Selected tests"
+                    },
+                    "identifierURL" : {
+                      "_type" : {
+                        "_name" : "String"
+                      },
+                      "_value" : "test:\/\/com.apple.xcode\/Clearify\/ClearifyUITests\/Selected%20tests"
+                    },
+                    "name" : {
+                      "_type" : {
+                        "_name" : "String"
+                      },
+                      "_value" : "Selected tests"
+                    },
+                    "subtests" : {
+                      "_type" : {
+                        "_name" : "Array"
+                      },
+                      "_values" : [
+                        {
+                          "_type" : {
+                            "_name" : "ActionTestSummaryGroup",
+                            "_supertype" : {
+                              "_name" : "ActionTestSummaryIdentifiableObject",
+                              "_supertype" : {
+                                "_name" : "ActionAbstractTestSummary"
+                              }
+                            }
+                          },
+                          "duration" : {
+                            "_type" : {
+                              "_name" : "Double"
+                            },
+                            "_value" : "67.66932797431946"
+                          },
+                          "identifier" : {
+                            "_type" : {
+                              "_name" : "String"
+                            },
+                            "_value" : "ClearifyUITests.xctest"
+                          },
+                          "identifierURL" : {
+                            "_type" : {
+                              "_name" : "String"
+                            },
+                            "_value" : "test:\/\/com.apple.xcode\/Clearify\/ClearifyUITests\/ClearifyUITests.xctest"
+                          },
+                          "name" : {
+                            "_type" : {
+                              "_name" : "String"
+                            },
+                            "_value" : "ClearifyUITests.xctest"
+                          },
+                          "subtests" : {
+                            "_type" : {
+                              "_name" : "Array"
+                            },
+                            "_values" : [
+                              {
+                                "_type" : {
+                                  "_name" : "ActionTestSummaryGroup",
+                                  "_supertype" : {
+                                    "_name" : "ActionTestSummaryIdentifiableObject",
+                                    "_supertype" : {
+                                      "_name" : "ActionAbstractTestSummary"
+                                    }
+                                  }
+                                },
+                                "duration" : {
+                                  "_type" : {
+                                    "_name" : "Double"
+                                  },
+                                  "_value" : "67.66932797431946"
+                                },
+                                "identifier" : {
+                                  "_type" : {
+                                    "_name" : "String"
+                                  },
+                                  "_value" : "ClearifyUITests"
+                                },
+                                "identifierURL" : {
+                                  "_type" : {
+                                    "_name" : "String"
+                                  },
+                                  "_value" : "test:\/\/com.apple.xcode\/Clearify\/ClearifyUITests\/ClearifyUITests"
+                                },
+                                "name" : {
+                                  "_type" : {
+                                    "_name" : "String"
+                                  },
+                                  "_value" : "ClearifyUITests"
+                                },
+                                "subtests" : {
+                                  "_type" : {
+                                    "_name" : "Array"
+                                  },
+                                  "_values" : [
+                                    {
+                                      "_type" : {
+                                        "_name" : "ActionTestMetadata",
+                                        "_supertype" : {
+                                          "_name" : "ActionTestSummaryIdentifiableObject",
+                                          "_supertype" : {
+                                            "_name" : "ActionAbstractTestSummary"
+                                          }
+                                        }
+                                      },
+                                      "activitySummariesCount" : {
+                                        "_type" : {
+                                          "_name" : "Int"
+                                        },
+                                        "_value" : "48"
+                                      },
+                                      "duration" : {
+                                        "_type" : {
+                                          "_name" : "Double"
+                                        },
+                                        "_value" : "67.66932797431946"
+                                      },
+                                      "failureSummariesCount" : {
+                                        "_type" : {
+                                          "_name" : "Int"
+                                        },
+                                        "_value" : "1"
+                                      },
+                                      "identifier" : {
+                                        "_type" : {
+                                          "_name" : "String"
+                                        },
+                                        "_value" : "ClearifyUITests\/testOnboardingCompletesOnceAndReturnsToDashboard()"
+                                      },
+                                      "identifierURL" : {
+                                        "_type" : {
+                                          "_name" : "String"
+                                        },
+                                        "_value" : "test:\/\/com.apple.xcode\/Clearify\/ClearifyUITests\/ClearifyUITests\/testOnboardingCompletesOnceAndReturnsToDashboard"
+                                      },
+                                      "name" : {
+                                        "_type" : {
+                                          "_name" : "String"
+                                        },
+                                        "_value" : "testOnboardingCompletesOnceAndReturnsToDashboard()"
+                                      },
+                                      "summaryRef" : {
+                                        "_type" : {
+                                          "_name" : "Reference"
+                                        },
+                                        "id" : {
+                                          "_type" : {
+                                            "_name" : "String"
+                                          },
+                                          "_value" : "0~7K6FkKFpjdSY_8AJMOm_dVegFxdDF_XmkxVu_SGK3qlKDR1rlry_W8rZVPBRiGkTGQtCitK_BXhIJPIlkmI-PA=="
+                                        },
+                                        "targetType" : {
+                                          "_type" : {
+                                            "_name" : "TypeDefinition"
+                                          },
+                                          "name" : {
+                                            "_type" : {
+                                              "_name" : "String"
+                                            },
+                                            "_value" : "ActionTestSummary"
+                                          },
+                                          "supertype" : {
+                                            "_type" : {
+                                              "_name" : "TypeDefinition"
+                                            },
+                                            "name" : {
+                                              "_type" : {
+                                                "_name" : "String"
+                                              },
+                                              "_value" : "ActionTestSummaryIdentifiableObject"
+                                            },
+                                            "supertype" : {
+                                              "_type" : {
+                                                "_name" : "TypeDefinition"
+                                              },
+                                              "name" : {
+                                                "_type" : {
+                                                  "_name" : "String"
+                                                },
+                                                "_value" : "ActionAbstractTestSummary"
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "testStatus" : {
+                                        "_type" : {
+                                          "_name" : "String"
+                                        },
+                                        "_value" : "Failure"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

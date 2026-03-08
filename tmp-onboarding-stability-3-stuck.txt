@@ -1,0 +1,44 @@
+Attributes: Application, 0x106860ff0, pid: 77335, label: 'Clearify'
+Element subtree:
+ →Application, 0x106860ff0, pid: 77335, label: 'Clearify'
+    Window (Main), 0x1068658b0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1068663b0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1068664d0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x106866110, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x106866230, {{0.0, 0.0}, {402.0, 874.0}}
+              ScrollView, 0x1068665f0, {{20.0, 88.0}, {362.0, 786.0}}
+                Other, 0x106866710, {{20.0, 88.0}, {362.0, 1331.3}}
+                  Button, 0x106866830, {{20.0, 90.0}, {42.0, 42.0}}, identifier: 'chevron.left', label: 'Back'
+                  Image, 0x106866950, {{346.3, 102.0}, {21.3, 18.3}}, identifier: 'person.crop.circle.badge.plus', label: 'Add People/Follow'
+                  StaticText, 0x106866a70, {{20.0, 202.0}, {304.7, 43.0}}, label: 'Set up your profile'
+                  StaticText, 0x106866b90, {{20.0, 253.0}, {362.0, 38.0}}, label: 'We use this to tailor your first prompt and the kind of coaching you get.'
+                  StaticText, 0x106866cb0, {{20.0, 309.0}, {215.3, 21.7}}, label: 'What should we call you?'
+                  Image, 0x106866dd0, {{40.0, 363.0}, {14.0, 15.0}}, identifier: 'person.fill', label: 'person.fill'
+                  TextField, 0x106866ef0, {{68.0, 358.7}, {296.0, 23.3}}, placeholderValue: 'First name', value: audit.e2e+1772922372
+                  StaticText, 0x106867010, {{40.0, 436.0}, {252.3, 21.7}}, label: 'Where are you in your career?'
+                  Button, 0x106867130, {{40.0, 471.7}, {322.0, 90.0}}, label: 'Switching / Starting, Career switchers, grads, and first-job prep'
+                    StaticText, 0x106867250, {{86.0, 487.7}, {160.3, 20.3}}, label: 'Switching / Starting'
+                    StaticText, 0x106867370, {{86.0, 512.0}, {207.0, 33.7}}, label: 'Career switchers, grads, and first-job prep'
+                  Button, 0x106867490, {{40.0, 575.7}, {322.0, 90.0}}, label: '0-1 years, Early workplace reps and clearer updates'
+                    StaticText, 0x1068675b0, {{86.0, 591.7}, {76.0, 20.3}}, label: '0-1 years'
+                    StaticText, 0x1068676d0, {{86.0, 616.0}, {155.3, 33.7}}, label: 'Early workplace reps and clearer updates'
+                  Button, 0x1068677f0, {{40.0, 679.7}, {322.0, 90.0}}, label: '2-4 years, Ownership, stakeholder questions, and sharper explanations'
+                    StaticText, 0x106867910, {{86.0, 695.7}, {78.3, 20.3}}, label: '2-4 years'
+                    StaticText, 0x106867a30, {{86.0, 720.0}, {238.0, 33.7}}, label: 'Ownership, stakeholder questions, and sharper explanations'
+                  Button, 0x106867b50, {{40.0, 783.7}, {322.0, 90.0}}, label: '5-7 years, Leadership presence, tradeoffs, and harder conversations'
+                    StaticText, 0x106867c70, {{86.0, 799.7}, {77.3, 20.3}}, label: '5-7 years'
+                    StaticText, 0x106867d90, {{86.0, 824.0}, {222.3, 33.7}}, label: 'Leadership presence, tradeoffs, and harder conversations'
+                  StaticText, 0x106867eb0, {{40.0, 931.7}, {283.3, 21.7}}, label: 'What do you want help with first?'
+                  Other, 0x106867fd0, {{0.0, 0.0}, {0.0, 0.0}}
+              Button, 0x1068680f0, {{40.0, 719.7}, {322.0, 60.0}}, identifier: 'onboarding.footer.profile', label: 'Continue'
+              StaticText, 0x106868210, {{46.3, 789.7}, {309.3, 30.3}}, label: 'These answers personalize the prompts and examples you see first.'
+    Window, 0x106868330, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x106868450, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x106868570, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x106860ff0, pid: 77335, label: 'Clearify'
+Query chain:
+ →Find: Target Application 'com.tuesday.clearify'
+  Output: {
+    Application, 0x10698c3b0, pid: 77335, label: 'Clearify'
+  }

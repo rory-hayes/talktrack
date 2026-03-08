@@ -49,8 +49,9 @@ final class ScenarioLibraryViewModel: ObservableObject {
                 ? prioritized.filter { starredScenarioIDs.contains($0.id) }
                 : prioritized
         } catch {
+            dependencies.telemetry.record(error: error, context: "scenario_library_load")
             scenarios = []
-            errorMessage = error.localizedDescription
+            errorMessage = UserFacingErrorMessage.scenarioLibrary(error)
         }
     }
 

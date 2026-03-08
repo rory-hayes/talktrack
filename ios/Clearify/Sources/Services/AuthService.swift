@@ -28,6 +28,7 @@ final class AuthService: ObservableObject {
     private var listenerHandle: AuthStateDidChangeListenerHandle?
 
     init() {
+        FirebaseEmulatorConfig.configureIfNeeded()
         user = Auth.auth().currentUser
         TelemetryService.shared.identifyCurrentUser(user)
         TelemetryService.shared.setUserProperty(user == nil ? "signed_out" : "signed_in", forName: "auth_state")
@@ -46,14 +47,20 @@ final class AuthService: ObservableObject {
     }
 
     func signInWithEmail(email: String, password: String) async throws {
+        FirebaseEmulatorConfig.configureIfNeeded()
         do {
-            _ = try await Auth.auth().signIn(withEmail: email, password: password)
-        } catch {
             _ = try await Auth.auth().createUser(withEmail: email, password: password)
+        } catch {
+            if authErrorCode(for: error) == .emailAlreadyInUse {
+                _ = try await Auth.auth().signIn(withEmail: email, password: password)
+            } else {
+                throw error
+            }
         }
     }
 
     func signInWithApple(idToken: String, nonce: String) async throws {
+        FirebaseEmulatorConfig.configureIfNeeded()
         let credential = OAuthProvider.credential(
             withProviderID: "apple.com",
             idToken: idToken,
@@ -63,6 +70,7 @@ final class AuthService: ObservableObject {
     }
 
     func signInWithGoogle() async throws {
+        FirebaseEmulatorConfig.configureIfNeeded()
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             throw AuthServiceError.googleSignInUnavailable
         }
@@ -88,6 +96,7 @@ final class AuthService: ObservableObject {
     }
 
     func linkAnonymousWithEmail(email: String, password: String) async throws {
+        FirebaseEmulatorConfig.configureIfNeeded()
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
         if let user = Auth.auth().currentUser, user.isAnonymous {
             _ = try await user.link(with: credential)
@@ -97,6 +106,7 @@ final class AuthService: ObservableObject {
     }
 
     func linkAnonymousWithApple(idToken: String, nonce: String) async throws {
+        FirebaseEmulatorConfig.configureIfNeeded()
         let credential = OAuthProvider.credential(
             withProviderID: "apple.com",
             idToken: idToken,
@@ -111,6 +121,7 @@ final class AuthService: ObservableObject {
     }
 
     func ensureUserSession() async {
+        FirebaseEmulatorConfig.configureIfNeeded()
         if Auth.auth().currentUser != nil {
             user = Auth.auth().currentUser
             return
@@ -119,9 +130,16 @@ final class AuthService: ObservableObject {
     }
 
     func signOut() throws {
+        FirebaseEmulatorConfig.configureIfNeeded()
         try Auth.auth().signOut()
         GIDSignIn.sharedInstance.signOut()
     }
+}
+
+private func authErrorCode(for error: Error) -> AuthErrorCode.Code? {
+    let nsError = error as NSError
+    guard nsError.domain == AuthErrorDomain else { return nil }
+    return AuthErrorCode.Code(rawValue: nsError.code)
 }
 
 private extension UIApplication {

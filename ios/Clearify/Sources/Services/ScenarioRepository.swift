@@ -3,8 +3,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 final class ScenarioRepository {
-    private let db = Firestore.firestore()
+    typealias RemoteScenarioLoader = (_ mode: ScenarioMode) async -> [Scenario]
+
     private var bundledScenarios: [Scenario] = []
+    private let remoteScenarioLoader: RemoteScenarioLoader
 
     private let starterScenarioIDs: [ScenarioMode: [String]] = [
         .interview: ["interview_001", "interview_002", "interview_005", "interview_014"],
@@ -13,11 +15,22 @@ final class ScenarioRepository {
     ]
 
     init() {
+        remoteScenarioLoader = { mode in
+            await Self.defaultRemoteScenarioLoader(for: mode)
+        }
         bundledScenarios = loadBundledScenarios()
     }
 
+    init(
+        bundledScenarios: [Scenario],
+        remoteScenarioLoader: @escaping RemoteScenarioLoader = { _ in [] }
+    ) {
+        self.bundledScenarios = bundledScenarios
+        self.remoteScenarioLoader = remoteScenarioLoader
+    }
+
     func scenarios(for mode: ScenarioMode) async throws -> [Scenario] {
-        let remote = try await fetchRemoteScenarios(for: mode)
+        let remote = await remoteScenarioLoader(mode)
         if !remote.isEmpty {
             return remote
         }
@@ -31,16 +44,13 @@ final class ScenarioRepository {
         experienceLevel: ExperienceLevel? = nil
     ) async throws -> [Scenario] {
         let list = try await scenarios(for: mode)
-        let starterIDs = starterScenarioIDs[mode] ?? []
-
-        return list.sorted { lhs, rhs in
-            let lhsScore = rankingScore(for: lhs, mode: mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel, starterIDs: starterIDs)
-            let rhsScore = rankingScore(for: rhs, mode: mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel, starterIDs: starterIDs)
-            if lhsScore == rhsScore {
-                return lhs.promptText < rhs.promptText
-            }
-            return lhsScore > rhsScore
-        }
+        return prioritizedScenarios(
+            from: list,
+            mode: mode,
+            weakestFocus: weakestFocus,
+            roleTrack: roleTrack,
+            experienceLevel: experienceLevel
+        )
     }
 
     func personalizedRecommendation(
@@ -49,8 +59,14 @@ final class ScenarioRepository {
         roleTrack: RoleTrack,
         experienceLevel: ExperienceLevel? = nil,
         on date: Date = .now
-    ) -> Scenario? {
-        let list = prioritizedBundledScenarios(for: mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel)
+    ) async -> Scenario? {
+        let list = prioritizedScenarios(
+            from: await resolvedScenarios(for: mode),
+            mode: mode,
+            weakestFocus: weakestFocus,
+            roleTrack: roleTrack,
+            experienceLevel: experienceLevel
+        )
         guard !list.isEmpty else { return nil }
 
         let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 1
@@ -63,24 +79,41 @@ final class ScenarioRepository {
         weakestFocus: CoachingFocus?,
         roleTrack: RoleTrack,
         experienceLevel: ExperienceLevel? = nil
-    ) -> Scenario? {
-        prioritizedBundledScenarios(for: scenario.mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel)
-            .first(where: { $0.id != scenario.id })
+    ) async -> Scenario? {
+        prioritizedScenarios(
+            from: await resolvedScenarios(for: scenario.mode),
+            mode: scenario.mode,
+            weakestFocus: weakestFocus,
+            roleTrack: roleTrack,
+            experienceLevel: experienceLevel
+        )
+        .first(where: { $0.id != scenario.id })
     }
 
-    private func prioritizedBundledScenarios(
-        for mode: ScenarioMode,
+    private func resolvedScenarios(for mode: ScenarioMode) async -> [Scenario] {
+        let remote = await remoteScenarioLoader(mode)
+        if !remote.isEmpty {
+            return remote
+        }
+        return bundledScenarios.filter { $0.mode == mode && $0.active }
+    }
+
+    private func prioritizedScenarios(
+        from list: [Scenario],
+        mode: ScenarioMode,
         weakestFocus: CoachingFocus?,
         roleTrack: RoleTrack,
         experienceLevel: ExperienceLevel?
     ) -> [Scenario] {
         let starterIDs = starterScenarioIDs[mode] ?? []
-        return bundledScenarios
-            .filter { $0.mode == mode && $0.active }
-            .sorted {
-                rankingScore(for: $0, mode: mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel, starterIDs: starterIDs) >
-                    rankingScore(for: $1, mode: mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel, starterIDs: starterIDs)
+        return list.sorted { lhs, rhs in
+            let lhsScore = rankingScore(for: lhs, mode: mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel, starterIDs: starterIDs)
+            let rhsScore = rankingScore(for: rhs, mode: mode, weakestFocus: weakestFocus, roleTrack: roleTrack, experienceLevel: experienceLevel, starterIDs: starterIDs)
+            if lhsScore == rhsScore {
+                return lhs.promptText < rhs.promptText
             }
+            return lhsScore > rhsScore
+        }
     }
 
     private func rankingScore(
@@ -166,9 +199,9 @@ final class ScenarioRepository {
         }
     }
 
-    private func fetchRemoteScenarios(for mode: ScenarioMode) async throws -> [Scenario] {
+    private static func defaultRemoteScenarioLoader(for mode: ScenarioMode) async -> [Scenario] {
         do {
-            let snapshot = try await db.collection("scenarios")
+            let snapshot = try await Firestore.firestore().collection("scenarios")
                 .whereField("mode", isEqualTo: mode.rawValue)
                 .whereField("active", isEqualTo: true)
                 .getDocuments()

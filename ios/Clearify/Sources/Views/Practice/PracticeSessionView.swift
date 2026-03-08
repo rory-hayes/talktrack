@@ -4,6 +4,7 @@ struct PracticeSessionView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel: PracticeSessionViewModel
+    @State private var relatedScenario: Scenario?
 
     private let context: SessionContext
     private let dependencies: Dependencies
@@ -58,6 +59,16 @@ struct PracticeSessionView: View {
             .toolbar(.hidden, for: .navigationBar)
             .task {
                 await viewModel.start()
+            }
+            .task(id: viewModel.completion?.sessionScore) {
+                guard viewModel.completion != nil else {
+                    relatedScenario = nil
+                    return
+                }
+                relatedScenario = await viewModel.nextScenario(
+                    roleTrack: appState.selectedRoleTrack,
+                    experienceLevel: appState.experienceLevel
+                )
             }
             .sheet(isPresented: $viewModel.paywallRequired) {
                 PaywallView(dependencies: dependencies, reason: viewModel.paywallReason)
@@ -262,9 +273,8 @@ struct PracticeSessionView: View {
     }
 
     private func completionCard(_ completion: CompleteSessionResponse) -> some View {
-        let nextScenario = viewModel.nextScenario(roleTrack: appState.selectedRoleTrack, experienceLevel: appState.experienceLevel)
-        let primaryAction = resolvedPrimaryCompletionAction(hasRelatedScenario: nextScenario != nil)
-        let secondaryAction = alternateCompletionAction(for: primaryAction, hasRelatedScenario: nextScenario != nil)
+        let primaryAction = resolvedPrimaryCompletionAction(hasRelatedScenario: relatedScenario != nil)
+        let secondaryAction = alternateCompletionAction(for: primaryAction, hasRelatedScenario: relatedScenario != nil)
 
         return VStack(alignment: .leading, spacing: 14) {
             Text(viewModel.completionTitle)
@@ -305,7 +315,7 @@ struct PracticeSessionView: View {
             }
 
             actionButton(title: viewModel.completionActionTitle(primaryAction), filled: true) {
-                runCompletionAction(primaryAction, nextScenario: nextScenario)
+                runCompletionAction(primaryAction, nextScenario: relatedScenario)
             }
 
             if let secondaryAction {
@@ -318,7 +328,7 @@ struct PracticeSessionView: View {
                         .foregroundStyle(TalkTrackTheme.muted)
                         .fixedSize(horizontal: false, vertical: true)
                     actionButton(title: viewModel.completionActionTitle(secondaryAction), filled: false) {
-                        runCompletionAction(secondaryAction, nextScenario: nextScenario)
+                        runCompletionAction(secondaryAction, nextScenario: relatedScenario)
                     }
                 }
             }

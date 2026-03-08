@@ -9,8 +9,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
-        UITestBootstrap.resetPersistentStateIfNeeded()
         FirebaseEmulatorConfig.configureIfNeeded()
+        UITestBootstrap.resetPersistentStateIfNeeded()
         TelemetryService.shared.logAppOpen()
         return true
     }

@@ -1,0 +1,93 @@
+Attributes: Application, 0x1014b2f30, pid: 42664, label: 'Clearify'
+Element subtree:
+ →Application, 0x1014b2f30, pid: 42664, label: 'Clearify'
+    Window (Main), 0x1014b3050, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1014b3410, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1014b3530, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1014b3170, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1014b3290, {{0.0, 0.0}, {402.0, 874.0}}
+              ScrollView, 0x1014b3650, {{20.0, 88.0}, {362.0, 728.0}}
+                Other, 0x1014b3770, {{20.0, 88.0}, {362.0, 731.7}}
+                  Button, 0x1014b3890, {{20.0, 90.0}, {42.0, 42.0}}, identifier: 'chevron.left', label: 'Back'
+                  Image, 0x1014b39b0, {{352.0, 102.0}, {18.7, 18.3}}, identifier: 'person.badge.key.fill', label: 'person.badge.key.fill'
+                  StaticText, 0x1014b3ad0, {{20.0, 202.0}, {320.7, 40.7}}, label: 'Create your account'
+                  StaticText, 0x1014b3bf0, {{20.0, 250.7}, {340.0, 38.0}}, label: 'Use Google or email so your coaching profile and plan stay linked to your account from day one.'
+                  Button, 0x1014b3d10, {{40.0, 326.7}, {322.0, 60.0}}, label: 'G, Continue with Google'
+                    StaticText, 0x1014b3e30, {{96.3, 345.8}, {13.7, 21.7}}, label: 'G'
+                    StaticText, 0x1014b3f50, {{129.2, 345.8}, {183.7, 21.7}}, label: 'Continue with Google'
+                  StaticText, 0x1014b4070, {{40.0, 400.7}, {139.3, 15.7}}, label: 'or continue with email'
+                  TextField, 0x1014b4190, {{56.0, 444.3}, {290.0, 22.0}}, placeholderValue: 'Email', value: audit.e2e+17729147...
+                  SecureTextField, 0x1014b42b0, {{56.0, 506.3}, {290.0, 22.0}}, placeholderValue: 'Password', value: ••••••••, Keyboard Focused
+                  Button, 0x1014b43d0, {{40.0, 554.3}, {322.0, 53.7}}, label: 'Create account with email'
+                  StaticText, 0x1014b44f0, {{40.0, 622.0}, {303.0, 33.7}}, label: 'You can update your name, focus, mode, and role pack later from Settings.'
+                  StaticText, 0x1014b4610, {{20.0, 693.7}, {198.7, 15.7}}, label: 'Create your account to continue.'
+                  Button, 0x1014b4730, {{20.0, 735.3}, {362.0, 60.0}}, label: 'Continue'
+                  StaticText, 0x1014b4850, {{34.5, 805.3}, {333.0, 14.3}}, label: 'You need an account before we save your coaching profile.'
+    Window, 0x1014b4970, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1014b4a90, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1014b4bb0, {{0.0, 0.0}, {402.0, 874.0}}
+    Window, 0x1014b4cd0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1014b4df0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1014b4f10, {{0.0, 874.0}, {402.0, 311.0}}
+          Other, 0x1014b5030, {{0.0, 874.0}, {402.0, 78.0}}, identifier: 'SystemInputAssistantView'
+            Other, 0x1014b5150, {{0.0, 874.0}, {402.0, 78.0}}
+              Other, 0x1014b5270, {{0.0, 874.0}, {402.0, 54.0}}, identifier: 'CenterPageView'
+                Other, 0x1014b5390, {{0.0, 274.0}, {402.0, 1254.0}}
+                  ScrollView, 0x1014b54b0, {{0.0, 874.0}, {402.0, 54.0}}
+                Other, 0x1014b55d0, {{0.0, 874.0}, {402.0, 54.0}}
+                  Other, 0x1014b56f0, {{0.0, 874.0}, {402.0, 54.0}}, label: 'Typing Predictions'
+                    Other, 0x1014b5810, {{0.0, 874.0}, {402.0, 54.0}}
+                      Other, 0x1014b5930, {{30.0, 874.0}, {342.0, 54.0}}
+                        Button, 0x1014b5a50, {{30.0, 874.0}, {342.0, 54.0}}, label: 'Passwords'
+                          Image, 0x1014b5b70, {{150.5, 893.0}, {13.0, 23.0}}, identifier: 'kb-autofill-key'
+          Other, 0x1014b5c90, {{0.0, 874.0}, {402.0, 311.0}}
+            Other, 0x1014b5db0, {{0.0, 874.0}, {402.0, 311.0}}
+              Other, 0x1014b5ed0, {{0.0, 874.0}, {402.0, 311.0}}
+          Other, 0x1014b5ff0, {{0.0, 952.0}, {402.0, 233.0}}
+            Keyboard, 0x1014b6110, {{0.0, 952.0}, {402.0, 233.0}}
+              Other, 0x1014b6230, {{0.0, 952.0}, {402.0, 233.0}}
+                Other, 0x1014b6350, {{0.0, 952.0}, {402.0, 233.0}}, identifier: 'UIKeyboardLayoutStar Preview'
+                  Key, 0x1014b6470, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Left'
+                  Key, 0x1014b6590, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Right'
+                  Key, 0x1014b66b0, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Left'
+                  Key, 0x1014b67d0, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Right'
+                  Key, 0x1014b68f0, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Left'
+                  Key, 0x1014b6a10, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Right'
+                  Key, 0x1014b6b30, {{4.7, 959.0}, {39.3, 54.0}}, label: 'q'
+                  Key, 0x1014b6c50, {{44.0, 959.0}, {39.7, 54.0}}, label: 'w'
+                  Key, 0x1014b6d70, {{83.7, 959.0}, {39.3, 54.0}}, label: 'e'
+                  Key, 0x1014b6e90, {{123.0, 959.0}, {39.7, 54.0}}, label: 'r'
+                  Key, 0x1014b6fb0, {{162.7, 959.0}, {39.3, 54.0}}, label: 't'
+                  Key, 0x1014b70d0, {{202.0, 959.0}, {39.7, 54.0}}, label: 'y'
+                  Key, 0x1014b71f0, {{241.7, 959.0}, {39.3, 54.0}}, label: 'u'
+                  Key, 0x1014b7310, {{281.0, 959.0}, {39.7, 54.0}}, label: 'i'
+                  Key, 0x1014b7430, {{320.7, 959.0}, {39.3, 54.0}}, label: 'o'
+                  Key, 0x1014b7550, {{360.0, 959.0}, {39.7, 54.0}}, label: 'p'
+                  Key, 0x1014b7670, {{24.3, 1013.0}, {39.3, 54.0}}, label: 'a'
+                  Key, 0x1014b7790, {{63.7, 1013.0}, {39.7, 54.0}}, label: 's'
+                  Key, 0x1014b78b0, {{103.3, 1013.0}, {39.3, 54.0}}, label: 'd'
+                  Key, 0x1014b79d0, {{142.7, 1013.0}, {39.7, 54.0}}, label: 'f'
+                  Key, 0x1014b7af0, {{182.3, 1013.0}, {39.3, 54.0}}, label: 'g'
+                  Key, 0x1014b7c10, {{221.7, 1013.0}, {39.7, 54.0}}, label: 'h'
+                  Key, 0x1014b7d30, {{261.3, 1013.0}, {39.3, 54.0}}, label: 'j'
+                  Key, 0x1014b7e50, {{300.7, 1013.0}, {39.7, 54.0}}, label: 'k'
+                  Key, 0x1014b7f70, {{340.3, 1013.0}, {39.3, 54.0}}, label: 'l'
+                  Button, 0x1014b8090, {{4.7, 1067.0}, {51.3, 54.0}}, identifier: 'shift', label: 'shift'
+                  Key, 0x1014b81b0, {{63.7, 1067.0}, {39.7, 54.0}}, label: 'z'
+                  Key, 0x1014b8420, {{103.3, 1067.0}, {39.3, 54.0}}, label: 'x'
+                  Key, 0x1014b8540, {{142.7, 1067.0}, {39.7, 54.0}}, label: 'c'
+                  Key, 0x1014b8660, {{182.3, 1067.0}, {39.3, 54.0}}, label: 'v'
+                  Key, 0x1014b8780, {{221.7, 1067.0}, {39.7, 54.0}}, label: 'b'
+                  Key, 0x1014b88a0, {{261.3, 1067.0}, {39.3, 54.0}}, label: 'n'
+                  Key, 0x1014b89c0, {{300.7, 1067.0}, {39.7, 54.0}}, label: 'm'
+                  Key, 0x1014b8ae0, {{348.0, 1067.0}, {51.7, 54.0}}, identifier: 'delete', label: 'delete'
+                  Key, 0x1014b8c00, {{4.7, 1121.0}, {98.7, 54.0}}, identifier: 'more', label: 'numbers'
+                  Key, 0x1014b8d20, {{103.3, 1121.0}, {197.3, 54.0}}, identifier: 'space', label: ' '
+                  Button, 0x1014b8e40, {{300.7, 1121.0}, {99.0, 54.0}}, identifier: 'Return', label: 'return'
+Path to element:
+ →Application, 0x1014b2f30, pid: 42664, label: 'Clearify'
+Query chain:
+ →Find: Target Application 'com.tuesday.clearify'
+  Output: {
+    Application, 0x1017481e0, pid: 42664, label: 'Clearify'
+  }

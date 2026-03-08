@@ -222,7 +222,8 @@ struct ProfileSettingsView: View {
             )
             dismiss()
         } catch {
-            errorMessage = error.localizedDescription
+            dependencies.telemetry.record(error: error, context: "profile_settings_save")
+            errorMessage = UserFacingErrorMessage.profileSettings(error)
         }
     }
 }

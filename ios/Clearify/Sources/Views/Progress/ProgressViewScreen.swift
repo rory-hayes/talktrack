@@ -168,7 +168,7 @@ struct ProgressViewScreen: View {
             if viewModel.savedSessions.isEmpty {
                 emptyCard(
                     title: "No saved answers yet",
-                    message: "Save your strongest answer after a session to keep a polished version in your local archive on this device."
+                    message: "Save your strongest answer after a session to keep a polished version on this device."
                 )
             }
 
@@ -179,7 +179,7 @@ struct ProgressViewScreen: View {
                             Text(session.scenarioPrompt)
                                 .font(.system(size: 18, weight: .bold, design: .rounded))
                                 .foregroundStyle(TalkTrackTheme.ink)
-                            Text("Saved in your local archive from \(session.mode.title.lowercased()) practice")
+                            Text("Saved on this device from \(session.mode.title.lowercased()) practice")
                                 .font(.footnote)
                                 .foregroundStyle(TalkTrackTheme.muted)
                         }

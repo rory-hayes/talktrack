@@ -127,25 +127,6 @@ export async function startSession(request: StartSessionRequest): Promise<StartS
     timezone,
   });
 
-  if (planTier === "free" && request.sessionType === "full") {
-    const usageRef = db.collection("usage_weekly").doc(`${request.uid}_${currentWeekKey}`);
-    await db.runTransaction(async (tx) => {
-      const usageSnap = await tx.get(usageRef);
-      const fullSessions = (usageSnap.data()?.fullSessions as number | undefined) ?? 0;
-      tx.set(
-        usageRef,
-        {
-          uid: request.uid,
-          weekKey: currentWeekKey,
-          fullSessions: fullSessions + 1,
-          updatedAt: FieldValue.serverTimestamp(),
-        },
-        { merge: true },
-      );
-    });
-    remainingFullSessionsThisWeek = Math.max(0, remainingFullSessionsThisWeek - 1);
-  }
-
   return {
     allowed: true,
     reason: null,
@@ -231,10 +212,32 @@ export async function completeSession(request: CompleteSessionRequest): Promise<
     uid: string;
     type: SessionType;
     timezone?: string;
+    status?: string;
+    finalScore?: number | null;
+    improvementDelta?: number | null;
   };
 
   if (session.uid !== request.uid) {
     throw new Error("session_not_owned_by_user");
+  }
+
+  if (session.status === "completed") {
+    const userRef = db.collection("users").doc(request.uid);
+    const userSnap = await userRef.get();
+    const user = (userSnap.data() as UserProfile | undefined) ?? {
+      streakCurrent: 0,
+      streakBest: 0,
+    };
+
+    return {
+      sessionScore: Number(session.finalScore ?? 0),
+      improvementDelta: Number(session.improvementDelta ?? 0),
+      streakUpdated: {
+        current: user.streakCurrent ?? 0,
+        best: user.streakBest ?? 0,
+      },
+      trendSnapshot: await computeTrend(request.uid),
+    };
   }
 
   const repsSnap = await sessionRef.collection("reps").orderBy("repIndex", "asc").get();
@@ -269,6 +272,8 @@ export async function completeSession(request: CompleteSessionRequest): Promise<
   const now = new Date();
   const timezone = request.timezone ?? session.timezone ?? "UTC";
   const today = dayKey(now, timezone);
+  const currentWeekKey = weekKey(now, timezone);
+  const planTier = await getPlanTier(request.uid);
 
   const userRef = db.collection("users").doc(request.uid);
   const userSnap = await userRef.get();
@@ -297,12 +302,14 @@ export async function completeSession(request: CompleteSessionRequest): Promise<
   );
 
   const progressRef = db.collection("progress_daily").doc(`${request.uid}_${today}`);
+  const weeklyUsageRef = db.collection("usage_weekly").doc(`${request.uid}_${currentWeekKey}`);
   const incrementQuickDrill = session.type === "quick" ? 1 : 0;
   const incrementFullSession = session.type === "full" ? 1 : 0;
 
   await db.runTransaction(async (tx) => {
     const currentProgressSnap = await tx.get(progressRef);
     const current = currentProgressSnap.data() as Record<string, unknown> | undefined;
+    const usageSnap = planTier === "free" && session.type === "full" ? await tx.get(weeklyUsageRef) : null;
 
     const sessionsCompleted = Number(current?.sessionsCompleted ?? 0) + 1;
     const quickDrillCount = Number(current?.quickDrillCount ?? 0) + incrementQuickDrill;
@@ -349,6 +356,20 @@ export async function completeSession(request: CompleteSessionRequest): Promise<
       },
       { merge: true },
     );
+
+    if (planTier === "free" && session.type === "full") {
+      const fullSessions = Number(usageSnap?.data()?.fullSessions ?? 0);
+      tx.set(
+        weeklyUsageRef,
+        {
+          uid: request.uid,
+          weekKey: currentWeekKey,
+          fullSessions: fullSessions + 1,
+          updatedAt: FieldValue.serverTimestamp(),
+        },
+        { merge: true },
+      );
+    }
   });
 
   const trendSnapshot = await computeTrend(request.uid);

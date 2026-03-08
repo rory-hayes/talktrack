@@ -5,8 +5,10 @@ import FirebaseStorage
 
 @MainActor
 enum FirebaseEmulatorConfig {
+    private static var hasConfigured = false
+
     static func configureIfNeeded() {
-        guard BackendConfig.isLocalBackend else {
+        guard BackendConfig.isLocalBackend, !hasConfigured else {
             return
         }
 
@@ -19,5 +21,6 @@ enum FirebaseEmulatorConfig {
         firestore.settings = settings
 
         Storage.storage().useEmulator(withHost: "127.0.0.1", port: 9199)
+        hasConfigured = true
     }
 }

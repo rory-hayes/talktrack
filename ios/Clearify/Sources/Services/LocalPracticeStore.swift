@@ -1,20 +1,36 @@
 import Foundation
+import FirebaseAuth
 
 final class LocalPracticeStore {
-    private let fileManager = FileManager.default
+    private enum LocalPracticeStoreError: Error {
+        case missingAuthenticatedUser
+    }
+
+    private let fileManager: FileManager
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
     private let calendar = Calendar.current
+    private let uidProvider: () -> String?
+    private let rootDirectoryURL: URL
 
-    init() {
+    init(
+        fileManager: FileManager = .default,
+        rootDirectoryURL: URL? = nil,
+        uidProvider: @escaping () -> String? = { Auth.auth().currentUser?.uid }
+    ) {
+        self.fileManager = fileManager
+        self.uidProvider = uidProvider
+        self.rootDirectoryURL = rootDirectoryURL ?? fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("TalkTrack", isDirectory: true)
         encoder = JSONEncoder()
         decoder = JSONDecoder()
         encoder.dateEncodingStrategy = .iso8601
         decoder.dateDecodingStrategy = .iso8601
-        ensureDirectories()
+        ensureRootDirectory()
     }
 
     func copyRecordingToLibrary(from sourceURL: URL, sessionId: String, repIndex: Int) throws -> String {
+        guard let audioDirectoryURL else { throw LocalPracticeStoreError.missingAuthenticatedUser }
         let directory = audioDirectoryURL.appendingPathComponent(sessionId, isDirectory: true)
         if !fileManager.fileExists(atPath: directory.path) {
             try fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -33,7 +49,8 @@ final class LocalPracticeStore {
         sessionId: String,
         context: SessionContext,
         reps: [SpeakingRep],
-        completion: CompleteSessionResponse
+        completion: CompleteSessionResponse,
+        protectedSessionIDs: Set<String> = []
     ) {
         guard !reps.isEmpty else { return }
 
@@ -57,7 +74,7 @@ final class LocalPracticeStore {
         archive.sort { $0.startedAt > $1.startedAt }
         let retained = Array(archive.prefix(20))
         writeArchive(retained)
-        pruneAudio(except: Set(retained.map(\.id)))
+        pruneAudio(except: Set(retained.map(\.id)).union(protectedSessionIDs))
     }
 
     func loadRecentSessions(limit: Int = 8) -> [SessionHistoryItem] {
@@ -137,12 +154,18 @@ final class LocalPracticeStore {
     func deleteSession(id: String) {
         let retained = readArchive().filter { $0.id != id }
         writeArchive(retained)
+        guard let audioDirectoryURL else { return }
         let directory = audioDirectoryURL.appendingPathComponent(id, isDirectory: true)
         try? fileManager.removeItem(at: directory)
     }
 
     func absoluteURL(for relativePath: String) -> URL {
-        baseDirectoryURL.appendingPathComponent(relativePath)
+        currentUserBaseDirectoryURL?.appendingPathComponent(relativePath)
+            ?? rootDirectoryURL.appendingPathComponent(relativePath)
+    }
+
+    func loadArchivedSession(id: String) -> SessionHistoryItem? {
+        readArchive().first(where: { $0.id == id })
     }
 
     private func snapshots(from sessions: [SessionHistoryItem]) -> [ProgressSnapshot] {
@@ -189,7 +212,9 @@ final class LocalPracticeStore {
     }
 
     private func readArchive() -> [SessionHistoryItem] {
+        migrateLegacyArchiveIfNeeded()
         guard
+            let archiveURL,
             fileManager.fileExists(atPath: archiveURL.path),
             let data = try? Data(contentsOf: archiveURL)
         else {
@@ -200,21 +225,33 @@ final class LocalPracticeStore {
     }
 
     private func writeArchive(_ sessions: [SessionHistoryItem]) {
+        guard let archiveURL else { return }
+        ensureCurrentUserDirectories()
         guard let data = try? encoder.encode(sessions) else { return }
         try? data.write(to: archiveURL, options: [.atomic])
     }
 
-    private func ensureDirectories() {
-        if !fileManager.fileExists(atPath: baseDirectoryURL.path) {
-            try? fileManager.createDirectory(at: baseDirectoryURL, withIntermediateDirectories: true)
+    private func ensureRootDirectory() {
+        if !fileManager.fileExists(atPath: rootDirectoryURL.path) {
+            try? fileManager.createDirectory(at: rootDirectoryURL, withIntermediateDirectories: true)
         }
-        if !fileManager.fileExists(atPath: audioDirectoryURL.path) {
+    }
+
+    private func ensureCurrentUserDirectories() {
+        guard let currentUserBaseDirectoryURL else { return }
+        if !fileManager.fileExists(atPath: currentUserBaseDirectoryURL.path) {
+            try? fileManager.createDirectory(at: currentUserBaseDirectoryURL, withIntermediateDirectories: true)
+        }
+        if let audioDirectoryURL, !fileManager.fileExists(atPath: audioDirectoryURL.path) {
             try? fileManager.createDirectory(at: audioDirectoryURL, withIntermediateDirectories: true)
         }
     }
 
     private func pruneAudio(except retainedSessionIDs: Set<String>) {
-        guard let contents = try? fileManager.contentsOfDirectory(at: audioDirectoryURL, includingPropertiesForKeys: nil) else {
+        guard
+            let audioDirectoryURL,
+            let contents = try? fileManager.contentsOfDirectory(at: audioDirectoryURL, includingPropertiesForKeys: nil)
+        else {
             return
         }
 
@@ -227,19 +264,68 @@ final class LocalPracticeStore {
         calendar.startOfDay(for: date)
     }
 
-    private var baseDirectoryURL: URL {
-        let url = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("TalkTrack", isDirectory: true)
-        try? fileManager.createDirectory(at: url, withIntermediateDirectories: true)
-        return url
+    private func currentUID() -> String? {
+        let trimmed = uidProvider()?.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed?.isEmpty == false ? trimmed : nil
     }
 
-    private var archiveURL: URL {
-        baseDirectoryURL.appendingPathComponent("session-history.json")
+    private var currentUserBaseDirectoryURL: URL? {
+        guard let uid = currentUID() else { return nil }
+        return rootDirectoryURL
+            .appendingPathComponent("users", isDirectory: true)
+            .appendingPathComponent(uid, isDirectory: true)
     }
 
-    private var audioDirectoryURL: URL {
-        baseDirectoryURL.appendingPathComponent("audio", isDirectory: true)
+    private var archiveURL: URL? {
+        currentUserBaseDirectoryURL?.appendingPathComponent("session-history.json")
+    }
+
+    private var audioDirectoryURL: URL? {
+        currentUserBaseDirectoryURL?.appendingPathComponent("audio", isDirectory: true)
+    }
+
+    private var legacyArchiveURL: URL {
+        rootDirectoryURL.appendingPathComponent("session-history.json")
+    }
+
+    private var legacyAudioDirectoryURL: URL {
+        rootDirectoryURL.appendingPathComponent("audio", isDirectory: true)
+    }
+
+    private func migrateLegacyArchiveIfNeeded() {
+        guard
+            let currentUserBaseDirectoryURL,
+            let archiveURL,
+            !fileManager.fileExists(atPath: archiveURL.path),
+            fileManager.fileExists(atPath: legacyArchiveURL.path) || fileManager.fileExists(atPath: legacyAudioDirectoryURL.path)
+        else {
+            return
+        }
+
+        try? fileManager.createDirectory(at: currentUserBaseDirectoryURL, withIntermediateDirectories: true)
+
+        if fileManager.fileExists(atPath: legacyArchiveURL.path) {
+            try? fileManager.moveItem(at: legacyArchiveURL, to: archiveURL)
+        }
+
+        if
+            fileManager.fileExists(atPath: legacyAudioDirectoryURL.path),
+            let audioDirectoryURL
+        {
+            if fileManager.fileExists(atPath: audioDirectoryURL.path) {
+                if let contents = try? fileManager.contentsOfDirectory(at: legacyAudioDirectoryURL, includingPropertiesForKeys: nil) {
+                    for url in contents {
+                        let destination = audioDirectoryURL.appendingPathComponent(url.lastPathComponent, isDirectory: true)
+                        if !fileManager.fileExists(atPath: destination.path) {
+                            try? fileManager.moveItem(at: url, to: destination)
+                        }
+                    }
+                }
+                try? fileManager.removeItem(at: legacyAudioDirectoryURL)
+            } else {
+                try? fileManager.moveItem(at: legacyAudioDirectoryURL, to: audioDirectoryURL)
+            }
+        }
     }
 }
 

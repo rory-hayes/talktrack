@@ -3,6 +3,28 @@ import XCTest
 
 @MainActor
 final class OnboardingViewModelTests: XCTestCase {
+    func testResolvePreferredNameFallsBackToAuthenticatedEmailWhenNoCachedNameExists() {
+        XCTAssertEqual(
+            resolvePreferredName(
+                existingName: "",
+                displayName: nil,
+                email: "audit.e2e@example.com"
+            ),
+            "audit.e2e"
+        )
+    }
+
+    func testResolvePreferredNamePrefersCachedNameOverAuthFallback() {
+        XCTAssertEqual(
+            resolvePreferredName(
+                existingName: "Rory",
+                displayName: "Clearify User",
+                email: "audit.e2e@example.com"
+            ),
+            "Rory"
+        )
+    }
+
     func testValidateProfileStepRequiresName() {
         let viewModel = OnboardingViewModel { _, _, _, _, _ in
             TestFixtures.profile()

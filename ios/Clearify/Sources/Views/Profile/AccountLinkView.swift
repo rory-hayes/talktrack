@@ -86,7 +86,8 @@ struct AccountLinkView: View {
             try await dependencies.userProfileService.refreshIdentityFields()
             message = "Account connected. Your coaching profile is now linked to this account."
         } catch {
-            message = error.localizedDescription
+            dependencies.telemetry.record(error: error, context: "account_link_email")
+            message = UserFacingErrorMessage.accountLink(error)
         }
     }
 
@@ -110,11 +111,13 @@ struct AccountLinkView: View {
                 try await dependencies.userProfileService.refreshIdentityFields()
                 message = "Account connected. Your coaching profile is now linked to this account."
             } catch {
-                message = error.localizedDescription
+                dependencies.telemetry.record(error: error, context: "account_link_apple")
+                message = UserFacingErrorMessage.accountLink(error)
             }
 
         case let .failure(error):
-            message = error.localizedDescription
+            dependencies.telemetry.record(error: error, context: "account_link_apple_sheet")
+            message = UserFacingErrorMessage.accountLink(error)
         }
     }
 }

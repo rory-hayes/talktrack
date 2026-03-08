@@ -8,7 +8,7 @@ final class ProgressViewModel: ObservableObject {
         let loadLocalProgressSnapshots: (_ limit: Int) -> [ProgressSnapshot]
         let loadLocalRecentSessions: (_ limit: Int) -> [SessionHistoryItem]
         let loadSavedSessions: (_ limit: Int) -> [SessionHistoryItem]
-        let personalizedRecommendation: (_ mode: ScenarioMode, _ weakestFocus: CoachingFocus, _ roleTrack: RoleTrack, _ experienceLevel: ExperienceLevel) -> Scenario?
+        let personalizedRecommendation: (_ mode: ScenarioMode, _ weakestFocus: CoachingFocus, _ roleTrack: RoleTrack, _ experienceLevel: ExperienceLevel) async -> Scenario?
         let recordTelemetry: (_ error: Error, _ context: String) -> Void
     }
 
@@ -46,7 +46,7 @@ final class ProgressViewModel: ObservableObject {
                 )
             },
             personalizedRecommendation: { mode, weakestFocus, roleTrack, experienceLevel in
-                dependencies.scenarioRepository.personalizedRecommendation(
+                await dependencies.scenarioRepository.personalizedRecommendation(
                     for: mode,
                     weakestFocus: weakestFocus,
                     roleTrack: roleTrack,
@@ -83,13 +83,13 @@ final class ProgressViewModel: ObservableObject {
             snapshots = try await progressTask
             recentSessions = try await sessionsTask
             savedSessions = runtime.loadSavedSessions(6)
-            refreshRecommendedScenario()
+            await refreshRecommendedScenario()
         } catch {
             runtime.recordTelemetry(error, "progress_load")
             snapshots = runtime.loadLocalProgressSnapshots(30)
             recentSessions = runtime.loadLocalRecentSessions(8)
             savedSessions = runtime.loadSavedSessions(6)
-            refreshRecommendedScenario()
+            await refreshRecommendedScenario()
             errorMessage = "We couldn't refresh every progress detail. Showing what is available on this device."
         }
     }
@@ -260,8 +260,8 @@ final class ProgressViewModel: ObservableObject {
         return Int((latest - earliest).rounded())
     }
 
-    private func refreshRecommendedScenario() {
-        recommendedScenario = runtime.personalizedRecommendation(
+    private func refreshRecommendedScenario() async {
+        recommendedScenario = await runtime.personalizedRecommendation(
             selectedMode,
             effectiveFocus,
             selectedRoleTrack,

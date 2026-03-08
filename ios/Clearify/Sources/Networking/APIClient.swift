@@ -59,30 +59,23 @@ enum APIError: Error, LocalizedError {
         }
     }
 
-    private static func userFacingServerMessage(statusCode: Int, rawMessage: String) -> String {
-        if rawMessage.localizedCaseInsensitiveContains("<html") || rawMessage.localizedCaseInsensitiveContains("<body") {
-            switch statusCode {
-            case 401:
-                return "Your session expired. Sign in again and retry."
-            case 403:
-                return "This action is not available for your account."
-            case 404:
-                return "Clearify could not reach the practice service. Please try again in a moment."
-            case 429:
-                return "You have reached your current plan limit."
-            case 500...599:
-                return "Clearify hit a server problem. Please try again."
-            default:
-                return "Clearify could not reach the service right now. Please try again."
-            }
-        }
-
-        let trimmed = rawMessage.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
+    private static func userFacingServerMessage(statusCode: Int, rawMessage _: String) -> String {
+        switch statusCode {
+        case 400:
+            return "Clearify could not send that request. Try again."
+        case 401:
+            return "Your session expired. Sign in again and retry."
+        case 403:
+            return "This action is not available for your account."
+        case 404:
+            return "Clearify could not find that practice session. Start a new one and try again."
+        case 429:
+            return "You have reached your current plan limit."
+        case 500...599:
+            return "Clearify hit a server problem. Please try again."
+        default:
             return "Clearify could not complete that request. Please try again."
         }
-
-        return "Request failed (\(statusCode)): \(trimmed)"
     }
 }
 

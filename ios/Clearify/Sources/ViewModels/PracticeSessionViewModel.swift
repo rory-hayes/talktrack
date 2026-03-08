@@ -221,7 +221,8 @@ final class PracticeSessionViewModel: ObservableObject {
                         sessionId: sessionId,
                         context: context,
                         reps: reps,
-                        completion: completion
+                        completion: completion,
+                        protectedSessionIDs: dependencies.savedAnswerStore.savedSessionIDs()
                     )
                     refreshSavedState()
                     dependencies.telemetry.logSessionCompleted(
@@ -368,9 +369,9 @@ final class PracticeSessionViewModel: ObservableObject {
     }
 
     func saveBestAnswer() {
-        guard let sessionId else { return }
-        dependencies.savedAnswerStore.toggleSavedAnswer(sessionId: sessionId)
-        isBestAnswerSaved = dependencies.savedAnswerStore.isSavedAnswer(sessionId)
+        guard let session = currentSessionHistoryItem else { return }
+        dependencies.savedAnswerStore.toggleSavedAnswer(session: session)
+        isBestAnswerSaved = dependencies.savedAnswerStore.isSavedAnswer(session.id)
     }
 
     func refreshSavedState() {
@@ -378,8 +379,8 @@ final class PracticeSessionViewModel: ObservableObject {
         isBestAnswerSaved = dependencies.savedAnswerStore.isSavedAnswer(sessionId)
     }
 
-    func nextScenario(roleTrack: RoleTrack, experienceLevel: ExperienceLevel? = nil) -> Scenario? {
-        dependencies.scenarioRepository.nextScenario(
+    func nextScenario(roleTrack: RoleTrack, experienceLevel: ExperienceLevel? = nil) async -> Scenario? {
+        await dependencies.scenarioRepository.nextScenario(
             after: context.scenario,
             weakestFocus: weakestFocus,
             roleTrack: roleTrack,
@@ -542,6 +543,22 @@ final class PracticeSessionViewModel: ObservableObject {
 
     private var targetDurationLabel: String {
         context.scenario.recommendedDurationLabel
+    }
+
+    private var currentSessionHistoryItem: SessionHistoryItem? {
+        guard let sessionId, let completion else { return nil }
+        return SessionHistoryItem(
+            id: sessionId,
+            mode: context.mode,
+            type: context.sessionType,
+            scenarioId: context.scenario.id,
+            scenarioPrompt: context.scenario.promptText,
+            startedAt: reps.first?.createdAt ?? .now,
+            completedAt: .now,
+            finalScore: completion.sessionScore,
+            improvementDelta: completion.improvementDelta,
+            reps: reps
+        )
     }
 
     private var strongestGainFocus: CoachingFocus? {
