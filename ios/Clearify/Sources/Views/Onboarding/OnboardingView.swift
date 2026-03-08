@@ -7,6 +7,7 @@ struct OnboardingView: View {
     }
 
     @EnvironmentObject private var appState: AppState
+    @ObservedObject private var onboardingDebug = OnboardingDebugDiagnostics.shared
     @StateObject private var viewModel: OnboardingViewModel
     @AppStorage("clearify.onboarding.step") private var persistedStepRawValue = OnboardingStep.introPractice.rawValue
     @AppStorage("clearify.onboarding.authProgressStep") private var persistedAuthenticatedStepRawValue = OnboardingStep.account.rawValue
@@ -60,40 +61,67 @@ struct OnboardingView: View {
                     }
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             } else {
-                setupFlow
-                    .padding(.horizontal, 20)
-                    .padding(.top, 26)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .transition(.move(edge: .trailing).combined(with: .opacity))
+                VStack(spacing: 0) {
+                    setupFlow
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .clipped()
+
+                    footer
+                        .padding(.horizontal, 20)
+                        .padding(.top, 10)
+                        .padding(.bottom, 20)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 26)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .transition(.move(edge: .trailing).combined(with: .opacity))
             }
+        }
+        .overlay(alignment: .topLeading) {
+            onboardingDebugLabel
         }
         .task {
             dependencies.telemetry.logOnboardingStarted()
-            hydrateDraftFromAppState()
+            syncDebugState()
+            onboardingDebug.record("onboarding_task_start authUserPresent=\(dependencies.authService.user != nil)")
+            hydrateDraftFromAppState(reason: "onboarding_task_start")
             if dependencies.authService.user != nil {
-                restoreAuthenticatedProgress()
+                restoreAuthenticatedProgress(reason: "task_authenticated_restore")
             } else {
-                resetAuthenticatedProgress()
-                step = .introPractice
+                resetAuthenticatedProgress(reason: "task_signed_out_reset")
+                setStep(.introPractice, reason: "task_signed_out_reset")
             }
+            syncDebugState()
         }
         .onChange(of: dependencies.authService.user?.uid) { _, newUID in
+            onboardingDebug.record("auth_uid_change hasUser=\(newUID != nil)")
             if newUID != nil, !appState.isOnboardingComplete {
-                hydrateDraftFromAppState()
+                hydrateDraftFromAppState(reason: "auth_uid_change_restore")
                 withAnimation {
-                    restoreAuthenticatedProgress()
+                    restoreAuthenticatedProgress(reason: "auth_uid_change_restore")
                 }
             } else if newUID == nil {
                 withAnimation {
-                    resetAuthenticatedProgress()
-                    step = .introPractice
+                    resetAuthenticatedProgress(reason: "auth_uid_change_signed_out")
+                    setStep(.introPractice, reason: "auth_uid_change_signed_out")
                 }
             }
+            syncDebugState()
         }
         .onChange(of: step) { _, newStep in
+            onboardingDebug.record("visible_step_changed to=\(newStep.debugName)")
+            syncDebugState()
             if newStep == .profile {
-                hydrateDraftFromAppState()
+                hydrateDraftFromAppState(reason: "visible_step_profile")
             }
+        }
+        .onChange(of: viewModel.isSubmitting) { _, newValue in
+            onboardingDebug.record("submission_state_changed isSubmitting=\(newValue)")
+            syncDebugState()
+        }
+        .onChange(of: isAuthenticating) { _, newValue in
+            onboardingDebug.record("auth_submission_state_changed isAuthenticating=\(newValue)")
+            syncDebugState()
         }
         .animation(.spring(response: 0.38, dampingFraction: 0.88), value: step)
     }
@@ -103,7 +131,12 @@ struct OnboardingView: View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Button("Skip") {
-                        withAnimation { step = dependencies.authService.user == nil ? .account : .profile }
+                        withAnimation {
+                            setStep(
+                                dependencies.authService.user == nil ? .account : .profile,
+                                reason: "intro_skip"
+                            )
+                        }
                     }
                     .font(.system(size: 18, weight: .semibold, design: .rounded))
                     .foregroundStyle(TalkTrackTheme.ink)
@@ -154,33 +187,29 @@ struct OnboardingView: View {
     }
 
     private var setupFlow: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 18) {
-                    topBar
-                    progressIndicator
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 18) {
+                topBar
+                progressIndicator
 
-                    switch step {
-                    case .account:
-                        accountStep
-                    case .profile:
-                        profileStep
-                    case .focus:
-                        focusStep
-                    default:
-                        EmptyView()
-                    }
-
-                    if let error = viewModel.errorMessage {
-                        Text(error)
-                            .font(.footnote)
-                            .foregroundStyle(.red)
-                    }
+                switch step {
+                case .account:
+                    accountStep
+                case .profile:
+                    profileStep
+                case .focus:
+                    focusStep
+                default:
+                    EmptyView()
                 }
-                .padding(.bottom, 24)
+
+                if let error = viewModel.errorMessage {
+                    Text(error)
+                        .font(.footnote)
+                        .foregroundStyle(.red)
+                }
             }
-            footer
-                .padding(.top, 12)
+            .padding(.bottom, 24)
         }
     }
 
@@ -189,7 +218,7 @@ struct OnboardingView: View {
             Button {
                 withAnimation {
                     if let previous = step.previous {
-                        step = previous
+                        setStep(previous, reason: "topbar_back")
                     }
                 }
             } label: {
@@ -484,21 +513,55 @@ struct OnboardingView: View {
         max(authenticatedProgressStep, .profile)
     }
 
-    private func restoreAuthenticatedProgress() {
-        step = currentAuthenticatedEntryStep
+    private var onboardingDebugLabel: some View {
+        Group {
+            if onboardingDebug.isEnabled {
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(onboardingDebug.stateSummary)
+                        .accessibilityIdentifier(OnboardingDebugDiagnostics.stateAccessibilityIdentifier)
+                        .accessibilityLabel(onboardingDebug.stateSummary)
+                    Text(onboardingDebug.eventsSummary)
+                        .accessibilityIdentifier(OnboardingDebugDiagnostics.eventsAccessibilityIdentifier)
+                        .accessibilityLabel(onboardingDebug.eventsSummary)
+                }
+                .font(.system(size: 1))
+                .foregroundStyle(Color.black.opacity(0.01))
+                .padding(1)
+            }
+        }
     }
 
-    private func advanceAuthenticatedProgress(to nextStep: OnboardingStep) {
+    private func restoreAuthenticatedProgress(reason: String) {
+        let target = currentAuthenticatedEntryStep
+        onboardingDebug.record(
+            "restore_authenticated_progress_enter reason=\(reason) visibleStep=\(step.debugName) authStep=\(authenticatedProgressStep.debugName) target=\(target.debugName)"
+        )
+        setStep(target, reason: reason)
+        onboardingDebug.record(
+            "restore_authenticated_progress_result reason=\(reason) visibleStep=\(step.debugName) authStep=\(authenticatedProgressStep.debugName)"
+        )
+    }
+
+    private func advanceAuthenticatedProgress(to nextStep: OnboardingStep, reason: String) {
         let resolvedStep = max(nextStep, currentAuthenticatedEntryStep)
-        authenticatedProgressStep = resolvedStep
-        step = resolvedStep
+        onboardingDebug.record(
+            "advance_authenticated_progress_enter reason=\(reason) visibleStep=\(step.debugName) authStep=\(authenticatedProgressStep.debugName) requested=\(nextStep.debugName) resolved=\(resolvedStep.debugName)"
+        )
+        onboardingDebug.record(
+            "advance_authenticated_progress_write_auth_step reason=\(reason) target=\(resolvedStep.debugName)"
+        )
+        setAuthenticatedProgressStep(resolvedStep, reason: reason)
+        onboardingDebug.record(
+            "advance_authenticated_progress_write_step reason=\(reason) target=\(resolvedStep.debugName)"
+        )
+        setStep(resolvedStep, reason: reason)
     }
 
-    private func resetAuthenticatedProgress() {
-        authenticatedProgressStep = .account
+    private func resetAuthenticatedProgress(reason: String) {
+        setAuthenticatedProgressStep(.account, reason: reason)
     }
 
-    private func hydrateDraftFromAppState() {
+    private func hydrateDraftFromAppState(reason: String) {
         let resolvedPreferredName = resolvePreferredName(
             existingName: appState.preferredFirstName,
             displayName: dependencies.authService.user?.displayName,
@@ -512,6 +575,10 @@ struct OnboardingView: View {
         viewModel.selectedFocus = appState.selfReportedFocus
         viewModel.selectedMode = appState.selectedMode
         viewModel.selectedRoleTrack = appState.selectedRoleTrack
+        onboardingDebug.record(
+            "appstate_hydrate_onboarding_restore reason=\(reason) nameEmpty=\(viewModel.trimmedPreferredName.isEmpty) mode=\(viewModel.selectedMode.rawValue) role=\(viewModel.selectedRoleTrack.rawValue)"
+        )
+        syncDebugState()
     }
 
     private var introDots: some View {
@@ -721,23 +788,29 @@ struct OnboardingView: View {
     }
 
     private func handleFooterTap() {
+        onboardingDebug.record("footer_tap_enter step=\(step.debugName)")
+        syncDebugState()
+
         switch step {
         case .introPractice, .introCoach, .introProgress:
             if let next = step.next {
-                withAnimation { step = next }
+                withAnimation { setStep(next, reason: "footer_intro_continue") }
             }
         case .account:
             if dependencies.authService.user != nil {
                 viewModel.errorMessage = nil
-                withAnimation { restoreAuthenticatedProgress() }
+                onboardingDebug.record("footer_account_continue signedIn=true")
+                withAnimation { restoreAuthenticatedProgress(reason: "footer_account_signed_in_continue") }
                 return
             }
 
             if !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !password.isEmpty {
+                onboardingDebug.record("footer_account_continue starting_email_auth")
                 Task { await createEmailAccount() }
                 return
             }
 
+            onboardingDebug.record("footer_account_continue blocked_missing_credentials")
             guard dependencies.authService.user != nil else {
                 viewModel.errorMessage = "Create your account to continue."
                 return
@@ -750,23 +823,31 @@ struct OnboardingView: View {
             )
             if resolvedPreferredName != viewModel.preferredName {
                 viewModel.preferredName = resolvedPreferredName
+                onboardingDebug.record("profile_name_resolved_from_auth fallbackApplied=true")
             }
+            onboardingDebug.record(
+                "footer_profile_continue nameEmpty=\(resolvedPreferredName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)"
+            )
             guard viewModel.validateProfileStep() else { return }
-            withAnimation { advanceAuthenticatedProgress(to: .focus) }
+            withAnimation { advanceAuthenticatedProgress(to: .focus, reason: "footer_profile_continue") }
         case .focus:
+            onboardingDebug.record("footer_focus_continue start_finish_onboarding")
             Task { await finishOnboarding() }
         }
     }
 
     private func createEmailAccount() async {
+        onboardingDebug.record("email_auth_start")
         focusedAccountField = nil
         await Task.yield()
 
         guard !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            onboardingDebug.record("email_auth_validation_failed missing_email")
             viewModel.errorMessage = "Add an email to create your account."
             return
         }
         guard password.count >= 6 else {
+            onboardingDebug.record("email_auth_validation_failed short_password")
             viewModel.errorMessage = "Use a password with at least 6 characters."
             return
         }
@@ -779,14 +860,17 @@ struct OnboardingView: View {
             try await dependencies.userProfileService.refreshIdentityFields()
             authMessage = "Account ready. Continue to build your profile."
             viewModel.errorMessage = nil
-            withAnimation { advanceAuthenticatedProgress(to: .profile) }
+            onboardingDebug.record("email_auth_success")
+            withAnimation { advanceAuthenticatedProgress(to: .profile, reason: "email_auth_success") }
         } catch {
+            onboardingDebug.record("email_auth_failed type=\(String(describing: type(of: error)))")
             dependencies.telemetry.record(error: error, context: "onboarding_email_auth")
             viewModel.errorMessage = UserFacingErrorMessage.onboardingAuth(error)
         }
     }
 
     private func continueWithGoogle() async {
+        onboardingDebug.record("google_auth_start")
         isAuthenticating = true
         defer { isAuthenticating = false }
 
@@ -795,14 +879,17 @@ struct OnboardingView: View {
             try await dependencies.userProfileService.refreshIdentityFields()
             authMessage = "Account ready. Continue to build your profile."
             viewModel.errorMessage = nil
-            withAnimation { advanceAuthenticatedProgress(to: .profile) }
+            onboardingDebug.record("google_auth_success")
+            withAnimation { advanceAuthenticatedProgress(to: .profile, reason: "google_auth_success") }
         } catch {
+            onboardingDebug.record("google_auth_failed type=\(String(describing: type(of: error)))")
             dependencies.telemetry.record(error: error, context: "onboarding_google_auth")
             viewModel.errorMessage = UserFacingErrorMessage.onboardingAuth(error)
         }
     }
 
     private func finishOnboarding() async {
+        onboardingDebug.record("finish_onboarding_start")
         viewModel.isSubmitting = true
         defer { viewModel.isSubmitting = false }
 
@@ -815,13 +902,40 @@ struct OnboardingView: View {
                 mode: viewModel.selectedMode,
                 roleTrack: viewModel.selectedRoleTrack
             )
-            resetAuthenticatedProgress()
-            step = .introPractice
+            resetAuthenticatedProgress(reason: "finish_onboarding_success")
+            setStep(.introPractice, reason: "finish_onboarding_success_reset")
             appState.selectedTab = .home
+            onboardingDebug.record("finish_onboarding_success")
         } catch {
+            onboardingDebug.record("finish_onboarding_failed type=\(String(describing: type(of: error)))")
             dependencies.telemetry.record(error: error, context: "onboarding_complete")
             viewModel.errorMessage = UserFacingErrorMessage.onboardingSetup(error)
         }
+    }
+
+    private func setStep(_ newStep: OnboardingStep, reason: String) {
+        let previous = step
+        persistedStepRawValue = newStep.rawValue
+        onboardingDebug.updateState(step: newStep.debugName)
+        onboardingDebug.record("step_write reason=\(reason) from=\(previous.debugName) to=\(newStep.debugName)")
+    }
+
+    private func setAuthenticatedProgressStep(_ newStep: OnboardingStep, reason: String) {
+        let previous = authenticatedProgressStep
+        persistedAuthenticatedStepRawValue = max(newStep, .account).rawValue
+        onboardingDebug.updateState(authenticatedProgressStep: authenticatedProgressStep.debugName)
+        onboardingDebug.record(
+            "auth_progress_write reason=\(reason) from=\(previous.debugName) to=\(authenticatedProgressStep.debugName)"
+        )
+    }
+
+    private func syncDebugState() {
+        onboardingDebug.updateState(
+            step: step.debugName,
+            authenticatedProgressStep: authenticatedProgressStep.debugName,
+            isSubmitting: viewModel.isSubmitting,
+            isAuthenticating: isAuthenticating
+        )
     }
 }
 
@@ -947,6 +1061,23 @@ private enum OnboardingStep: Int, CaseIterable, Identifiable, Comparable {
             return "onboarding.footer.profile"
         case .focus:
             return "onboarding.footer.focus"
+        }
+    }
+
+    var debugName: String {
+        switch self {
+        case .introPractice:
+            return "introPractice"
+        case .introCoach:
+            return "introCoach"
+        case .introProgress:
+            return "introProgress"
+        case .account:
+            return "account"
+        case .profile:
+            return "profile"
+        case .focus:
+            return "focus"
         }
     }
 

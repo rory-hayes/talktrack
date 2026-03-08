@@ -58,6 +58,7 @@
 		9264F120AB39866BDA3CD4FD /* AppleSignInNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31280DC1EAA2B377F114BDFB /* AppleSignInNonce.swift */; };
 		98266CA7529D641022B787DB /* ScenarioLibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF44143E757E66F0AE258E00 /* ScenarioLibraryViewModel.swift */; };
 		9B0CED97FC283CBF00AFD549 /* PracticeSessionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81F0521D9258F36DA7B1007 /* PracticeSessionViewModelTests.swift */; };
+		9C090B13CE5D44B5D0B88368 /* OnboardingDebugDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D06F328A44F6B1FD1AB137 /* OnboardingDebugDiagnostics.swift */; };
 		9CF88D8EA0032634FEBC6C11 /* ProfileSettingsSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB974A3C96EE6F71B16E62 /* ProfileSettingsSubmission.swift */; };
 		9EB249D7814959FDDD1150A3 /* FeedbackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8C447FD0354BFFC6972D42 /* FeedbackCardView.swift */; };
 		A1AC8058F0A36B10508C98DC /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223ABC4173A6C104BF0187B9 /* UserProfile.swift */; };
@@ -123,6 +124,7 @@
 		2B72B1EB07EFA4CF3C59B64A /* LocalPracticeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalPracticeStore.swift; sourceTree = "<group>"; };
 		31280DC1EAA2B377F114BDFB /* AppleSignInNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInNonce.swift; sourceTree = "<group>"; };
 		37AB974A3C96EE6F71B16E62 /* ProfileSettingsSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsSubmission.swift; sourceTree = "<group>"; };
+		39D06F328A44F6B1FD1AB137 /* OnboardingDebugDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingDebugDiagnostics.swift; sourceTree = "<group>"; };
 		3A94D5A87AAC8CF936E011B7 /* ScenarioLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioLibraryView.swift; sourceTree = "<group>"; };
 		3AA9CCEBD1E7EF145C623307 /* scenarios.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scenarios.json; sourceTree = "<group>"; };
 		3D8350190CB56F3F4AC885FC /* ScenarioRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioRepositoryTests.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				F0AC951F2ADF4BFD7A4AA112 /* AppState.swift */,
 				D1895F28F48B9CEDFB3010C5 /* ClearifyApp.swift */,
 				4D8A029BD2B50F010782CA74 /* Dependencies.swift */,
+				39D06F328A44F6B1FD1AB137 /* OnboardingDebugDiagnostics.swift */,
 				E24F0AA4F42C284AA0523015 /* UITestBootstrap.swift */,
 			);
 			path = App;
@@ -584,6 +587,7 @@
 				1C0B0348934C51CC4BFF7E05 /* HomeView.swift in Sources */,
 				8784F50A35C7217F85064CC1 /* HomeViewModel.swift in Sources */,
 				880E7651F1159D0B79B5C1E4 /* LocalPracticeStore.swift in Sources */,
+				9C090B13CE5D44B5D0B88368 /* OnboardingDebugDiagnostics.swift in Sources */,
 				7DFE731D7027CB63A32F6696 /* OnboardingView.swift in Sources */,
 				24851E8233AD04DDD0B79E21 /* OnboardingViewModel.swift in Sources */,
 				0D45BEDA9F38FD6A6C6213FF /* PaywallView.swift in Sources */,

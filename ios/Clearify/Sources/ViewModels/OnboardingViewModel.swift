@@ -41,21 +41,41 @@ final class OnboardingViewModel: ObservableObject {
     }
 
     func validateProfileStep() -> Bool {
+        OnboardingDebugDiagnostics.shared.record(
+            "profile_validation_start nameEmpty=\(trimmedPreferredName.isEmpty)"
+        )
         guard !trimmedPreferredName.isEmpty else {
+            OnboardingDebugDiagnostics.shared.record("validate_profile_result result=failed reason=missing_preferred_name")
             errorMessage = "Add your first name so we can personalize your coaching plan."
             return false
         }
+        OnboardingDebugDiagnostics.shared.record("validate_profile_result result=passed")
         errorMessage = nil
         return true
     }
 
     func completeOnboarding() async throws -> UserProfileRecord {
-        try await completeOnboardingAction(
-            trimmedPreferredName,
-            experienceLevel,
-            selectedFocus,
-            selectedMode,
-            selectedRoleTrack
+        OnboardingDebugDiagnostics.shared.record(
+            "profile_submission_start nameEmpty=\(trimmedPreferredName.isEmpty) mode=\(selectedMode.rawValue) role=\(selectedRoleTrack.rawValue)"
         )
+
+        do {
+            let profile = try await completeOnboardingAction(
+                trimmedPreferredName,
+                experienceLevel,
+                selectedFocus,
+                selectedMode,
+                selectedRoleTrack
+            )
+            OnboardingDebugDiagnostics.shared.record(
+                "profile_submission_end success hasCompleted=\(profile.hasCompletedOnboarding)"
+            )
+            return profile
+        } catch {
+            OnboardingDebugDiagnostics.shared.record(
+                "profile_submission_end failure type=\(String(describing: type(of: error)))"
+            )
+            throw error
+        }
     }
 }

@@ -652,7 +652,7 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 ---
 
 ## Next up
-- Continue the onboarding profile-to-focus/dashboard investigation from the still-failing live UI path, focusing on why the visible profile footer remains non-hittable / non-advancing under repeated simulator runs, then rerun M10-V through dashboard and the already-verified backend analyze path
+- Fix the profile-step footer interaction so the visible `Continue` CTA dispatches its action reliably without UITest scroll recovery, then rerun M10-V through dashboard and the already-verified backend analyze path
 
 ## Execution log
 
@@ -680,3 +680,116 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
   - The live UI path still does not advance deterministically from profile to focus/dashboard.
   - Repeated onboarding UI runs remain blocked at the same profile-step transition, so broader session-entry UI verification is still not complete.
   - Backend live analyze/quota verification remains complete from the prior M10-V rerun; the remaining blocker is client-side onboarding stability.
+
+### 2026-03-08 - M10-V follow-up - Onboarding profile-step transition instrumentation
+- Scope: narrow root-cause isolation pass for the remaining live UI blocker at the profile footer transition.
+- Instrumentation added:
+  - Added UI-test-gated onboarding diagnostics so only UITest/debug runs emit trace events.
+  - Logged footer tap handler entry, profile validation start/result, profile submission start/end, onboarding step writes, authenticated-progress writes, `AppState` hydration/cache/reset paths, and profile persistence/hydration calls.
+  - Added a UITest-only accessibility label that exposes the current onboarding step, authenticated-progress step, submission/auth flags, and the last recorded onboarding diagnostic event.
+  - Extended the onboarding UI test to attach that debug state plus footer existence/hittability when the run stalls after the profile step.
+- Evidence captured:
+  - Serial rerun command: `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-debug-3.xcresult`
+  - XCTest tapped the visible profile CTA at `27.63s`, then failed waiting for `onboarding.footer.focus`.
+  - The attached UITest debug label at failure reported `step=profile authStep=profile submitting=false authenticating=false last=[38] step_write reason=task_authenticated_restore from=profile to=profile`.
+  - The same attachment reported `profileFooter.exists=true`, `profileFooter.hittable=true`, `focusFooter.exists=false`, and `focusFooter.hittable=false`.
+  - The exported accessibility tree still showed `Set up your profile` and `onboarding.footer.profile`, not the focus step.
+- Narrowed root cause:
+  - This rerun does not support a hit-testing blocker. XCTest tapped a hittable profile footer and the CTA remained present afterward.
+  - This rerun does not support a profile validation failure or profile submission/save failure. The failure snapshot shows `submitting=false`, never reaches the focus step, and the last captured event is not a validation or submission failure.
+  - The strongest current evidence is onboarding state reversion or reconciliation after auth-driven restore. By the failure snapshot, the last recorded app-side event is an authenticated restore that writes `.profile` again.
+  - The exact earlier event ordering is still not fully proven from this one snapshot because the last-event label can be overwritten by later diagnostics, but the blocker is now narrowed to state mutation/reversion rather than footer hit-testing.
+- Tests/checks run:
+  - `xcodegen generate`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-debug-3.xcresult`
+- What is now verified:
+  - The instrumentation path is active in UITest runs and captures app-side onboarding state at the failure point.
+  - The profile footer exists and is hittable at the moment the UITest taps it.
+  - The live UI is still on the profile step at failure time.
+  - The latest captured app-side event at failure time is a restore/write back to `.profile`.
+- What remains blocked:
+  - The precise earlier event sequence around the tap is not yet fully reconstructed from persisted artifacts alone.
+  - The exact source of the restoring write still needs one more focused pass to distinguish `OnboardingView` task/on-change restore logic from `AppState` hydration/reconciliation side effects.
+  - Broader dashboard/session live verification remains blocked until this onboarding state reversion is fixed.
+
+### 2026-03-08 - M10-V follow-up - Onboarding profile transition ordered event trace
+- Scope: final diagnostic-first pass to capture the full ordered event sequence around the profile-step transition without attempting a speculative fix.
+- Instrumentation added:
+  - Replaced the single last-event debug probe with a bounded ordered event buffer carrying sequence numbers plus monotonic uptime timestamps.
+  - Exposed that ordered event buffer through a UITest-only accessibility element so the failing run can export the full transition trace.
+  - Renamed the key debug events to the exact transition points under investigation: `footer_tap_enter`, `footer_profile_continue`, `validate_profile_result`, `advance_authenticated_progress_enter`, `advance_authenticated_progress_write_auth_step`, `advance_authenticated_progress_write_step`, `restore_authenticated_progress_enter`, `restore_authenticated_progress_result`, `appstate_hydrate_enter`, and `appstate_hydrate_onboarding_restore`.
+  - Updated the UITest attachment capture to include the ordered event buffer and to persist it whenever the profile step stalls.
+- Ordered event evidence:
+  - Serial failing rerun command: `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testFullSessionStartsFromDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-debug-6.xcresult`
+  - In the failing run, XCUITest first had to perform repeated swipe-up recovery because `onboarding.footer.profile` was not initially hittable, then performed a coordinate tap on the visible profile footer.
+  - The exported ordered buffer from `onboarding-debug-after-profile` ends at:
+    - `[38] onboarding_task_start authUserPresent=true`
+    - `[39] appstate_hydrate_onboarding_restore reason=onboarding_task_start ...`
+    - `[40] restore_authenticated_progress_enter reason=task_authenticated_restore visibleStep=profile authStep=profile target=profile`
+    - `[41] step_write reason=task_authenticated_restore from=profile to=profile`
+    - `[42] restore_authenticated_progress_result reason=task_authenticated_restore visibleStep=profile authStep=profile`
+  - The failing run does include the earlier authenticated handoff path:
+    - `[19] auth_uid_change hasUser=true`
+    - `[21] restore_authenticated_progress_enter reason=auth_uid_change_restore ... target=profile`
+    - `[22] step_write reason=auth_uid_change_restore from=account to=profile`
+    - `[26] appstate_hydrate_enter hasSession=true`
+    - `[30] appstate_hydrate_profile_loaded hasCompleted=false nameEmpty=false`
+    - `[32] email_auth_success`
+    - `[33] advance_authenticated_progress_enter reason=email_auth_success ... requested=profile resolved=profile`
+    - `[35] auth_progress_write reason=email_auth_success from=account to=profile`
+    - `[37] step_write reason=email_auth_success from=account to=profile`
+  - The ordered buffer contains no post-profile-tap `footer_tap_enter step=profile`, no `footer_profile_continue`, no `validate_profile_result`, and no `advance_authenticated_progress_enter reason=footer_profile_continue`.
+- First divergence from expected flow:
+  - Expected after the XCUITest tap: `footer_tap_enter step=profile` -> `footer_profile_continue` -> `validate_profile_result result=passed` -> `advance_authenticated_progress_enter reason=footer_profile_continue` -> writes to `.focus`.
+  - Actual failing trace: no app-side footer event is recorded after the tap attempt; the last app-side event remains the pre-tap `task_authenticated_restore` write back to `.profile`.
+- Exact state reversion source identified:
+  - The write back to `.profile` seen in the failing artifact comes from `OnboardingView`'s authenticated task restore path (`reason=task_authenticated_restore`), not from `AppState.hydrate()` overwriting a later `.focus` mutation.
+  - That restore happens before the failing tap attempt and is not evidence of a post-tap reversion from `.focus` back to `.profile`.
+- Narrowed root cause:
+  - This failing run does not support the theory that the profile CTA fires and then gets reverted.
+  - This failing run does not support the theory that `footer_profile_continue` reaches validation or `advanceAuthenticatedProgress`.
+  - The blocker in the failing run is the interaction layer around the profile footer: the CTA is visible, but it is not reliably hittable when the UITest helper first checks it, the helper performs scroll recovery, and the resulting tap attempt never dispatches the app-side footer action.
+- Recommended code fix:
+  - Treat the profile/focus footer as a truly fixed safe-area CTA in the setup flow so it never requires scroll recovery and cannot be partially occluded by the scrolling content.
+  - After making that layout fix, keep the ordered event probe in place for one verification rerun, and remove it once `footer_tap_enter step=profile` and `advance_authenticated_progress_enter reason=footer_profile_continue` appear reliably.
+- Tests/checks run:
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-debug-4.xcresult`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testFullSessionStartsFromDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-debug-5.xcresult`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testFullSessionStartsFromDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-debug-6.xcresult`
+- What is now verified:
+  - The ordered trace now proves the failing run never enters the profile footer handler.
+  - The only write back to `.profile` captured in the failing artifact is the pre-tap authenticated restore path.
+  - `AppState.hydrate()` loads the not-yet-completed profile during auth handoff, but there is no evidence here that it reverts a later `.focus` write.
+  - The root cause has shifted from suspected state reversion to a concrete interaction-dispatch failure on the profile footer in the failing run.
+
+### 2026-03-08 - M10-V fix pass - Setup footer fixed-footer layout
+- Status: Partial
+- Scope: targeted product fix for the onboarding profile footer interaction bug using the ordered event trace as the source of truth.
+- Layout fix applied:
+  - Reworked the authenticated setup branch in `OnboardingView` so the setup footer is hosted as a real sibling below the scroll view instead of living inside or being inset onto the scrolling region.
+  - Clipped the setup scroll viewport so scrollable profile cards cannot visually or interactively bleed into the footer band.
+  - Kept the ordered onboarding debug probe enabled and preserved the UI-test-only event accessibility labels during verification.
+  - Tightened the UITest tap helper to wait briefly for hittability before falling back to swipe recovery so the verification harness does not immediately perturb a footer that is still settling.
+- Evidence captured:
+  - Passing standalone onboarding rerun command: `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-fixed-warm-6.xcresult`
+  - Exported ordered attachment from that passing run shows the exact expected profile dispatch sequence:
+    - `[43] footer_tap_enter step=profile`
+    - `[44] footer_profile_continue nameEmpty=false`
+    - `[46] validate_profile_result result=passed`
+    - `[47] advance_authenticated_progress_enter reason=footer_profile_continue ... requested=focus resolved=focus`
+    - `[48] advance_authenticated_progress_write_auth_step ... target=focus`
+    - `[50] advance_authenticated_progress_write_step ... target=focus`
+    - `[52] visible_step_changed to=focus`
+  - Passing broader dashboard-entry rerun command up through onboarding: `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-onboarding-debug-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testFullSessionStartsFromDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-fixed-dashboard-4.xcresult`
+  - In that broader run, the onboarding path advanced `profile -> focus -> dashboard` without swipe recovery on the profile footer. The test then failed later on a separate dashboard assertion waiting for `Start 3-rep practice`, which is outside the profile-footer transition itself.
+  - Failure hierarchies before the final clipping change showed the footer outside the scroll-view frame but the profile cards still reporting frames into the footer zone; the final clip change was added specifically to hard-bound the scroll viewport.
+- What is now verified:
+  - The app-side profile footer path can now dispatch `handleFooterTap()`, pass validation, and write `.focus` under the final layout.
+  - The broader dashboard-entry flow is no longer blocked at the onboarding profile footer; its latest failure is after onboarding has already reached the dashboard.
+- Remaining blocker / risk:
+  - Repeated verification is improved but not fully clean yet. One later standalone rerun still fell back to swipe recovery and stalled at `Expected focus step`, so the footer interaction is not yet proven stable across every serial UITest run.
+  - Two additional xcodebuild commands were started for `ClearifyTests/OnboardingViewModelTests`, `ClearifyTests/AppStateTests`, and a generic iOS simulator build, but they were launched against the same DerivedData path and were still compiling at handoff; they should not be treated as completed evidence.
+- Files changed:
+  - `ios/Clearify/Sources/Views/Onboarding/OnboardingView.swift`
+  - `ios/Clearify/UITests/ClearifyUITests.swift`
+  - `PLANS.md`

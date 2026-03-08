@@ -55,11 +55,15 @@ final class UserProfileService {
 
     func fetchCurrentProfile() async throws -> UserProfileRecord? {
         guard let user = Auth.auth().currentUser else {
+            OnboardingDebugDiagnostics.recordFromAnyActor("profile_fetch_skipped missing_auth_user")
             return nil
         }
 
         let cachedProfile = normalizedProfile(cachedProfile(for: user.uid), for: user)
         if let cachedProfile {
+            OnboardingDebugDiagnostics.recordFromAnyActor(
+                "profile_fetch_cached hasCompleted=\(cachedProfile.hasCompletedOnboarding)"
+            )
             Task {
                 await refreshRemoteProfile(for: user)
             }
@@ -67,18 +71,27 @@ final class UserProfileService {
         }
 
         do {
+            OnboardingDebugDiagnostics.recordFromAnyActor("profile_fetch_remote_start")
             let snapshot = try await fetchRemoteSnapshot(for: user.uid)
             guard let data = snapshot.data() else {
+                OnboardingDebugDiagnostics.recordFromAnyActor("profile_fetch_remote_empty")
                 return cachedProfile
             }
 
             guard let profile = profile(from: data, fallbackUser: user) else {
+                OnboardingDebugDiagnostics.recordFromAnyActor("profile_fetch_remote_parse_failed")
                 return cachedProfile
             }
 
             cache(profile)
+            OnboardingDebugDiagnostics.recordFromAnyActor(
+                "profile_fetch_remote_success hasCompleted=\(profile.hasCompletedOnboarding)"
+            )
             return profile
         } catch {
+            OnboardingDebugDiagnostics.recordFromAnyActor(
+                "profile_fetch_remote_failed type=\(String(describing: type(of: error)))"
+            )
             return cachedProfile
         }
     }
@@ -90,13 +103,16 @@ final class UserProfileService {
         mode: ScenarioMode,
         roleTrack: RoleTrack
     ) async throws -> UserProfileRecord {
+        OnboardingDebugDiagnostics.recordFromAnyActor("profile_save_start")
         let sanitizedName = preferredName.trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard let user = Auth.auth().currentUser else {
+            OnboardingDebugDiagnostics.recordFromAnyActor("profile_save_failed missing_auth_user")
             throw APIError.unauthenticated
         }
 
         guard !sanitizedName.isEmpty else {
+            OnboardingDebugDiagnostics.recordFromAnyActor("profile_save_failed missing_preferred_name")
             throw UserProfileServiceError.missingPreferredName
         }
 
@@ -119,9 +135,11 @@ final class UserProfileService {
         )
 
         cache(localProfile)
+        OnboardingDebugDiagnostics.recordFromAnyActor("profile_save_cached hasCompleted=\(localProfile.hasCompletedOnboarding)")
         Task {
             await syncProfileToRemote(localProfile, for: user)
         }
+        OnboardingDebugDiagnostics.recordFromAnyActor("profile_save_end")
         return localProfile
     }
 
@@ -210,6 +228,7 @@ final class UserProfileService {
         let ref = db.collection("users").document(user.uid)
 
         do {
+            OnboardingDebugDiagnostics.recordFromAnyActor("profile_remote_sync_start")
             let existingSnapshot = try? await fetchRemoteSnapshot(for: user.uid)
             let current = existingSnapshot?.data() ?? [:]
 
@@ -244,21 +263,36 @@ final class UserProfileService {
                 let remoteProfile = self.profile(from: data, fallbackUser: user)
             {
                 cache(merged(remote: remoteProfile, cached: localProfile))
+                OnboardingDebugDiagnostics.recordFromAnyActor(
+                    "profile_remote_sync_end remoteCompleted=\(remoteProfile.hasCompletedOnboarding)"
+                )
             }
         } catch {
+            OnboardingDebugDiagnostics.recordFromAnyActor(
+                "profile_remote_sync_failed type=\(String(describing: type(of: error)))"
+            )
             // Keep the local profile as the source of truth until Firestore becomes reachable.
         }
     }
 
     private func refreshRemoteProfile(for user: User) async {
         do {
+            OnboardingDebugDiagnostics.recordFromAnyActor("profile_refresh_remote_start")
             let cached = normalizedProfile(cachedProfile(for: user.uid), for: user)
             let snapshot = try await fetchRemoteSnapshot(for: user.uid)
             guard let data = snapshot.data(), let remoteProfile = profile(from: data, fallbackUser: user) else {
+                OnboardingDebugDiagnostics.recordFromAnyActor("profile_refresh_remote_empty")
                 return
             }
-            cache(merged(remote: remoteProfile, cached: cached))
+            let mergedProfile = merged(remote: remoteProfile, cached: cached)
+            cache(mergedProfile)
+            OnboardingDebugDiagnostics.recordFromAnyActor(
+                "profile_refresh_remote_end remoteCompleted=\(remoteProfile.hasCompletedOnboarding) mergedCompleted=\(mergedProfile.hasCompletedOnboarding)"
+            )
         } catch {
+            OnboardingDebugDiagnostics.recordFromAnyActor(
+                "profile_refresh_remote_failed type=\(String(describing: type(of: error)))"
+            )
             // Keep the cached profile until Firestore becomes reachable.
         }
     }
@@ -330,6 +364,9 @@ final class UserProfileService {
     private func cache(_ profile: UserProfileRecord) {
         guard let data = try? encoder.encode(profile) else { return }
         defaults.set(data, forKey: cacheKey(for: profile.uid))
+        OnboardingDebugDiagnostics.recordFromAnyActor(
+            "profile_cache_write hasCompleted=\(profile.hasCompletedOnboarding) mode=\(profile.onboardingGoalMode.rawValue) role=\(profile.selectedRoleTrack.rawValue)"
+        )
     }
 
     private func cachedProfile(for uid: String) -> UserProfileRecord? {

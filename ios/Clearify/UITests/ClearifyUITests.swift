@@ -1,6 +1,9 @@
 import XCTest
 
 final class ClearifyUITests: XCTestCase {
+    private let onboardingDebugLabelID = "debug.onboarding.state"
+    private let onboardingDebugEventsID = "debug.onboarding.events"
+
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -94,14 +97,17 @@ final class ClearifyUITests: XCTestCase {
 
         let dashboardButton = app.buttons["onboarding.footer.focus"]
         if !dashboardButton.waitForExistence(timeout: 10) {
+            attachOnboardingDebugState(of: app, named: "onboarding-debug-after-profile")
             attachDebugState(of: app, named: "onboarding-stuck-after-profile")
         }
         XCTAssertTrue(dashboardButton.waitForExistence(timeout: 10), "Expected focus step")
+        attachOnboardingDebugState(of: app, named: "onboarding-debug-before-focus-tap")
         tap(button: dashboardButton)
     }
 
     private func tap(button: XCUIElement, timeout: TimeInterval = 10) {
         XCTAssertTrue(button.waitForExistence(timeout: timeout), "Missing button: \(button)")
+        waitForHittable(button)
         if !button.isHittable {
             let app = XCUIApplication()
             for _ in 0..<4 where !button.isHittable {
@@ -113,6 +119,14 @@ final class ClearifyUITests: XCTestCase {
         } else {
             button.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         }
+    }
+
+    private func waitForHittable(_ element: XCUIElement, timeout: TimeInterval = 2) {
+        guard !element.isHittable else { return }
+
+        let predicate = NSPredicate(format: "isHittable == true")
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
+        _ = XCTWaiter.wait(for: [expectation], timeout: timeout)
     }
 
     private func enterText(_ text: String, into field: XCUIElement, timeout: TimeInterval = 10) {
@@ -138,6 +152,29 @@ final class ClearifyUITests: XCTestCase {
 
     private func attachDebugState(of app: XCUIApplication, named name: String) {
         let attachment = XCTAttachment(string: app.debugDescription)
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
+    private func attachOnboardingDebugState(of app: XCUIApplication, named name: String) {
+        let debugLabel = app.staticTexts[onboardingDebugLabelID]
+        let summary = debugLabel.exists ? debugLabel.label : "missing-debug-label"
+        let debugEventsLabel = app.staticTexts[onboardingDebugEventsID]
+        let events = debugEventsLabel.exists ? debugEventsLabel.label : "missing-debug-events"
+        let profileFooter = app.buttons["onboarding.footer.profile"]
+        let focusFooter = app.buttons["onboarding.footer.focus"]
+        let attachment = XCTAttachment(
+            string: """
+            summary=\(summary)
+            events=
+            \(events)
+            profileFooter.exists=\(profileFooter.exists)
+            profileFooter.hittable=\(profileFooter.isHittable)
+            focusFooter.exists=\(focusFooter.exists)
+            focusFooter.hittable=\(focusFooter.isHittable)
+            """
+        )
         attachment.name = name
         attachment.lifetime = .keepAlways
         add(attachment)

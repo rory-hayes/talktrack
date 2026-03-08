@@ -69,15 +69,20 @@ final class AppState: ObservableObject {
         entitlementService: AppStateEntitlementSyncing,
         telemetry: AppStateTelemetryRecording
     ) async {
+        OnboardingDebugDiagnostics.shared.record("appstate_hydrate_enter hasSession=\(authProvider.hasUserSession)")
         defer { isBootstrapping = false }
 
         guard authProvider.hasUserSession else {
+            OnboardingDebugDiagnostics.shared.record("appstate_hydrate_reset_for_signed_out_user")
             resetForSignOut(clearCache: true)
             return
         }
 
         do {
             if let profile = try await userProfileService.fetchCurrentProfile() {
+                OnboardingDebugDiagnostics.shared.record(
+                    "appstate_hydrate_profile_loaded hasCompleted=\(profile.hasCompletedOnboarding) nameEmpty=\(profile.preferredName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)"
+                )
                 selectedMode = profile.onboardingGoalMode
                 selectedRoleTrack = profile.selectedRoleTrack
                 preferredFirstName = profile.preferredName
@@ -86,10 +91,14 @@ final class AppState: ObservableObject {
                 isOnboardingComplete = profile.hasCompletedOnboarding
                 cacheState()
             } else {
+                OnboardingDebugDiagnostics.shared.record("appstate_hydrate_profile_missing")
                 resetForAuthenticatedUserWithoutProfile()
             }
             _ = try? await entitlementService.syncCurrentEntitlements()
         } catch {
+            OnboardingDebugDiagnostics.shared.record(
+                "appstate_hydrate_failed type=\(String(describing: type(of: error)))"
+            )
             telemetry.record(error: error, context: "hydrate_state", metadata: [:])
             resetForAuthenticatedUserWithoutProfile()
         }
@@ -102,6 +111,9 @@ final class AppState: ObservableObject {
         mode: ScenarioMode,
         roleTrack: RoleTrack
     ) {
+        OnboardingDebugDiagnostics.shared.record(
+            "appstate_mark_onboarding_complete nameEmpty=\(preferredFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) mode=\(mode.rawValue) role=\(roleTrack.rawValue)"
+        )
         self.preferredFirstName = preferredFirstName
         self.experienceLevel = experienceLevel
         self.selfReportedFocus = selfReportedFocus
@@ -112,6 +124,7 @@ final class AppState: ObservableObject {
     }
 
     func resetForSignOut(clearCache: Bool = true) {
+        OnboardingDebugDiagnostics.shared.record("appstate_reset_for_sign_out clearCache=\(clearCache)")
         selectedMode = .workplace
         selectedRoleTrack = .general
         preferredFirstName = ""
@@ -150,6 +163,9 @@ final class AppState: ObservableObject {
     }
 
     private func cacheState() {
+        OnboardingDebugDiagnostics.shared.record(
+            "appstate_cache_write onboardingComplete=\(isOnboardingComplete) mode=\(selectedMode.rawValue) role=\(selectedRoleTrack.rawValue)"
+        )
         defaults.set(isOnboardingComplete, forKey: onboardingCompleteKey)
         defaults.set(selectedMode.rawValue, forKey: selectedModeKey)
         defaults.set(selectedRoleTrack.rawValue, forKey: selectedRoleKey)
@@ -159,6 +175,7 @@ final class AppState: ObservableObject {
     }
 
     private func resetForAuthenticatedUserWithoutProfile() {
+        OnboardingDebugDiagnostics.shared.record("appstate_reset_authenticated_user_without_profile")
         selectedTab = .home
         isOnboardingComplete = false
         cacheState()
