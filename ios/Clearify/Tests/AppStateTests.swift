@@ -64,6 +64,31 @@ final class AppStateTests: XCTestCase {
         XCTAssertEqual(appState.selfReportedFocus, .clarity)
     }
 
+    func testHydrateWithoutRemoteProfilePreservesInProgressOnboardingDraft() async {
+        let appState = AppState(defaults: defaults)
+        appState.preferredFirstName = "Rory"
+        appState.selectedMode = .customer
+        appState.selectedRoleTrack = .accountExecutive
+        appState.experienceLevel = .fiveToSevenYears
+        appState.selfReportedFocus = .structure
+        appState.isOnboardingComplete = false
+
+        await appState.hydrate(
+            authProvider: TestAuthProvider(hasUserSession: true),
+            userProfileService: TestUserProfileFetcher(result: .success(nil)),
+            entitlementService: TestEntitlementSyncer(),
+            telemetry: TestTelemetryRecorder()
+        )
+
+        XCTAssertFalse(appState.isBootstrapping)
+        XCTAssertFalse(appState.isOnboardingComplete)
+        XCTAssertEqual(appState.preferredFirstName, "Rory")
+        XCTAssertEqual(appState.selectedMode, .customer)
+        XCTAssertEqual(appState.selectedRoleTrack, .accountExecutive)
+        XCTAssertEqual(appState.experienceLevel, .fiveToSevenYears)
+        XCTAssertEqual(appState.selfReportedFocus, .structure)
+    }
+
     func testResetForSignOutClearsPersistedState() {
         let appState = AppState(defaults: defaults)
         appState.markOnboardingComplete(

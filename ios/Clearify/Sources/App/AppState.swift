@@ -159,19 +159,9 @@ final class AppState: ObservableObject {
     }
 
     private func resetForAuthenticatedUserWithoutProfile() {
-        selectedMode = .workplace
-        selectedRoleTrack = .general
-        preferredFirstName = ""
-        experienceLevel = .zeroToOneYears
-        selfReportedFocus = .clarity
         selectedTab = .home
         isOnboardingComplete = false
-        defaults.removeObject(forKey: onboardingCompleteKey)
-        defaults.removeObject(forKey: selectedModeKey)
-        defaults.removeObject(forKey: selectedRoleKey)
-        defaults.removeObject(forKey: preferredFirstNameKey)
-        defaults.removeObject(forKey: experienceLevelKey)
-        defaults.removeObject(forKey: selfReportedFocusKey)
+        cacheState()
     }
 }
 

@@ -1,13 +1,20 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    private enum AccountField: Hashable {
+        case email
+        case password
+    }
+
     @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel: OnboardingViewModel
-    @State private var step: OnboardingStep = .introPractice
+    @AppStorage("clearify.onboarding.step") private var persistedStepRawValue = OnboardingStep.introPractice.rawValue
+    @AppStorage("clearify.onboarding.authProgressStep") private var persistedAuthenticatedStepRawValue = OnboardingStep.account.rawValue
     @State private var email = ""
     @State private var password = ""
     @State private var isAuthenticating = false
     @State private var authMessage: String?
+    @FocusState private var focusedAccountField: AccountField?
 
     private let dependencies: Dependencies
     private let modeColumns = [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)]
@@ -17,6 +24,23 @@ struct OnboardingView: View {
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
         _viewModel = StateObject(wrappedValue: OnboardingViewModel(dependencies: dependencies))
+    }
+
+    private var step: OnboardingStep {
+        get { OnboardingStep(rawValue: persistedStepRawValue) ?? .introPractice }
+        nonmutating set { persistedStepRawValue = newValue.rawValue }
+    }
+
+    private var authenticatedProgressStep: OnboardingStep {
+        get {
+            guard let restored = OnboardingStep(rawValue: persistedAuthenticatedStepRawValue) else {
+                return .account
+            }
+            return restored.isIntro ? .account : restored
+        }
+        nonmutating set {
+            persistedAuthenticatedStepRawValue = max(newValue, .account).rawValue
+        }
     }
 
     var body: some View {
@@ -39,7 +63,7 @@ struct OnboardingView: View {
                 setupFlow
                     .padding(.horizontal, 20)
                     .padding(.top, 26)
-                    .padding(.bottom, 24)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
@@ -47,15 +71,28 @@ struct OnboardingView: View {
             dependencies.telemetry.logOnboardingStarted()
             hydrateDraftFromAppState()
             if dependencies.authService.user != nil {
-                step = currentAuthenticatedEntryStep
+                restoreAuthenticatedProgress()
+            } else {
+                resetAuthenticatedProgress()
+                step = .introPractice
             }
         }
         .onChange(of: dependencies.authService.user?.uid) { _, newUID in
             if newUID != nil, !appState.isOnboardingComplete {
                 hydrateDraftFromAppState()
                 withAnimation {
-                    step = currentAuthenticatedEntryStep
+                    restoreAuthenticatedProgress()
                 }
+            } else if newUID == nil {
+                withAnimation {
+                    resetAuthenticatedProgress()
+                    step = .introPractice
+                }
+            }
+        }
+        .onChange(of: step) { _, newStep in
+            if newStep == .profile {
+                hydrateDraftFromAppState()
             }
         }
         .animation(.spring(response: 0.38, dampingFraction: 0.88), value: step)
@@ -117,31 +154,33 @@ struct OnboardingView: View {
     }
 
     private var setupFlow: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 18) {
-                topBar
-                progressIndicator
+        VStack(alignment: .leading, spacing: 0) {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 18) {
+                    topBar
+                    progressIndicator
 
-                switch step {
-                case .account:
-                    accountStep
-                case .profile:
-                    profileStep
-                case .focus:
-                    focusStep
-                default:
-                    EmptyView()
+                    switch step {
+                    case .account:
+                        accountStep
+                    case .profile:
+                        profileStep
+                    case .focus:
+                        focusStep
+                    default:
+                        EmptyView()
+                    }
+
+                    if let error = viewModel.errorMessage {
+                        Text(error)
+                            .font(.footnote)
+                            .foregroundStyle(.red)
+                    }
                 }
-
-                if let error = viewModel.errorMessage {
-                    Text(error)
-                        .font(.footnote)
-                        .foregroundStyle(.red)
-                }
-
-                footer
-                    .padding(.top, 8)
+                .padding(.bottom, 24)
             }
+            footer
+                .padding(.top, 12)
         }
     }
 
@@ -306,11 +345,22 @@ struct OnboardingView: View {
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled(true)
                             .keyboardType(.emailAddress)
+                            .submitLabel(.next)
+                            .focused($focusedAccountField, equals: .email)
+                            .onSubmit {
+                                focusedAccountField = .password
+                            }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 14)
                             .talkTrackCard(radius: 18)
 
                         SecureField("Password", text: $password)
+                            .textContentType(.password)
+                            .submitLabel(.done)
+                            .focused($focusedAccountField, equals: .password)
+                            .onSubmit {
+                                Task { await createEmailAccount() }
+                            }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 14)
                             .talkTrackCard(radius: 18)
@@ -389,7 +439,7 @@ struct OnboardingView: View {
     private var footer: some View {
         VStack(alignment: .leading, spacing: 10) {
             Button {
-                Task { await primaryAction() }
+                handleFooterTap()
             } label: {
                 if viewModel.isSubmitting {
                     ProgressView()
@@ -401,9 +451,10 @@ struct OnboardingView: View {
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundStyle(step.isIntro ? TalkTrackTheme.indigo : Color.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 18)
+                    .padding(.vertical, 18)
                 }
             }
+            .accessibilityIdentifier(step.footerAccessibilityIdentifier)
             .background(step.isIntro ? Color.white : TalkTrackTheme.indigo, in: Capsule())
             .shadow(color: Color.black.opacity(0.08), radius: 18, y: 10)
 
@@ -429,11 +480,33 @@ struct OnboardingView: View {
         }
     }
 
-    private var currentAuthenticatedEntryStep: OnboardingStep { .profile }
+    private var currentAuthenticatedEntryStep: OnboardingStep {
+        max(authenticatedProgressStep, .profile)
+    }
+
+    private func restoreAuthenticatedProgress() {
+        step = currentAuthenticatedEntryStep
+    }
+
+    private func advanceAuthenticatedProgress(to nextStep: OnboardingStep) {
+        let resolvedStep = max(nextStep, currentAuthenticatedEntryStep)
+        authenticatedProgressStep = resolvedStep
+        step = resolvedStep
+    }
+
+    private func resetAuthenticatedProgress() {
+        authenticatedProgressStep = .account
+    }
 
     private func hydrateDraftFromAppState() {
-        if !appState.preferredFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            viewModel.preferredName = appState.preferredFirstName
+        let resolvedPreferredName = resolvePreferredName(
+            existingName: appState.preferredFirstName,
+            displayName: dependencies.authService.user?.displayName,
+            email: dependencies.authService.user?.email
+        )
+
+        if !resolvedPreferredName.isEmpty {
+            viewModel.preferredName = resolvedPreferredName
         }
         viewModel.experienceLevel = appState.experienceLevel
         viewModel.selectedFocus = appState.selfReportedFocus
@@ -647,28 +720,48 @@ struct OnboardingView: View {
         .buttonStyle(.plain)
     }
 
-    private func primaryAction() async {
+    private func handleFooterTap() {
         switch step {
         case .introPractice, .introCoach, .introProgress:
             if let next = step.next {
                 withAnimation { step = next }
             }
         case .account:
+            if dependencies.authService.user != nil {
+                viewModel.errorMessage = nil
+                withAnimation { restoreAuthenticatedProgress() }
+                return
+            }
+
+            if !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || !password.isEmpty {
+                Task { await createEmailAccount() }
+                return
+            }
+
             guard dependencies.authService.user != nil else {
                 viewModel.errorMessage = "Create your account to continue."
                 return
             }
-            viewModel.errorMessage = nil
-            withAnimation { step = currentAuthenticatedEntryStep }
         case .profile:
+            let resolvedPreferredName = resolvePreferredName(
+                existingName: viewModel.preferredName,
+                displayName: dependencies.authService.user?.displayName,
+                email: dependencies.authService.user?.email
+            )
+            if resolvedPreferredName != viewModel.preferredName {
+                viewModel.preferredName = resolvedPreferredName
+            }
             guard viewModel.validateProfileStep() else { return }
-            withAnimation { step = .focus }
+            withAnimation { advanceAuthenticatedProgress(to: .focus) }
         case .focus:
-            await finishOnboarding()
+            Task { await finishOnboarding() }
         }
     }
 
     private func createEmailAccount() async {
+        focusedAccountField = nil
+        await Task.yield()
+
         guard !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             viewModel.errorMessage = "Add an email to create your account."
             return
@@ -686,9 +779,10 @@ struct OnboardingView: View {
             try await dependencies.userProfileService.refreshIdentityFields()
             authMessage = "Account ready. Continue to build your profile."
             viewModel.errorMessage = nil
-            withAnimation { step = currentAuthenticatedEntryStep }
+            withAnimation { advanceAuthenticatedProgress(to: .profile) }
         } catch {
-            viewModel.errorMessage = error.localizedDescription
+            dependencies.telemetry.record(error: error, context: "onboarding_email_auth")
+            viewModel.errorMessage = UserFacingErrorMessage.onboardingAuth(error)
         }
     }
 
@@ -701,9 +795,10 @@ struct OnboardingView: View {
             try await dependencies.userProfileService.refreshIdentityFields()
             authMessage = "Account ready. Continue to build your profile."
             viewModel.errorMessage = nil
-            withAnimation { step = currentAuthenticatedEntryStep }
+            withAnimation { advanceAuthenticatedProgress(to: .profile) }
         } catch {
-            viewModel.errorMessage = error.localizedDescription
+            dependencies.telemetry.record(error: error, context: "onboarding_google_auth")
+            viewModel.errorMessage = UserFacingErrorMessage.onboardingAuth(error)
         }
     }
 
@@ -720,9 +815,12 @@ struct OnboardingView: View {
                 mode: viewModel.selectedMode,
                 roleTrack: viewModel.selectedRoleTrack
             )
+            resetAuthenticatedProgress()
+            step = .introPractice
             appState.selectedTab = .home
         } catch {
-            viewModel.errorMessage = error.localizedDescription
+            dependencies.telemetry.record(error: error, context: "onboarding_complete")
+            viewModel.errorMessage = UserFacingErrorMessage.onboardingSetup(error)
         }
     }
 }
@@ -733,7 +831,7 @@ private struct IntroPageContent {
     let bullets: [String]
 }
 
-private enum OnboardingStep: Int, CaseIterable, Identifiable {
+private enum OnboardingStep: Int, CaseIterable, Identifiable, Comparable {
     case introPractice
     case introCoach
     case introProgress
@@ -742,6 +840,10 @@ private enum OnboardingStep: Int, CaseIterable, Identifiable {
     case focus
 
     var id: Int { rawValue }
+
+    static func < (lhs: OnboardingStep, rhs: OnboardingStep) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
 
     var isIntro: Bool {
         switch self {
@@ -828,6 +930,23 @@ private enum OnboardingStep: Int, CaseIterable, Identifiable {
             return "These answers personalize the prompts and examples you see first."
         case .focus:
             return "Your dashboard will be ready as soon as we save your profile."
+        }
+    }
+
+    var footerAccessibilityIdentifier: String {
+        switch self {
+        case .introPractice:
+            return "onboarding.footer.introPractice"
+        case .introCoach:
+            return "onboarding.footer.introCoach"
+        case .introProgress:
+            return "onboarding.footer.introProgress"
+        case .account:
+            return "onboarding.footer.account"
+        case .profile:
+            return "onboarding.footer.profile"
+        case .focus:
+            return "onboarding.footer.focus"
         }
     }
 

@@ -9,7 +9,7 @@ Make Clearify an airtight, production-grade iOS app by improving trust, product 
 ## Current status
 - Phase: Hardening sprint
 - Active sprint: Sprint 1
-- Overall status: Audit complete — follow-up verification work required
+- Overall status: Audit hardening pass implemented — backend session/quota and emulator-backed analyze are now verified live, and remaining live UI verification is blocked by onboarding progression from profile to focus/dashboard
 
 ---
 
@@ -37,15 +37,51 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 | M7 | Favorites truth model cleanup | Complete | Extracted a dedicated local-only starred-prompt store, preserved existing IDs, and aligned library UI/copy to device-local behavior |
 | M8 | Saved answers truth model cleanup | Complete | Extracted a dedicated local-only saved-answer store, preserved existing IDs, and aligned Progress and completion copy to the local-archive model |
 | M9 | Home next-action clarity improvements | Complete | Home now centers one recommended next step, clearer session CTA choices, and lower-priority alternate prompt selection |
-| M10 | Practice loop loading, feedback, and retry improvements | Partial | Implementation is present, but the live record → analyze → feedback → retry path was not end-to-end verified in this audit because the local emulator-backed backend was not running |
+| M10 | Practice loop loading, feedback, and retry improvements | Partial | Live backend verification now covers full/quick session starts, fair quota consumption on completion, and emulator-backed analyze; the remaining blocker is the live UI onboarding profile-to-focus transition before the full app loop can be re-verified |
 | M11 | Completion-state momentum improvements | Partial | Completion-state implementation is present, but it was not exercised through a successful live session in this audit |
 | M12 | Progress usefulness and empty-state improvements | Complete | Progress now answers whether the user is improving, what is weak, and what to practice next using grounded existing signals |
 | M13 | Backend endpoint coverage improvements | Complete | Added route-level tests for auth, validation, gating, fallback, and entitlement-sync behavior across the four critical endpoints |
-| M14 | iOS flow and UI regression coverage | Partial | Deterministic unit coverage exists and passes, but the only UI regression test is stale/failing and does not currently protect the onboarding-to-dashboard path |
+| M14 | iOS flow and UI regression coverage | Partial | Deterministic unit coverage exists and passes, but the live onboarding-to-dashboard UI regression is still blocked at the profile-to-focus transition despite targeted step-state hardening and broader live practice-loop UI coverage remains blocked |
 
 ---
 
 ## Execution log
+
+#### 2026-03-07 - M10-V rerun - Full live practice loop verification after onboarding/analyze fixes
+- Status: Partial
+- Summary: Reran live local verification after the onboarding email-auth fix and emulator-backed analyze fix. Environment readiness is now solid: the local `auth`, `functions`, `firestore`, and `storage` emulators were running, `/health` responded, and `OPENAI_API_KEY` presence for the functions runtime was confirmed by a successful live `/analyzeRep` call that returned transcript plus structured feedback. The standalone onboarding UI regression on an isolated `iPhone 17 Pro` simulator passed and reached the dashboard. Live backend verification also reconfirmed fair quota behavior: abandoned full and quick starts did not consume quota, a completed quick drill blocked the next quick drill with `free_quick_drill_limit_reached`, and a completed full session reduced `remainingFullSessionsThisWeek` from `3` to `2`. However, the broader live UI verification is still blocked because onboarding progression is not stable across related UI flows: the very next dashboard-entry UI test (`testFullSessionStartsFromDashboard`) failed at the profile-to-focus transition with `Expected focus step`, which means the app cannot yet be treated as reliably onboarding into the shell before practice starts. Because of that instability, the app-side full-session start, quick-drill start, record/upload/analyze/feedback, retry progression, completion UI, and recommendation refresh after completion are still not verified end to end through the live app.
+- Files changed:
+  - `PLANS.md`
+- Tests/checks run:
+  - Confirmed local emulator readiness with `curl http://127.0.0.1:5001/clearify-5414d/us-central1/api/health`
+  - Confirmed functions-runtime `OPENAI_API_KEY` indirectly via successful live `/analyzeRep` response
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-m10v-rerun-onboarding.xcresult`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'generic/platform=iOS Simulator' build`
+  - Repeated `xcodebuild` UI and unit-test commands for session-entry and onboarding/app-state checks; several were cancelled by DerivedData build-database lock collisions after I launched multiple Xcode jobs in parallel
+  - Live backend verification script covering abandoned starts, quick analyze + complete, quick-drill limit enforcement, seeded full-session completion, and full-session quota decrement after completion
+  - Simulator screenshots during stalled UI runs to distinguish harness delay from app-state failures
+- Acceptance criteria result: Partial. Verified with concrete evidence: local emulator stack is ready; the functions runtime can analyze uploaded audio end to end; abandoned session starts do not consume quota; quick drills and full sessions consume quota on completion; a standalone onboarding run can reach dashboard. Not verified: stable onboarding into the app shell across related UI flows; app-side full-session start; app-side quick-drill start; record/upload/analyze/feedback path through the UI; retry progression UI; successful completion UI; recommendation refresh after completion in the live app.
+- Risks / follow-ups: The main remaining blocker is a product bug, not environment setup: onboarding profile-to-focus/dashboard transition is still flaky or state-dependent in the live UI flow. A separate harness issue also showed up during this rerun: launching multiple `xcodebuild` jobs in parallel against the same DerivedData produced build-database lock failures, so those cancelled runs are not product evidence either way. The backend/emulator path is no longer the blocker.
+- Next recommended milestone: Return to the onboarding profile-to-focus/dashboard transition and make that path stable under repeated UI runs, then rerun M10-V from the live app shell through practice, retry, completion, and recommendation refresh.
+
+#### 2026-03-07 - M10-V follow-up - Emulator-backed analyze path
+- Status: Complete
+- Summary: Investigated the local `/analyzeRep` failure and confirmed the analyze route itself was intact; the failure came from backend Firebase Admin storage bootstrap in emulator mode. `firebase-admin` was being initialized without a reliable default bucket, so `storage.bucket()` could not consistently resolve the uploaded audio object under the local emulator stack even when `OPENAI_API_KEY` was present. Added a narrow bootstrap resolver that prefers explicit bucket configuration, reads `FIREBASE_CONFIG` when available, and only derives a default `${projectId}.appspot.com` bucket while running against Firebase emulators. Live verification now succeeds end to end for the backend analyze path: a fresh Auth emulator user started a session, a valid `.m4a` recording was uploaded into the Storage emulator, `/analyzeRep` returned transcript plus structured feedback, Firestore stored the rep, and the temporary audio object was deleted.
+- Files changed:
+  - `backend/functions/src/db.ts`
+  - `backend/functions/src/firebaseBootstrap.ts`
+  - `backend/functions/test/firebaseBootstrap.test.ts`
+- Tests/checks run:
+  - `cd backend/functions && npm run lint`
+  - `cd backend/functions && npm test`
+  - `cd backend/functions && npm run build`
+  - Restarted `auth`, `functions`, `firestore`, and `storage` emulators with `OPENAI_API_KEY` available to the functions runtime
+  - Generated a known-good local `.m4a` sample and verified direct OpenAI transcription acceptance
+  - Live emulator-backed `/analyzeRep` verification: emulator signup, `/startSession`, Storage-emulator upload, `/analyzeRep`
+  - Firestore/Storage emulator inspection after analyze to verify rep persistence and temp-audio cleanup
+- Acceptance criteria result: Passed for this targeted fix. The emulator-backed analyze path can now read uploaded audio from Storage emulator, transcribe it, generate feedback, persist the rep, and clean up temp audio. Production bootstrap behavior remains explicit-first; the new derived bucket fallback only activates in emulator environments.
+- Risks / follow-ups: The remaining blocker for full M10-V completion is on the iOS side: onboarding progression still fails at the profile-to-focus/dashboard transition, so the full live UI practice loop has not yet been re-verified from the app shell. The bucket fallback assumes the default Firebase Storage bucket naming convention `${projectId}.appspot.com` in emulator mode, which matches the current project setup and was verified live here.
+- Next recommended milestone: Fix the onboarding profile-to-focus/dashboard transition, then rerun M10-V from dashboard through analyze, retry, completion, and recommendation refresh.
 
 ### Template
 #### [Date] - [Milestone ID] - [Title]
@@ -56,6 +92,125 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 - Acceptance criteria result:
 - Risks / follow-ups:
 - Next recommended milestone:
+
+#### 2026-03-07 - M10-V - Live practice loop verification
+- Status: Partial
+- Summary: Verified the local debug stack against the live app/backend path as far as the current environment allowed. The app is correctly pointed at the local Firebase stack, `npx firebase-tools` plus Homebrew OpenJDK 21 were sufficient to start `auth`, `functions`, `firestore`, and `storage`, and the local `/health` endpoint responded successfully. The repaired onboarding UI harness still fails in the same place under live emulators: after tapping `Create account with email`, the app remains on the account screen and never produces a signed-in user or advances to the profile step. On the backend side, live session start and quota behavior were verified with real emulator auth tokens; abandoned full and quick starts did not consume quota, completed quick drills immediately hit the daily quick-drill limit, and a tiny backend transaction-ordering fix was required to make full-session completion succeed and decrement remaining weekly full sessions from `3` to `2`. The analyze/feedback path remains blocked in local verification because the backend requires `OPENAI_API_KEY`, which is not configured in this environment.
+- Files changed:
+  - `backend/functions/src/sessionService.ts`
+  - `ios/Clearify/UITests/ClearifyUITests.swift`
+- Tests/checks run:
+  - `test -n "$OPENAI_API_KEY" && echo OPENAI_API_KEY_PRESENT || echo OPENAI_API_KEY_MISSING`
+  - `npx firebase-tools --version`
+  - `/opt/homebrew/opt/openjdk@21/bin/java -version`
+  - `export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"; export JAVA_HOME="/opt/homebrew/opt/openjdk@21"; npx firebase-tools emulators:start --only auth,functions,firestore,storage`
+  - `curl http://127.0.0.1:5001/clearify-5414d/us-central1/api/health`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-m10v-ui-2.xcresult`
+  - `xcrun xcresulttool export object --legacy --path /Users/rory/Documents/Clarify AI/tmp-m10v-ui-2.xcresult --id <onboarding attachment id> --type file --output-path /Users/rory/Documents/Clarify AI/tmp-onboarding-stuck.txt`
+  - Live emulator-auth session start / completion probes against `/startSession`, `/completeSession`, and `/analyzeRep`
+  - `cd backend/functions && npm run lint`
+  - `cd backend/functions && npm test`
+  - `cd backend/functions && npm run build`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'generic/platform=iOS Simulator' build`
+- Acceptance criteria result: Partial. Environment readiness was recovered and the live backend session/quota path is now verified. Concrete evidence shows: `/health` is live; abandoned starts do not consume quota; completed quick drills consume quota at completion; completed full sessions now consume quota at completion after the transaction fix. The following acceptance criteria remain unverified or blocked: onboarding to dashboard through the live app fails in the email account path, so the app-side full-session start, quick-drill start, retry progression, completion UI, and recommendation refresh after completion could not be exercised; analyze/feedback could not succeed because `OPENAI_API_KEY` is missing, and direct backend invocation confirms that exact external dependency blocker.
+- Risks / follow-ups: The onboarding failure is now classified as a product bug in the local email-auth transition path, not an emulator setup issue. The captured accessibility tree shows the app still on `Create your account` with `Create your account to continue.` after the create-account tap, and a timestamp-range check against the Auth emulator did not find the expected account, which suggests the sign-up did not complete. The analyze/feedback block is an external dependency issue until a valid `OPENAI_API_KEY` is configured or a deliberate local analysis stub is introduced.
+- Next recommended milestone: Fix the local onboarding email-auth transition bug first, then rerun M10-V with a valid `OPENAI_API_KEY` available to the functions emulator.
+
+#### 2026-03-07 - M10-V follow-up - Onboarding email-auth transition
+- Status: Complete
+- Summary: Investigated the local onboarding email account path and confirmed the break was in the account-submission path rather than the downstream dashboard transition. Hardened local Firebase emulator wiring to be idempotent and re-applied before Auth calls, moved `Dependencies` service construction behind explicit init-time wiring, changed the onboarding email action to create-first with existing-account fallback, and updated the account step so the password field resigns focus before validation and the footer `Continue` button attempts account creation when credentials are already entered. Live verification now passes: the repaired onboarding UI test creates a fresh Auth-emulator user, advances through profile and focus, lands on the dashboard, and relaunches back into the app shell without showing onboarding again.
+- Files changed:
+  - `ios/Clearify/Sources/App/ClearifyApp.swift`
+  - `ios/Clearify/Sources/App/Dependencies.swift`
+  - `ios/Clearify/Sources/Services/AuthService.swift`
+  - `ios/Clearify/Sources/Utils/FirebaseEmulatorConfig.swift`
+  - `ios/Clearify/Sources/Views/Onboarding/OnboardingView.swift`
+- Tests/checks run:
+  - Repeated `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard`
+  - `curl -s http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signUp?key=fake-api-key ...` to confirm the Auth emulator itself accepts local email/password signup
+  - `rg -n 'providers/firebase.auth/eventTypes/user.create' firebase-debug.log` to verify whether the live app path reached the Auth emulator
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyTests/OnboardingViewModelTests -only-testing:ClearifyTests/AppStateTests`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'generic/platform=iOS Simulator' build`
+  - `xcrun xcresulttool get test-results summary --path /Users/rory/Documents/Clarify AI/tmp-onboarding-fix-rerun.xcresult`
+- Acceptance criteria result: Passed for this follow-up. Tapping `Create account with email` now creates the local emulator user on valid input, onboarding advances into the authenticated profile/focus flow, the live debug app reaches dashboard/home, and the repaired onboarding UI regression test passes end to end. Error handling also remains product-safe through `UserFacingErrorMessage` mapping rather than raw technical strings.
+- Risks / follow-ups: The onboarding blocker is closed. A system `Save Password?` sheet can appear after account creation during simulator runs, but the repaired flow still reaches profile/dashboard successfully and the regression test passes around it. The brief attempt to move Firebase bootstrap fully into `ClearifyApp.init()` was reverted after a test-run startup crash so the repo is not left with an unverified launch-path refactor.
+- Next recommended milestone: Resume M10-V live practice-loop verification from the authenticated app shell, with a valid `OPENAI_API_KEY` configured so analyze/feedback and retry/completion can be verified end to end.
+
+#### 2026-03-07 - M10-V rerun - Live practice loop verification after onboarding auth fix
+- Status: Partial
+- Summary: Re-ran live local verification after restarting the Firebase emulator stack with a valid `OPENAI_API_KEY` available to the functions worker and confirmed the environment is now ready for local AI-backed checks. Direct live backend verification succeeded for both session-entry modes and quota fairness: two abandoned full-session starts both preserved `remainingFullSessionsThisWeek: 3`, two abandoned quick-drill starts were both allowed, a seeded quick-drill completion immediately caused the next quick-drill start to return `free_quick_drill_limit_reached`, and a seeded full-session completion reduced the next full-session start to `remainingFullSessionsThisWeek: 2`. The rerun also exposed two remaining blockers. First, the live onboarding UI path no longer stalls on account creation, but it still fails to advance from the authenticated profile step to the focus/dashboard step under the repaired UI regression test, so app-side verification of dashboard entry and session launch remains blocked. Second, the live `/analyzeRep` path still fails under the local emulator stack even with `OPENAI_API_KEY` present; direct invocation isolated an emulator-storage configuration problem in backend admin initialization before transcription can succeed reliably in this setup.
+- Files changed:
+  - `ios/Clearify/UITests/ClearifyUITests.swift`
+- Tests/checks run:
+  - `test -n "$OPENAI_API_KEY" && echo OPENAI_API_KEY_PRESENT || echo OPENAI_API_KEY_MISSING`
+  - `ps aux | rg 'firebase|emulators:start|clearify-5414d'`
+  - Restarted `auth`, `functions`, `firestore`, and `storage` emulators with `OPENAI_API_KEY`, OpenJDK 21, and `npx firebase-tools emulators:start --only auth,functions,firestore,storage`
+  - `curl -sf http://127.0.0.1:5001/clearify-5414d/us-central1/api/health`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'generic/platform=iOS Simulator' build`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyUITests/ClearifyUITests/testFullSessionStartsFromDashboard -only-testing:ClearifyUITests/ClearifyUITests/testQuickDrillStartsFromDashboard`
+  - `xcrun simctl shutdown all`
+  - Repeated `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard`
+  - Live emulator-auth probes against `/startSession`, `/completeSession`, and `/analyzeRep` using the current request schema
+  - Direct Firestore-emulator seeding of session reps to verify `/completeSession` and post-completion quota behavior without relying on the broken analyze path
+  - Direct invocation of `backend/functions/lib/src/openaiClient.js` with emulator env vars to isolate the analyze-path failure
+- Acceptance criteria result: Partial. Environment readiness is now satisfied: the required emulators are running and the functions worker has `OPENAI_API_KEY`. Live backend verification now covers full-session start, quick-drill start, abandoned-start fairness, and completion-based quota consumption for both modes. The following paths are still not verified end to end through the live app: onboarding to dashboard/home, record/upload/analyze/feedback, retry progression, successful completion UI, and recommendation refresh after completion.
+- Risks / follow-ups: There are now two distinct blockers. Product bug: the live onboarding UI path still fails after authenticated account creation because the app does not advance from the profile step to the focus/dashboard step under repeated UI test runs, even though the account is created successfully. Product bug: the backend analyze path still fails in the emulator-backed stack because `storage.bucket()` is not reliably configured under the current admin bootstrap, preventing the local analyze flow from completing. Test harness issue: one intermediate UI rerun hit a simulator `Mach error -308`; after a simulator reset the failure reproduced as the profile-to-focus product issue instead of a launch crash. A direct OpenAI transcription call with the ad hoc generated sample audio also returned `Audio file might be corrupted or unsupported`, so that sample is not valid proof of a successful analyze loop.
+- Next recommended milestone: Fix the live onboarding profile-to-focus/dashboard transition first, then fix the backend emulator analyze-path storage configuration and rerun M10-V from the dashboard through analyze, retry, completion, and recommendation refresh.
+
+#### 2026-03-07 - M10-V follow-up - Onboarding profile-to-focus transition
+- Status: Partial
+- Summary: Investigated the live onboarding blocker past authenticated account creation. The account-creation path still succeeds, but the next onboarding transition remains unstable because the profile step depends on transient onboarding-step and draft-name state while the root view is rehydrating around auth changes. I applied three narrow hardening changes: extracted a shared preferred-name resolver so onboarding and profile completion can reuse the same auth/display/email fallback; gave the onboarding footer step-specific accessibility identifiers so the UI regression hits the actual profile CTA instead of a generic `Continue`; and persisted the in-progress onboarding step plus rehydrated the profile draft whenever the flow re-enters `.profile`. Focused onboarding/app-state unit tests still pass, but the live onboarding UI regression remains blocked: after the authenticated profile CTA tap, `onboarding.footer.focus` still does not appear reliably in the simulator-backed run.
+- Files changed:
+  - `ios/Clearify/Sources/Services/UserProfileService.swift`
+  - `ios/Clearify/Sources/Views/Onboarding/OnboardingView.swift`
+  - `ios/Clearify/Tests/OnboardingViewModelTests.swift`
+  - `ios/Clearify/UITests/ClearifyUITests.swift`
+- Tests/checks run:
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyTests/OnboardingViewModelTests -only-testing:ClearifyTests/AppStateTests`
+  - Repeated `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard`
+  - Attempted `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'generic/platform=iOS Simulator' build`
+- Acceptance criteria result: Partial. The focused onboarding/app-state tests pass, and the live UI harness is now targeting the actual onboarding CTA controls instead of generic button labels. The primary acceptance criterion is still not met: the local emulator-backed UI flow does not yet reach the focus/dashboard step after authenticated profile submission, so dashboard/home remains unverified through the live onboarding UI path.
+- Risks / follow-ups: Root cause is narrowed but not fully eliminated. The live failure no longer looks like stale button targeting; it now points at onboarding progression state itself, likely around the interaction between auth-triggered root rehydration and profile-step draft/step persistence. One later rerun also hit a UITest runner restart (`Executed 0 tests`) after a simulator relaunch, so there is still some harness instability alongside the product-state issue. The generic simulator build was started but not allowed to finish after the repeated live UI failures consumed the available verification window.
+- Next recommended milestone: Continue the onboarding profile-to-focus investigation with concrete live state capture at the moment of profile submission, then rerun the onboarding UI regression before resuming the broader M10-V practice-loop verification.
+
+#### 2026-03-07 - AuditV2 - Focused hardening pass
+- Status: Complete
+- Summary: Closed the highest-risk remaining audit findings without broad redesign. Device-local favorites, saved answers, and archive state are now partitioned by authenticated user ID; saved answers now persist durable local snapshots beyond rolling archive pruning; Home, Progress, and completion recommendations now resolve against the unified scenario source with Firestore updates able to influence recommendations; full-session quota usage now increments on completion instead of session start to match quick drills; and the identified onboarding, settings, account-linking, scenario-library, and generic API surfaces now map failures to product-safe copy instead of surfacing raw technical descriptions.
+- Files changed:
+  - `backend/functions/src/sessionService.ts`
+  - `backend/functions/test/sessionService.test.ts`
+  - `docs/state-ownership-contract.md`
+  - `ios/Clearify/Clearify.xcodeproj/project.pbxproj`
+  - `ios/Clearify/Sources/Networking/APIClient.swift`
+  - `ios/Clearify/Sources/Services/FavoriteScenarioStore.swift`
+  - `ios/Clearify/Sources/Services/LocalPracticeStore.swift`
+  - `ios/Clearify/Sources/Services/SavedAnswerStore.swift`
+  - `ios/Clearify/Sources/Services/ScenarioRepository.swift`
+  - `ios/Clearify/Sources/Services/UserFacingErrorMessage.swift`
+  - `ios/Clearify/Sources/ViewModels/HomeViewModel.swift`
+  - `ios/Clearify/Sources/ViewModels/PracticeSessionViewModel.swift`
+  - `ios/Clearify/Sources/ViewModels/ProgressViewModel.swift`
+  - `ios/Clearify/Sources/ViewModels/ScenarioLibraryViewModel.swift`
+  - `ios/Clearify/Sources/Views/Onboarding/OnboardingView.swift`
+  - `ios/Clearify/Sources/Views/Practice/PracticeSessionView.swift`
+  - `ios/Clearify/Sources/Views/Profile/AccountLinkView.swift`
+  - `ios/Clearify/Sources/Views/Profile/ProfileSettingsView.swift`
+  - `ios/Clearify/Sources/Views/Progress/ProgressViewScreen.swift`
+  - `ios/Clearify/Tests/LocalPersistenceStoresTests.swift`
+  - `ios/Clearify/Tests/ScenarioRepositoryTests.swift`
+  - `ios/Clearify/Tests/UserFacingErrorMessageTests.swift`
+- Tests/checks run:
+  - `cd backend/functions && npm test`
+  - `cd backend/functions && npm run lint`
+  - `cd backend/functions && npm run build`
+  - `xcodegen generate` in `ios/Clearify`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'generic/platform=iOS Simulator' build`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:ClearifyTests`
+  - `rg -n "localizedDescription|Request failed \\(" ios/Clearify/Sources backend/functions/src`
+- Acceptance criteria result: Passed for this hardening pass. Device-local artifacts no longer cross user boundaries on sign-out/sign-in, saved answers remain accessible after normal archive pruning, remote Firestore scenarios now influence recommendation surfaces through the shared resolver, full sessions and quick drills now consume quota at the same lifecycle point, and the identified user surfaces no longer lead with raw technical error strings.
+- Risks / follow-ups: Legacy device-local favorites, saved answers, and archive data had no owner metadata, so the narrow safe migration assigns pre-existing local data to the first authenticated user who opens the upgraded app on that device. Full-session quota fairness is now aligned at completion time, but live end-to-end verification of the record/analyze/complete loop still remains open.
+- Next recommended milestone: M10-V — Live practice loop verification
 
 #### 2026-03-06 - M1 - Brand consistency cleanup
 - Status: Complete
@@ -454,6 +609,16 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 - Reason: The audit follow-up required proving whether the local Firebase stack could run. After installing Java, the emulators started successfully and the Functions health endpoint responded. Direct signup against the Auth emulator also succeeded, which means the remaining failure is no longer caused by missing local runtime dependencies.
 - Impact: The next follow-up should focus on the app's local onboarding/auth transition path so the dashboard and real session loop can be verified end-to-end.
 
+- Date: 2026-03-07
+- Decision: Migrate legacy unscoped local favorites, saved answers, and archive data into the first authenticated user's device-local scope on upgrade.
+- Reason: The legacy device-local stores did not record ownership metadata, so reconstructing the original account owner is impossible. Assigning that data to the first authenticated user is the narrowest safe migration that preserves existing local data without continuing cross-account leakage.
+- Impact: Pre-upgrade local artifacts remain available on-device after upgrade, but only within the first post-upgrade signed-in account on that device.
+
+- Date: 2026-03-07
+- Decision: Charge free full-session quota on successful completion rather than at session start.
+- Reason: Quick drills already consume quota on completion, and charging full sessions at start created an avoidably unfair loss for abandoned starts. Moving both modes to the same lifecycle point is the narrowest consistency fix without redesigning entitlement policy.
+- Impact: Quota behavior is now fairer and internally consistent across practice modes, while live end-to-end verification of the session loop remains a separate follow-up.
+
 ---
 
 ## Current repo truths
@@ -463,10 +628,10 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 
 ### Persistence
 - Profile: Firestore-backed with local cache fallback
-- Sessions: backend-owned remote model with local archive fallback
+- Sessions: backend-owned remote model with per-user local archive fallback
 - Reps: backend-owned
-- Favorites: device-local starred prompts
-- Saved answers: device-local local-archive state
+- Favorites: per-user device-local starred prompts
+- Saved answers: per-user device-local durable snapshots
 - Full ownership contract: `docs/state-ownership-contract.md`
 
 ### Entitlements
@@ -487,4 +652,31 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 ---
 
 ## Next up
-- M10-V — Live practice loop verification
+- Continue the onboarding profile-to-focus/dashboard investigation from the still-failing live UI path, focusing on why the visible profile footer remains non-hittable / non-advancing under repeated simulator runs, then rerun M10-V through dashboard and the already-verified backend analyze path
+
+## Execution log
+
+### 2026-03-07 - M10-V follow-up - Onboarding profile-to-focus/dashboard stability
+- Scope: targeted product-bug fix attempt for the unstable onboarding profile-to-focus/dashboard transition in the live UI flow.
+- Root cause found:
+  - The profile step still fails to advance reliably in the simulator-backed UI flow even after auth succeeds and the real profile step is visible.
+  - New accessibility captures show the app remains on `Set up your profile` after the footer tap, not on the focus step.
+  - The footer interaction is unstable because the profile CTA is visible but still not considered hittable by XCUITest during repeated runs, which suggests an unresolved layout / hit-testing interaction rather than a backend or auth blocker.
+- Changes attempted:
+  - Preserved in-progress onboarding draft state for authenticated users with no remote profile yet by stopping `AppState.hydrate()` from wiping partial onboarding state.
+  - Added a forward-only authenticated onboarding progress marker in `OnboardingView` so auth-driven view rebuilds do not intentionally regress `.focus` back to `.profile`.
+  - Refactored the setup footer out of the scrolling content and removed the unnecessary async hop for intro/account/profile footer taps so local step transitions happen synchronously on the main thread.
+  - Added richer UI-test attachment capture for the post-profile stuck state.
+- Tests/checks run:
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing:ClearifyTests/OnboardingViewModelTests -only-testing:ClearifyTests/AppStateTests`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-stability-1.xcresult`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-stability-2.xcresult`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-stability-3.xcresult`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test -only-testing:ClearifyUITests/ClearifyUITests/testOnboardingCompletesOnceAndReturnsToDashboard -resultBundlePath /Users/rory/Documents/Clarify AI/tmp-onboarding-stability-4.xcresult`
+- What is now verified:
+  - Authenticated account creation is still healthy.
+  - Focused onboarding/app-state unit tests pass, including a new regression that preserves in-progress onboarding draft state during authenticated hydration with no remote profile.
+- What remains blocked:
+  - The live UI path still does not advance deterministically from profile to focus/dashboard.
+  - Repeated onboarding UI runs remain blocked at the same profile-step transition, so broader session-entry UI verification is still not complete.
+  - Backend live analyze/quota verification remains complete from the prior M10-V rerun; the remaining blocker is client-side onboarding stability.
