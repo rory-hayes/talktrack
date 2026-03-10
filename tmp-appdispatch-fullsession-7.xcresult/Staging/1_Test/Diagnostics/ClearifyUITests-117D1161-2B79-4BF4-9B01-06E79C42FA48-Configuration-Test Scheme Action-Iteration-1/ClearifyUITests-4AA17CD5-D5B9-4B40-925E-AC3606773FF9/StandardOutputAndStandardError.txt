@@ -1,0 +1,4 @@
+
+
+*** If you believe this error represents a bug, please attach the result bundle at /Users/rory/Documents/Clarify AI/tmp-appdispatch-fullsession-7.xcresult
+

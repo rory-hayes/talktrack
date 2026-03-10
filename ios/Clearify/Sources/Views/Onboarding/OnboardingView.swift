@@ -15,6 +15,7 @@ struct OnboardingView: View {
     @State private var password = ""
     @State private var isAuthenticating = false
     @State private var authMessage: String?
+    @State private var lastFooterTapTimestamp: CFTimeInterval = 0
     @FocusState private var focusedAccountField: AccountField?
 
     private let dependencies: Dependencies
@@ -61,15 +62,18 @@ struct OnboardingView: View {
                     }
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             } else {
-                VStack(spacing: 0) {
+                ZStack(alignment: .bottom) {
                     setupFlow
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                        .clipped()
+                        .padding(.bottom, setupFooterReservedHeight)
+                        .mask(Rectangle())
+                        .zIndex(0)
 
-                    footer
+                    fixedSetupFooter
                         .padding(.horizontal, 20)
                         .padding(.top, 10)
                         .padding(.bottom, 20)
+                        .zIndex(1)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 26)
@@ -211,6 +215,8 @@ struct OnboardingView: View {
             }
             .padding(.bottom, 24)
         }
+        .contentShape(Rectangle())
+        .clipped()
     }
 
     private var topBar: some View {
@@ -465,11 +471,52 @@ struct OnboardingView: View {
         }
     }
 
-    private var footer: some View {
-        VStack(alignment: .leading, spacing: 10) {
+    private var fixedSetupFooter: some View {
+        ZStack(alignment: .top) {
+            footerContent
+                .allowsHitTesting(false)
+
             Button {
                 handleFooterTap()
             } label: {
+                Color.black.opacity(0.001)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: setupFooterReservedHeight)
+            }
+            .buttonStyle(.plain)
+            .contentShape(Rectangle())
+            .highPriorityGesture(
+                TapGesture().onEnded {
+                    handleFooterTap()
+                }
+            )
+            .accessibilityIdentifier(step.footerAccessibilityIdentifier)
+            .accessibilityLabel(step.ctaTitle)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private var footer: some View {
+        Button {
+            handleFooterTap()
+        } label: {
+            footerContent
+        }
+        .frame(maxWidth: .infinity)
+        .buttonStyle(.plain)
+        .contentShape(Rectangle())
+        .highPriorityGesture(
+            TapGesture().onEnded {
+                handleFooterTap()
+            }
+        )
+        .accessibilityIdentifier(step.footerAccessibilityIdentifier)
+        .accessibilityLabel(step.ctaTitle)
+    }
+
+    private var footerContent: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Group {
                 if viewModel.isSubmitting {
                     ProgressView()
                         .tint(step.isIntro ? TalkTrackTheme.indigo : Color.white)
@@ -480,10 +527,10 @@ struct OnboardingView: View {
                         .font(.system(size: 20, weight: .bold, design: .rounded))
                         .foregroundStyle(step.isIntro ? TalkTrackTheme.indigo : Color.white)
                         .frame(maxWidth: .infinity)
-                    .padding(.vertical, 18)
+                        .padding(.vertical, 18)
                 }
             }
-            .accessibilityIdentifier(step.footerAccessibilityIdentifier)
+            .contentShape(Capsule())
             .background(step.isIntro ? Color.white : TalkTrackTheme.indigo, in: Capsule())
             .shadow(color: Color.black.opacity(0.08), radius: 18, y: 10)
 
@@ -494,6 +541,7 @@ struct OnboardingView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
             }
         }
+        .frame(maxWidth: .infinity)
     }
 
     private var topBarSymbol: String {
@@ -529,6 +577,10 @@ struct OnboardingView: View {
                 .padding(1)
             }
         }
+    }
+
+    private var setupFooterReservedHeight: CGFloat {
+        step.footerNote.isEmpty ? 108 : 152
     }
 
     private func restoreAuthenticatedProgress(reason: String) {
@@ -788,6 +840,12 @@ struct OnboardingView: View {
     }
 
     private func handleFooterTap() {
+        let now = CACurrentMediaTime()
+        if now - lastFooterTapTimestamp < 0.35 {
+            onboardingDebug.record("footer_tap_ignored reason=debounced step=\(step.debugName)")
+            return
+        }
+        lastFooterTapTimestamp = now
         onboardingDebug.record("footer_tap_enter step=\(step.debugName)")
         syncDebugState()
 

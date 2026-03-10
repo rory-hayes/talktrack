@@ -66,10 +66,7 @@ final class ClearifyUITests: XCTestCase {
         enterText("Audit123", into: app.secureTextFields["Password"])
         tap(button: app.buttons["Create account with email"])
 
-        let notNowButton = app.buttons["Not Now"]
-        if notNowButton.waitForExistence(timeout: 5) {
-            notNowButton.tap()
-        }
+        dismissPasswordPromptIfPresent(app: app)
 
         let accountContinueButton = app.buttons["onboarding.footer.account"]
         if !app.textFields["First name"].waitForExistence(timeout: 3), accountContinueButton.waitForExistence(timeout: 3) {
@@ -93,7 +90,7 @@ final class ClearifyUITests: XCTestCase {
         }
 
         dismissKeyboardIfNeeded(in: app)
-        tap(button: app.buttons["onboarding.footer.profile"])
+        tap(button: app.buttons["onboarding.footer.profile"], allowsScrollRecovery: false, hittableTimeout: 4)
 
         let dashboardButton = app.buttons["onboarding.footer.focus"]
         if !dashboardButton.waitForExistence(timeout: 10) {
@@ -102,13 +99,18 @@ final class ClearifyUITests: XCTestCase {
         }
         XCTAssertTrue(dashboardButton.waitForExistence(timeout: 10), "Expected focus step")
         attachOnboardingDebugState(of: app, named: "onboarding-debug-before-focus-tap")
-        tap(button: dashboardButton)
+        tap(button: dashboardButton, allowsScrollRecovery: false, hittableTimeout: 4)
     }
 
-    private func tap(button: XCUIElement, timeout: TimeInterval = 10) {
+    private func tap(
+        button: XCUIElement,
+        timeout: TimeInterval = 10,
+        allowsScrollRecovery: Bool = true,
+        hittableTimeout: TimeInterval = 2
+    ) {
         XCTAssertTrue(button.waitForExistence(timeout: timeout), "Missing button: \(button)")
-        waitForHittable(button)
-        if !button.isHittable {
+        waitForHittable(button, timeout: hittableTimeout)
+        if allowsScrollRecovery && !button.isHittable {
             let app = XCUIApplication()
             for _ in 0..<4 where !button.isHittable {
                 app.swipeUp()
@@ -118,6 +120,31 @@ final class ClearifyUITests: XCTestCase {
             button.tap()
         } else {
             button.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        }
+    }
+
+    private func dismissPasswordPromptIfPresent(app: XCUIApplication, timeout: TimeInterval = 8) {
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let deadline = Date().addingTimeInterval(timeout)
+
+        while Date() < deadline {
+            let candidates = [
+                app.buttons["Not Now"],
+                springboard.buttons["Not Now"],
+                springboard.alerts.buttons["Not Now"],
+                springboard.sheets.buttons["Not Now"]
+            ]
+
+            if let button = candidates.first(where: \.exists) {
+                if button.isHittable {
+                    button.tap()
+                } else {
+                    button.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                }
+                return
+            }
+
+            RunLoop.current.run(until: Date().addingTimeInterval(0.25))
         }
     }
 
@@ -166,6 +193,18 @@ final class ClearifyUITests: XCTestCase {
         let focusFooter = app.buttons["onboarding.footer.focus"]
         let attachment = XCTAttachment(
             string: """
+            summary=\(summary)
+            events=
+            \(events)
+            profileFooter.exists=\(profileFooter.exists)
+            profileFooter.hittable=\(profileFooter.isHittable)
+            focusFooter.exists=\(focusFooter.exists)
+            focusFooter.hittable=\(focusFooter.isHittable)
+            """
+        )
+        print(
+            """
+            ONBOARDING_TEST_DEBUG name=\(name)
             summary=\(summary)
             events=
             \(events)

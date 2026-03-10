@@ -1,0 +1,148 @@
+Feb 27 17:34:08 Rorys-MacBook-Air bootlog[0]: BOOT_TIME 1772213648 127745
+Mar  6 16:40:07 Rorys-MacBook-Air syslogd[25936]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  6 17:30:22 Rorys-MacBook-Air syslogd[65300]: --- syslogd restarted ---
+Mar  6 17:30:22 Rorys-MacBook-Air syslogd[65300]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 15:26:19 Rorys-Air syslogd[67211]: --- syslogd restarted ---
+Mar  7 15:26:19 Rorys-Air syslogd[67211]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 15:36:13 Rorys-Air syslogd[79332]: --- syslogd restarted ---
+Mar  7 15:36:13 Rorys-Air syslogd[79332]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 15:38:06 Rorys-Air syslogd[79912]: --- syslogd restarted ---
+Mar  7 15:38:06 Rorys-Air syslogd[79912]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 16:01:06 Rorys-Air syslogd[2536]: --- syslogd restarted ---
+Mar  7 16:01:06 Rorys-Air syslogd[2536]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 16:06:03 Rorys-Air syslogd[6571]: --- syslogd restarted ---
+Mar  7 16:06:03 Rorys-Air syslogd[6571]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 16:48:45 Rorys-Air syslogd[41698]: --- syslogd restarted ---
+Mar  7 16:48:45 Rorys-Air syslogd[41698]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 16:53:03 Rorys-Air syslogd[44613]: --- syslogd restarted ---
+Mar  7 16:53:03 Rorys-Air syslogd[44613]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 16:55:15 Rorys-Air syslogd[45951]: --- syslogd restarted ---
+Mar  7 16:55:15 Rorys-Air syslogd[45951]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 17:00:33 Rorys-Air syslogd[50031]: --- syslogd restarted ---
+Mar  7 17:00:33 Rorys-Air syslogd[50031]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 17:04:38 Rorys-Air syslogd[54878]: --- syslogd restarted ---
+Mar  7 17:04:38 Rorys-Air syslogd[54878]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 22:00:19 Rorys-Air syslogd[66112]: --- syslogd restarted ---
+Mar  7 22:00:19 Rorys-Air syslogd[66112]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 22:05:18 Rorys-Air syslogd[97275]: --- syslogd restarted ---
+Mar  7 22:05:18 Rorys-Air syslogd[97275]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 22:15:55 Rorys-Air syslogd[71419]: --- syslogd restarted ---
+Mar  7 22:15:55 Rorys-Air syslogd[71419]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 22:17:17 Rorys-Air syslogd[72417]: --- syslogd restarted ---
+Mar  7 22:17:17 Rorys-Air syslogd[72417]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 22:21:28 Rorys-Air syslogd[74791]: --- syslogd restarted ---
+Mar  7 22:21:28 Rorys-Air syslogd[74791]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 22:25:26 Rorys-Air syslogd[76857]: --- syslogd restarted ---
+Mar  7 22:25:26 Rorys-Air syslogd[76857]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  7 22:28:53 Rorys-Air syslogd[13182]: --- syslogd restarted ---
+Mar  7 22:28:53 Rorys-Air syslogd[13182]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 09:58:17 Rorys-Air syslogd[92568]: --- syslogd restarted ---
+Mar  8 09:58:17 Rorys-Air syslogd[92568]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 19:23:18 Rorys-MacBook-Air syslogd[65385]: --- syslogd restarted ---
+Mar  8 19:23:18 Rorys-MacBook-Air syslogd[65385]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 19:25:07 Rorys-MacBook-Air syslogd[82699]: --- syslogd restarted ---
+Mar  8 19:25:07 Rorys-MacBook-Air syslogd[82699]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 19:27:25 Rorys-MacBook-Air syslogd[92333]: --- syslogd restarted ---
+Mar  8 19:27:25 Rorys-MacBook-Air syslogd[92333]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 19:52:27 Rorys-MacBook-Air syslogd[70008]: --- syslogd restarted ---
+Mar  8 19:52:27 Rorys-MacBook-Air syslogd[70008]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 19:54:56 Rorys-MacBook-Air syslogd[70828]: --- syslogd restarted ---
+Mar  8 19:54:56 Rorys-MacBook-Air syslogd[70828]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 19:58:56 Rorys-MacBook-Air syslogd[72253]: --- syslogd restarted ---
+Mar  8 19:58:56 Rorys-MacBook-Air syslogd[72253]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:03:32 Rorys-MacBook-Air syslogd[73670]: --- syslogd restarted ---
+Mar  8 20:03:32 Rorys-MacBook-Air syslogd[73670]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:08:04 Rorys-MacBook-Air syslogd[75282]: --- syslogd restarted ---
+Mar  8 20:08:04 Rorys-MacBook-Air syslogd[75282]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:10:38 Rorys-MacBook-Air syslogd[76185]: --- syslogd restarted ---
+Mar  8 20:10:38 Rorys-MacBook-Air syslogd[76185]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:12:39 Rorys-MacBook-Air syslogd[76904]: --- syslogd restarted ---
+Mar  8 20:12:39 Rorys-MacBook-Air syslogd[76904]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:16:06 Rorys-MacBook-Air syslogd[78097]: --- syslogd restarted ---
+Mar  8 20:16:06 Rorys-MacBook-Air syslogd[78097]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:17:18 Rorys-MacBook-Air syslogd[78649]: --- syslogd restarted ---
+Mar  8 20:17:18 Rorys-MacBook-Air syslogd[78649]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:19:58 Rorys-MacBook-Air syslogd[79686]: --- syslogd restarted ---
+Mar  8 20:19:58 Rorys-MacBook-Air syslogd[79686]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:21:46 Rorys-MacBook-Air syslogd[80445]: --- syslogd restarted ---
+Mar  8 20:21:46 Rorys-MacBook-Air syslogd[80445]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:23:31 Rorys-MacBook-Air syslogd[81176]: --- syslogd restarted ---
+Mar  8 20:23:31 Rorys-MacBook-Air syslogd[81176]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:26:10 Rorys-MacBook-Air syslogd[16743]: --- syslogd restarted ---
+Mar  8 20:26:10 Rorys-MacBook-Air syslogd[16743]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.
+Mar  8 20:48:23 Rorys-MacBook-Air syslogd[61712]: --- syslogd restarted ---
+Mar  8 20:48:23 Rorys-MacBook-Air syslogd[61712]: Configuration Notice:
+	ASL Module "com.apple.contacts.ContactsAutocomplete" claims selected messages.
+	Those messages may not appear in standard system log files or in the ASL database.

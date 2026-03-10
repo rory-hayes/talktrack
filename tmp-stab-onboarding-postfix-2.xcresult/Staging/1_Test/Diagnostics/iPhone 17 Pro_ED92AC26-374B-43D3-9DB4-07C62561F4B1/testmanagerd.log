@@ -1,0 +1,56 @@
+21:01:01.122 xcodebuild[42878:12863948] Got a sim device notification for iPhone 17 Pro: {
+    notification = "availableDevices_changed";
+}
+21:01:01.122 xcodebuild[42878:12863948] Got a sim device notification for iPhone 17 Pro: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-08 21:01:01 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+21:01:01.122 xcodebuild[42878:12863948] Sim iPhone 17 Pro state changed to 2
+21:01:01.122 xcodebuild[42878:12863948] Got a sim device notification for iPhone 17 Pro: {
+    "SimDeviceNotification_NewBootStatus" = "SimDeviceBootInfo { status = 0 (Booting), elapsed = 0.000000, isTerminal = 0, info = (null) }";
+    "SimDeviceNotification_PreviousBootStatus" = "SimDeviceBootInfo { status = 4294967295 (Finished), elapsed = 0.000000, isTerminal = 1, info = (null) }";
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    notification = "SimDeviceNotificationType_BootStatus";
+}
+21:01:01.356 xcodebuild[42878:12863965] Got a sim device notification for iPhone 17 Pro: {
+    notification = "availableDevices_changed";
+}
+21:01:01.356 xcodebuild[42878:12863965] Got a sim device notification for iPhone 17 Pro: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+21:01:01.356 xcodebuild[42878:12863965] Sim iPhone 17 Pro state changed to 3
+21:01:01.356 xcodebuild[42878:12863965] Sim iPhone 17 Pro: Unregistering for sim device notification with token 3
+21:01:01.356 xcodebuild[42878:12863965] Calling -[SimDevice getenv:error:] for TESTMANAGERD_SIM_SOCK
+21:01:01.357 xcodebuild[42878:12863965] Sim iPhone 17 Pro is booted but getenv returned nil for test connection socket path; getenv error: Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory".
+ Will retry in 1s (1 attempts so far).
+21:01:02.419 xcodebuild[42878:12864492] Calling -[SimDevice getenv:error:] for TESTMANAGERD_SIM_SOCK
+21:01:02.421 xcodebuild[42878:12864492] Sim iPhone 17 Pro has testmanagerd socket at /private/tmp/com.apple.launchd.2n6xqeSiPt/com.apple.testmanagerd.unix-domain.socket
+21:01:02.422 xcodebuild[42878:12864492] Validating test connection socket path (/private/tmp/com.apple.launchd.2n6xqeSiPt/com.apple.testmanagerd.unix-domain.socket)
+21:01:02.422 xcodebuild[42878:12864492] Constructing transport for test connection socket
+21:01:02.422 xcodebuild[42878:12864492] Connected socket 38 to testmanagerd for Sim iPhone 17 Pro
+21:01:02.422 xcodebuild[42878:12864492] Initiating control session with IDE capabilities: <XCTCapabilities: 0x12df34ef0>: {
+}
+21:01:05.363 xcodebuild[42878:12863965] Got reply to control session initiation request (result:error): <XCTCapabilities: 0x12de22390>: {
+    "authorize test session capability" = 1;
+    "automation mode" = 1;
+    "daemon container sandbox extension" = 1;
+    "initiate daemon control session capability" = 4;
+    "initiate test runner session capability" = 2;
+    "record UI interaction capability" = 2;
+    "recording events as source code" = 1;
+    "report crashes capability" = 1;
+    "request log archive capability" = 1;
+    "supports delayed attachment transfers" = 1;
+}: (null)
+21:01:05.364 xcodebuild[42878:12863965] Requesting crash report collection for process names: ClearifyUITests, runningboardd, FrontBoard, assertiond, SpringBoard, xctest, debugserver, backboardd, DTServiceHub, Clearify, ClearifyUITests-Runner, testmanagerd
+21:01:05.459 xcodebuild[42878:12864492] Got reply to crash report collection request (error: (null))
+21:01:42.788 xcodebuild[42878:12868000] Requesting authorization for pid 43248
+21:01:42.792 xcodebuild[42878:12868000] Got reply to authorization request for pid 43248 (result:error): 1: (null)
+21:03:06.431 xcodebuild[42878:12870529] <XCTDaemonControlSession: 0x12de29980> lost connection to daemon
+21:03:06.432 xcodebuild[42878:12870484] Closing socket 38 to testmanagerd for Sim iPhone 17 Pro

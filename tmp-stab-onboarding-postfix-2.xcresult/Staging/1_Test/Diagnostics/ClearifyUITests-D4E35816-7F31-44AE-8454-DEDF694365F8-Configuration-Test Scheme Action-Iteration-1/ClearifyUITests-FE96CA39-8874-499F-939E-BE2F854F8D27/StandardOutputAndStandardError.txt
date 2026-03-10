@@ -1,0 +1,262 @@
+2026-03-08 21:01:42.232427+0000 ClearifyUITests-Runner[43248:12868917] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-03-08 21:01:58.950.
+Test Suite 'ClearifyUITests.xctest' started at 2026-03-08 21:01:58.951.
+Test Suite 'ClearifyUITests' started at 2026-03-08 21:01:58.951.
+Test Case '-[ClearifyUITests.ClearifyUITests testOnboardingCompletesOnceAndReturnsToDashboard]' started.
+    t =     0.00s Start Test at 2026-03-08 21:01:58.952
+    t =     0.22s Set Up
+    t =     0.22s Open com.tuesday.clearify
+    t =     0.22s     Launch com.tuesday.clearify
+    t =     3.59s         Setting up automation session
+    t =     6.50s         Wait for com.tuesday.clearify to idle
+    t =     8.47s Waiting 10.0s for "onboarding.footer.introPractice" Button to exist
+    t =     9.51s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.introPractice" Button`
+    t =     9.51s         Checking existence of `"onboarding.footer.introPractice" Button`
+    t =     9.61s Find the "onboarding.footer.introPractice" Button
+    t =     9.68s Find the "onboarding.footer.introPractice" Button
+    t =     9.72s Find the "onboarding.footer.introPractice" Button
+    t =     9.78s Tap "onboarding.footer.introPractice" Button
+    t =     9.78s     Wait for com.tuesday.clearify to idle
+    t =     9.78s     Find the "onboarding.footer.introPractice" Button
+    t =     9.81s     Check for interrupting elements affecting "onboarding.footer.introPractice" Button
+    t =     9.85s     Synthesize event
+    t =    10.28s     Wait for com.tuesday.clearify to idle
+    t =    10.41s Waiting 10.0s for "onboarding.footer.introCoach" Button to exist
+    t =    11.44s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.introCoach" Button`
+    t =    11.45s         Checking existence of `"onboarding.footer.introCoach" Button`
+    t =    11.47s Find the "onboarding.footer.introCoach" Button
+    t =    11.52s Find the "onboarding.footer.introCoach" Button
+    t =    11.57s Find the "onboarding.footer.introCoach" Button
+    t =    11.62s Tap "onboarding.footer.introCoach" Button
+    t =    11.62s     Wait for com.tuesday.clearify to idle
+    t =    11.63s     Find the "onboarding.footer.introCoach" Button
+    t =    11.66s     Check for interrupting elements affecting "onboarding.footer.introCoach" Button
+    t =    11.69s     Synthesize event
+    t =    12.02s     Wait for com.tuesday.clearify to idle
+    t =    12.19s Waiting 10.0s for "onboarding.footer.introProgress" Button to exist
+    t =    13.24s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.introProgress" Button`
+    t =    13.24s         Checking existence of `"onboarding.footer.introProgress" Button`
+    t =    13.27s Find the "onboarding.footer.introProgress" Button
+    t =    13.32s Find the "onboarding.footer.introProgress" Button
+    t =    13.36s Find the "onboarding.footer.introProgress" Button
+    t =    13.41s Tap "onboarding.footer.introProgress" Button
+    t =    13.41s     Wait for com.tuesday.clearify to idle
+    t =    13.41s     Find the "onboarding.footer.introProgress" Button
+    t =    13.44s     Check for interrupting elements affecting "onboarding.footer.introProgress" Button
+    t =    13.47s     Synthesize event
+    t =    13.78s     Wait for com.tuesday.clearify to idle
+    t =    13.80s Waiting 10.0s for "Email" TextField to exist
+    t =    14.83s     Checking `Expect predicate `existsNoRetry == 1` for object "Email" TextField`
+    t =    14.83s         Checking existence of `"Email" TextField`
+    t =    14.87s Waiting 10.0s for "Email" TextField to exist
+    t =    15.89s     Checking `Expect predicate `existsNoRetry == 1` for object "Email" TextField`
+    t =    15.89s         Checking existence of `"Email" TextField`
+    t =    15.91s Tap "Email" TextField
+    t =    15.91s     Wait for com.tuesday.clearify to idle
+    t =    15.91s     Find the "Email" TextField
+    t =    15.93s     Check for interrupting elements affecting "Email" TextField
+    t =    15.95s     Synthesize event
+    t =    16.25s     Wait for com.tuesday.clearify to idle
+    t =    16.83s Type 'audit.e2e+17730037...' into "Email" TextField
+    t =    16.83s     Wait for com.tuesday.clearify to idle
+    t =    17.19s     Find the "Email" TextField
+    t =    17.30s     Check for interrupting elements affecting "Email" TextField
+    t =    17.36s     Synthesize event
+    t =    18.12s     Wait for com.tuesday.clearify to idle
+    t =    18.13s Waiting 10.0s for "Password" SecureTextField to exist
+    t =    19.16s     Checking `Expect predicate `existsNoRetry == 1` for object "Password" SecureTextField`
+    t =    19.16s         Checking existence of `"Password" SecureTextField`
+    t =    19.20s Tap "Password" SecureTextField
+    t =    19.20s     Wait for com.tuesday.clearify to idle
+    t =    19.21s     Find the "Password" SecureTextField
+    t =    19.25s     Check for interrupting elements affecting "Password" SecureTextField
+    t =    19.31s     Synthesize event
+    t =    19.34s         Scroll element to visible
+    t =    19.34s         Find the "Password" SecureTextField
+    t =    19.40s         Computed hit point {201, 278.16666666666663} after scrolling to visible
+    t =    19.70s     Wait for com.tuesday.clearify to idle
+    t =    19.80s Type '<redacted>' into "Password" SecureTextField
+    t =    19.80s     Wait for com.tuesday.clearify to idle
+    t =    20.20s     Find the "Password" SecureTextField
+    t =    20.26s     Check for interrupting elements affecting "Password" SecureTextField
+    t =    20.32s     Synthesize event
+    t =    20.68s     Wait for com.tuesday.clearify to idle
+    t =    20.71s Waiting 10.0s for "Create account with email" Button to exist
+    t =    21.74s     Checking `Expect predicate `existsNoRetry == 1` for object "Create account with email" Button`
+    t =    21.74s         Checking existence of `"Create account with email" Button`
+    t =    21.78s Find the "Create account with email" Button
+    t =    21.82s Find the "Create account with email" Button
+    t =    21.86s Find the "Create account with email" Button
+    t =    21.90s Tap "Create account with email" Button
+    t =    21.90s     Wait for com.tuesday.clearify to idle
+    t =    21.90s     Find the "Create account with email" Button
+    t =    21.93s     Check for interrupting elements affecting "Create account with email" Button
+    t =    21.96s     Synthesize event
+    t =    22.25s     Wait for com.tuesday.clearify to idle
+    t =    22.57s Checking existence of `"Not Now" Button`
+    t =    22.79s Checking existence of `"Not Now" Button`
+    t =    23.09s Checking existence of `"Not Now" Button`
+    t =    23.17s Checking existence of `"Not Now" Button`
+    t =    23.50s Checking existence of `"Not Now" Button`
+    t =    23.54s Checking existence of `"Not Now" Button`
+    t =    23.60s Checking existence of `"Not Now" Button`
+    t =    23.67s Checking existence of `"Not Now" Button`
+    t =    23.99s Checking existence of `"Not Now" Button`
+    t =    24.02s Checking existence of `"Not Now" Button`
+    t =    24.08s Checking existence of `"Not Now" Button`
+    t =    24.18s Checking existence of `"Not Now" Button`
+    t =    24.51s Checking existence of `"Not Now" Button`
+    t =    24.54s Checking existence of `"Not Now" Button`
+    t =    24.60s Checking existence of `"Not Now" Button`
+    t =    24.66s Checking existence of `"Not Now" Button`
+    t =    24.97s Checking existence of `"Not Now" Button`
+    t =    24.99s Checking existence of `"Not Now" Button`
+    t =    25.04s Checking existence of `"Not Now" Button`
+    t =    25.08s Checking existence of `"Not Now" Button`
+    t =    25.38s Checking existence of `"Not Now" Button`
+    t =    25.44s Checking existence of `"Not Now" Button`
+    t =    25.47s Checking existence of `"Not Now" Button`
+    t =    25.51s Checking existence of `"Not Now" Button`
+    t =    25.81s Checking existence of `"Not Now" Button`
+    t =    26.19s Find the "Not Now" Button
+    t =    26.24s Tap "Not Now" Button
+    t =    26.24s     Wait for com.tuesday.clearify to idle
+    t =    26.24s     Find the "Not Now" Button
+    t =    26.28s     Check for interrupting elements affecting "Not Now" Button
+    t =    26.31s     Synthesize event
+    t =    26.60s     Wait for com.tuesday.clearify to idle
+    t =    26.60s Waiting 3.0s for "First name" TextField to exist
+    t =    27.63s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    27.63s         Checking existence of `"First name" TextField`
+    t =    27.67s Waiting 20.0s for "First name" TextField to exist
+    t =    28.69s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    28.69s         Checking existence of `"First name" TextField`
+    t =    28.74s Waiting 20.0s for "First name" TextField to exist
+    t =    29.77s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    29.77s         Checking existence of `"First name" TextField`
+    t =    29.81s Find the "First name" TextField
+    t =    29.84s Get number of matches for: Descendants matching type Keyboard
+    t =    29.85s Waiting 10.0s for "onboarding.footer.profile" Button to exist
+    t =    30.88s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.profile" Button`
+    t =    30.88s         Checking existence of `"onboarding.footer.profile" Button`
+    t =    30.93s Find the "onboarding.footer.profile" Button
+    t =    32.00s Checking `Expect predicate `isHittable == 1` for object "onboarding.footer.profile" Button`
+    t =    32.00s     Find the "onboarding.footer.profile" Button
+    t =    32.33s     Capturing element debug description
+    t =    33.13s         Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    33.33s         Find: Descendants matching type Button
+    t =    33.33s         Find: Elements matching predicate '"onboarding.footer.profile" IN identifiers'
+    t =    33.35s         Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    33.52s         Find: Descendants matching type Button
+    t =    33.54s         Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    34.98s Checking `Expect predicate `isHittable == 1` for object "onboarding.footer.profile" Button`
+    t =    34.98s     Find the "onboarding.footer.profile" Button
+    t =    35.06s     Capturing element debug description
+    t =    35.16s         Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    35.22s         Find: Descendants matching type Button
+    t =    35.22s         Find: Elements matching predicate '"onboarding.footer.profile" IN identifiers'
+    t =    35.22s         Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    35.27s         Find: Descendants matching type Button
+    t =    35.28s         Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    35.31s Find the "onboarding.footer.profile" Button
+    t =    35.40s Tap "onboarding.footer.profile" Button[0.50, 0.50]
+    t =    35.40s     Wait for com.tuesday.clearify to idle
+    t =    35.41s     Find the "onboarding.footer.profile" Button
+    t =    35.46s     Check for interrupting elements affecting "onboarding.footer.profile" Button
+    t =    35.51s     Synthesize event
+    t =    35.51s         Find the "onboarding.footer.profile" Button
+    t =    35.58s         Find the "onboarding.footer.profile" Button
+    t =    35.65s         Find the "onboarding.footer.profile" Button
+    t =    36.01s     Wait for com.tuesday.clearify to idle
+    t =    36.02s Waiting 10.0s for "onboarding.footer.focus" Button to exist
+    t =    37.10s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    37.10s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    37.17s         Capturing element debug description
+    t =    38.11s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    38.11s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    38.27s         Capturing element debug description
+    t =    39.10s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    39.10s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    39.18s         Capturing element debug description
+    t =    40.11s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    40.11s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    40.18s         Capturing element debug description
+    t =    41.12s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    41.12s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    41.20s         Capturing element debug description
+    t =    42.12s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    42.12s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    42.19s         Capturing element debug description
+    t =    43.12s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    43.12s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    43.17s         Capturing element debug description
+    t =    44.08s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    44.08s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    44.13s         Capturing element debug description
+    t =    45.08s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    45.08s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    45.15s         Capturing element debug description
+    t =    46.03s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    46.03s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    46.08s         Capturing element debug description
+    t =    46.08s     Checking existence of `"onboarding.footer.focus" Button`
+    t =    46.14s Collecting debug information to assist test failure triage
+    t =    46.14s     Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    46.20s Checking existence of `"debug.onboarding.state" StaticText`
+    t =    46.26s Find the "debug.onboarding.state" StaticText
+    t =    46.33s Checking existence of `"debug.onboarding.events" StaticText`
+    t =    46.43s Find the "debug.onboarding.events" StaticText
+    t =    46.55s Checking existence of `"onboarding.footer.profile" Button`
+    t =    46.61s Find the "onboarding.footer.profile" Button
+    t =    46.68s Checking existence of `"onboarding.footer.focus" Button`
+    t =    46.73s Find the "onboarding.footer.focus" Button
+    t =    47.82s     Find the "onboarding.footer.focus" Button (retry 1)
+    t =    48.87s     Find the "onboarding.footer.focus" Button (retry 2)
+    t =    48.93s Added attachment named 'onboarding-debug-after-profile'
+    t =    48.93s Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    49.12s Requesting snapshot of accessibility hierarchy for app with pid 43346
+    t =    49.17s Added attachment named 'onboarding-stuck-after-profile'
+    t =    49.18s Waiting 10.0s for "onboarding.footer.focus" Button to exist
+    t =    50.19s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    50.20s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    50.25s         Capturing element debug description
+    t =    51.27s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    51.27s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    51.32s         Capturing element debug description
+    t =    52.24s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    52.24s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    52.58s         Capturing element debug description
+    t =    53.20s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    53.20s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    53.68s         Capturing element debug description
+    t =    54.19s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    54.19s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    54.25s         Capturing element debug description
+    t =    55.27s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    55.27s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    55.32s         Capturing element debug description
+    t =    56.23s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    56.23s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    56.28s         Capturing element debug description
+    t =    57.19s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    57.19s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    57.26s         Capturing element debug description
+    t =    58.18s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    58.18s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    58.21s         Capturing element debug description
+    t =    59.18s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.focus" Button`
+    t =    59.18s         Checking existence of `"onboarding.footer.focus" Button`
+    t =    59.22s         Capturing element debug description
+    t =    59.23s     Checking existence of `"onboarding.footer.focus" Button`
+    t =    59.26s Collecting debug information to assist test failure triage
+    t =    59.27s     Requesting snapshot of accessibility hierarchy for app with pid 43346
+/Users/rory/Documents/Clarify AI/ios/Clearify/UITests/ClearifyUITests.swift:100: error: -[ClearifyUITests.ClearifyUITests testOnboardingCompletesOnceAndReturnsToDashboard] : XCTAssertTrue failed - Expected focus step
+    t =    60.55s Tear Down
+Test Case '-[ClearifyUITests.ClearifyUITests testOnboardingCompletesOnceAndReturnsToDashboard]' failed (60.976 seconds).
+Test Suite 'ClearifyUITests' failed at 2026-03-08 21:02:59.929.
+	 Executed 1 test, with 1 failure (0 unexpected) in 60.976 (60.978) seconds
+Test Suite 'ClearifyUITests.xctest' failed at 2026-03-08 21:02:59.930.
+	 Executed 1 test, with 1 failure (0 unexpected) in 60.976 (60.979) seconds
+Test Suite 'Selected tests' failed at 2026-03-08 21:02:59.931.
+	 Executed 1 test, with 1 failure (0 unexpected) in 60.976 (60.981) seconds

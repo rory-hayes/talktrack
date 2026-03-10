@@ -1,0 +1,277 @@
+2026-03-08 20:48:53.862304+0000 ClearifyUITests-Runner[61971:12695844] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'Selected tests' started at 2026-03-08 20:49:00.701.
+Test Suite 'ClearifyUITests.xctest' started at 2026-03-08 20:49:00.703.
+Test Suite 'ClearifyUITests' started at 2026-03-08 20:49:00.704.
+Test Case '-[ClearifyUITests.ClearifyUITests testOnboardingCompletesOnceAndReturnsToDashboard]' started.
+    t =     0.00s Start Test at 2026-03-08 20:49:00.705
+    t =     0.22s Set Up
+    t =     0.23s Open com.tuesday.clearify
+    t =     0.23s     Launch com.tuesday.clearify
+    t =     5.01s         Setting up automation session
+    t =     7.24s         Wait for com.tuesday.clearify to idle
+    t =     9.22s Waiting 10.0s for "onboarding.footer.introPractice" Button to exist
+    t =    10.26s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.introPractice" Button`
+    t =    10.26s         Checking existence of `"onboarding.footer.introPractice" Button`
+    t =    10.35s Find the "onboarding.footer.introPractice" Button
+    t =    10.41s Find the "onboarding.footer.introPractice" Button
+    t =    10.46s Find the "onboarding.footer.introPractice" Button
+    t =    10.51s Tap "onboarding.footer.introPractice" Button
+    t =    10.51s     Wait for com.tuesday.clearify to idle
+    t =    10.51s     Find the "onboarding.footer.introPractice" Button
+    t =    10.54s     Check for interrupting elements affecting "onboarding.footer.introPractice" Button
+    t =    10.58s     Synthesize event
+    t =    11.05s     Wait for com.tuesday.clearify to idle
+    t =    11.24s Waiting 10.0s for "onboarding.footer.introCoach" Button to exist
+    t =    12.28s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.introCoach" Button`
+    t =    12.28s         Checking existence of `"onboarding.footer.introCoach" Button`
+    t =    12.30s Find the "onboarding.footer.introCoach" Button
+    t =    12.44s Find the "onboarding.footer.introCoach" Button
+    t =    12.47s Find the "onboarding.footer.introCoach" Button
+    t =    12.51s Tap "onboarding.footer.introCoach" Button
+    t =    12.51s     Wait for com.tuesday.clearify to idle
+    t =    12.52s     Find the "onboarding.footer.introCoach" Button
+    t =    12.54s     Check for interrupting elements affecting "onboarding.footer.introCoach" Button
+    t =    12.57s     Synthesize event
+    t =    12.87s     Wait for com.tuesday.clearify to idle
+    t =    12.96s Waiting 10.0s for "onboarding.footer.introProgress" Button to exist
+    t =    14.01s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.introProgress" Button`
+    t =    14.02s         Checking existence of `"onboarding.footer.introProgress" Button`
+    t =    14.04s Find the "onboarding.footer.introProgress" Button
+    t =    14.07s Find the "onboarding.footer.introProgress" Button
+    t =    14.11s Find the "onboarding.footer.introProgress" Button
+    t =    14.15s Tap "onboarding.footer.introProgress" Button
+    t =    14.15s     Wait for com.tuesday.clearify to idle
+    t =    14.16s     Find the "onboarding.footer.introProgress" Button
+    t =    14.18s     Check for interrupting elements affecting "onboarding.footer.introProgress" Button
+    t =    14.20s     Synthesize event
+    t =    14.51s     Wait for com.tuesday.clearify to idle
+    t =    14.51s Waiting 10.0s for "Email" TextField to exist
+    t =    15.54s     Checking `Expect predicate `existsNoRetry == 1` for object "Email" TextField`
+    t =    15.54s         Checking existence of `"Email" TextField`
+    t =    15.57s Waiting 10.0s for "Email" TextField to exist
+    t =    16.59s     Checking `Expect predicate `existsNoRetry == 1` for object "Email" TextField`
+    t =    16.59s         Checking existence of `"Email" TextField`
+    t =    16.61s Tap "Email" TextField
+    t =    16.61s     Wait for com.tuesday.clearify to idle
+    t =    16.62s     Find the "Email" TextField
+    t =    16.63s     Check for interrupting elements affecting "Email" TextField
+    t =    16.64s     Synthesize event
+    t =    16.93s     Wait for com.tuesday.clearify to idle
+    t =    17.31s Type 'audit.e2e+17730029...' into "Email" TextField
+    t =    17.31s     Wait for com.tuesday.clearify to idle
+    t =    17.68s     Find the "Email" TextField
+    t =    17.73s     Check for interrupting elements affecting "Email" TextField
+    t =    17.77s     Synthesize event
+    t =    18.52s     Wait for com.tuesday.clearify to idle
+    t =    18.66s Waiting 10.0s for "Password" SecureTextField to exist
+    t =    19.70s     Checking `Expect predicate `existsNoRetry == 1` for object "Password" SecureTextField`
+    t =    19.70s         Checking existence of `"Password" SecureTextField`
+    t =    19.75s Tap "Password" SecureTextField
+    t =    19.75s     Wait for com.tuesday.clearify to idle
+    t =    19.76s     Find the "Password" SecureTextField
+    t =    19.82s     Check for interrupting elements affecting "Password" SecureTextField
+    t =    19.88s     Synthesize event
+    t =    19.89s         Scroll element to visible
+    t =    19.90s         Find the "Password" SecureTextField
+    t =    19.96s         Computed hit point {201, 278.16666666666663} after scrolling to visible
+    t =    20.33s     Wait for com.tuesday.clearify to idle
+    t =    20.81s Type '<redacted>' into "Password" SecureTextField
+    t =    20.81s     Wait for com.tuesday.clearify to idle
+    t =    20.82s     Find the "Password" SecureTextField
+    t =    20.89s     Check for interrupting elements affecting "Password" SecureTextField
+    t =    20.96s     Synthesize event
+    t =    21.32s     Wait for com.tuesday.clearify to idle
+    t =    21.34s Waiting 10.0s for "Create account with email" Button to exist
+    t =    22.36s     Checking `Expect predicate `existsNoRetry == 1` for object "Create account with email" Button`
+    t =    22.36s         Checking existence of `"Create account with email" Button`
+    t =    22.41s Find the "Create account with email" Button
+    t =    22.46s Find the "Create account with email" Button
+    t =    22.51s Find the "Create account with email" Button
+    t =    22.57s Tap "Create account with email" Button
+    t =    22.57s     Wait for com.tuesday.clearify to idle
+    t =    22.57s     Find the "Create account with email" Button
+    t =    22.61s     Check for interrupting elements affecting "Create account with email" Button
+    t =    22.65s     Synthesize event
+    t =    22.95s     Wait for com.tuesday.clearify to idle
+    t =    23.29s Waiting 5.0s for "Not Now" Button to exist
+    t =    24.32s     Checking `Expect predicate `existsNoRetry == 1` for object "Not Now" Button`
+    t =    24.32s         Checking existence of `"Not Now" Button`
+    t =    24.35s         Capturing element debug description
+    t =    25.37s     Checking `Expect predicate `existsNoRetry == 1` for object "Not Now" Button`
+    t =    25.37s         Checking existence of `"Not Now" Button`
+    t =    25.39s         Capturing element debug description
+    t =    26.31s     Checking `Expect predicate `existsNoRetry == 1` for object "Not Now" Button`
+    t =    26.31s         Checking existence of `"Not Now" Button`
+    t =    26.34s         Capturing element debug description
+    t =    27.37s     Checking `Expect predicate `existsNoRetry == 1` for object "Not Now" Button`
+    t =    27.37s         Checking existence of `"Not Now" Button`
+    t =    27.39s         Capturing element debug description
+    t =    28.30s     Checking `Expect predicate `existsNoRetry == 1` for object "Not Now" Button`
+    t =    28.30s         Checking existence of `"Not Now" Button`
+    t =    28.32s         Capturing element debug description
+    t =    28.33s     Checking existence of `"Not Now" Button`
+    t =    28.34s Collecting debug information to assist test failure triage
+    t =    28.34s     Requesting snapshot of accessibility hierarchy for app with pid 62035
+    t =    28.36s Waiting 3.0s for "First name" TextField to exist
+    t =    29.39s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    29.39s         Checking existence of `"First name" TextField`
+    t =    29.41s         Capturing element debug description
+    t =    30.44s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    30.44s         Checking existence of `"First name" TextField`
+    t =    30.46s         Capturing element debug description
+    t =    31.36s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    31.37s         Checking existence of `"First name" TextField`
+    t =    31.39s         Capturing element debug description
+    t =    31.39s     Checking existence of `"First name" TextField`
+    t =    31.40s Collecting debug information to assist test failure triage
+    t =    31.40s     Requesting snapshot of accessibility hierarchy for app with pid 62035
+    t =    31.42s Waiting 3.0s for "onboarding.footer.account" Button to exist
+    t =    32.45s     Checking `Expect predicate `existsNoRetry == 1` for object "onboarding.footer.account" Button`
+    t =    32.45s         Checking existence of `"onboarding.footer.account" Button`
+    t =    32.47s Tap "onboarding.footer.account" Button
+    t =    32.47s     Wait for com.tuesday.clearify to idle
+    t =    32.48s     Find the "onboarding.footer.account" Button
+    t =    32.49s     Check for interrupting elements affecting "onboarding.footer.account" Button
+    t =    32.50s     Synthesize event
+    t =    32.79s     Wait for com.tuesday.clearify to idle
+    t =    32.79s Waiting 20.0s for "First name" TextField to exist
+    t =    33.83s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    33.83s         Checking existence of `"First name" TextField`
+    t =    33.85s         Capturing element debug description
+    t =    34.88s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    34.88s         Checking existence of `"First name" TextField`
+    t =    34.90s         Capturing element debug description
+    t =    35.83s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    35.83s         Checking existence of `"First name" TextField`
+    t =    35.85s         Capturing element debug description
+    t =    36.89s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    36.89s         Checking existence of `"First name" TextField`
+    t =    36.91s         Capturing element debug description
+    t =    37.84s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    37.84s         Checking existence of `"First name" TextField`
+    t =    37.86s         Capturing element debug description
+    t =    38.80s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    38.80s         Checking existence of `"First name" TextField`
+    t =    38.81s         Capturing element debug description
+    t =    39.84s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    39.84s         Checking existence of `"First name" TextField`
+    t =    39.85s         Capturing element debug description
+    t =    40.87s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    40.87s         Checking existence of `"First name" TextField`
+    t =    40.90s         Capturing element debug description
+    t =    41.81s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    41.82s         Checking existence of `"First name" TextField`
+    t =    41.84s         Capturing element debug description
+    t =    42.86s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    42.86s         Checking existence of `"First name" TextField`
+    t =    42.89s         Capturing element debug description
+    t =    43.81s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    43.82s         Checking existence of `"First name" TextField`
+    t =    43.84s         Capturing element debug description
+    t =    44.85s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    44.86s         Checking existence of `"First name" TextField`
+    t =    44.88s         Capturing element debug description
+    t =    45.80s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    45.81s         Checking existence of `"First name" TextField`
+    t =    45.83s         Capturing element debug description
+    t =    46.87s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    46.87s         Checking existence of `"First name" TextField`
+    t =    46.89s         Capturing element debug description
+    t =    47.80s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    47.81s         Checking existence of `"First name" TextField`
+    t =    47.83s         Capturing element debug description
+    t =    48.86s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    48.86s         Checking existence of `"First name" TextField`
+    t =    48.87s         Capturing element debug description
+    t =    49.81s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    49.81s         Checking existence of `"First name" TextField`
+    t =    49.83s         Capturing element debug description
+    t =    50.84s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    50.84s         Checking existence of `"First name" TextField`
+    t =    50.86s         Capturing element debug description
+    t =    51.88s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    51.89s         Checking existence of `"First name" TextField`
+    t =    51.91s         Capturing element debug description
+    t =    52.80s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    52.80s         Checking existence of `"First name" TextField`
+    t =    52.82s         Capturing element debug description
+    t =    52.82s     Checking existence of `"First name" TextField`
+    t =    52.83s Collecting debug information to assist test failure triage
+    t =    52.84s     Requesting snapshot of accessibility hierarchy for app with pid 62035
+    t =    52.85s Requesting snapshot of accessibility hierarchy for app with pid 62035
+    t =    52.89s Requesting snapshot of accessibility hierarchy for app with pid 62035
+    t =    52.90s Added attachment named 'onboarding-stuck-after-account'
+    t =    52.90s Waiting 20.0s for "First name" TextField to exist
+    t =    53.93s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    53.93s         Checking existence of `"First name" TextField`
+    t =    53.95s         Capturing element debug description
+    t =    54.97s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    54.97s         Checking existence of `"First name" TextField`
+    t =    54.99s         Capturing element debug description
+    t =    55.92s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    55.92s         Checking existence of `"First name" TextField`
+    t =    55.95s         Capturing element debug description
+    t =    56.97s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    56.97s         Checking existence of `"First name" TextField`
+    t =    56.99s         Capturing element debug description
+    t =    57.91s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    57.92s         Checking existence of `"First name" TextField`
+    t =    57.94s         Capturing element debug description
+    t =    58.95s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    58.95s         Checking existence of `"First name" TextField`
+    t =    58.96s         Capturing element debug description
+    t =    59.99s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    59.99s         Checking existence of `"First name" TextField`
+    t =    60.01s         Capturing element debug description
+    t =    60.94s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    60.94s         Checking existence of `"First name" TextField`
+    t =    60.96s         Capturing element debug description
+    t =    61.98s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    61.98s         Checking existence of `"First name" TextField`
+    t =    62.01s         Capturing element debug description
+    t =    62.92s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    62.92s         Checking existence of `"First name" TextField`
+    t =    62.94s         Capturing element debug description
+    t =    63.95s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    63.96s         Checking existence of `"First name" TextField`
+    t =    63.98s         Capturing element debug description
+    t =    65.00s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    65.00s         Checking existence of `"First name" TextField`
+    t =    65.02s         Capturing element debug description
+    t =    65.94s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    65.94s         Checking existence of `"First name" TextField`
+    t =    65.96s         Capturing element debug description
+    t =    66.99s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    66.99s         Checking existence of `"First name" TextField`
+    t =    67.01s         Capturing element debug description
+    t =    67.94s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    67.94s         Checking existence of `"First name" TextField`
+    t =    67.96s         Capturing element debug description
+    t =    69.00s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    69.00s         Checking existence of `"First name" TextField`
+    t =    69.02s         Capturing element debug description
+    t =    69.93s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    69.93s         Checking existence of `"First name" TextField`
+    t =    69.95s         Capturing element debug description
+    t =    70.96s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    70.97s         Checking existence of `"First name" TextField`
+    t =    70.99s         Capturing element debug description
+    t =    71.91s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    71.91s         Checking existence of `"First name" TextField`
+    t =    71.94s         Capturing element debug description
+    t =    72.90s     Checking `Expect predicate `existsNoRetry == 1` for object "First name" TextField`
+    t =    72.91s         Checking existence of `"First name" TextField`
+    t =    72.93s         Capturing element debug description
+    t =    72.93s     Checking existence of `"First name" TextField`
+    t =    72.94s Collecting debug information to assist test failure triage
+    t =    72.94s     Requesting snapshot of accessibility hierarchy for app with pid 62035
+/Users/rory/Documents/Clarify AI/ios/Clearify/UITests/ClearifyUITests.swift:83: error: -[ClearifyUITests.ClearifyUITests testOnboardingCompletesOnceAndReturnsToDashboard] : XCTAssertTrue failed - Expected profile step after sign-in
+    t =    73.24s Tear Down
+Test Case '-[ClearifyUITests.ClearifyUITests testOnboardingCompletesOnceAndReturnsToDashboard]' failed (73.575 seconds).
+Test Suite 'ClearifyUITests' failed at 2026-03-08 20:50:14.281.
+	 Executed 1 test, with 1 failure (0 unexpected) in 73.575 (73.577) seconds
+Test Suite 'ClearifyUITests.xctest' failed at 2026-03-08 20:50:14.281.
+	 Executed 1 test, with 1 failure (0 unexpected) in 73.575 (73.578) seconds
+Test Suite 'Selected tests' failed at 2026-03-08 20:50:14.282.
+	 Executed 1 test, with 1 failure (0 unexpected) in 73.575 (73.581) seconds

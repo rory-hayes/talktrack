@@ -1,0 +1,341 @@
+Xcode version: 26.3 (17C529)
+19:45:34.963 xcodebuild[40022:14663188] Beginning test session ClearifyUITests-34D15590-19F2-4170-BA6E-F6314A1A436D at 2026-03-10 19:45:34.959 on target <DVTiPhoneSimulator: 0x11b979220> {
+		SimDevice: iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Shutdown)
+} (26.2 (23C54))
+19:45:34.965 xcodebuild[40022:14663188] 	/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
+-project
+ios/Clearify/Clearify.xcodeproj
+-scheme
+Clearify
+-destination
+platform=iOS Simulator,name=iPhone 17 Pro
+-derivedDataPath
+/tmp/clearify-onboarding-dispatch-dd
+test
+-parallel-testing-enabled
+NO
+-only-testing:ClearifyUITests/ClearifyUITests/testFullSessionStartsFromDashboard
+-resultBundlePath
+/Users/rory/Documents/Clarify AI/tmp-appdispatch-fullsession-4.xcresult
+19:45:34.972 xcodebuild[40022:14663188] Test standard output and standard error is at /Users/rory/Documents/Clarify AI/tmp-appdispatch-fullsession-4.xcresult/Staging/1_Test/Diagnostics/ClearifyUITests-305F5CBC-527F-4012-BB30-579CDEF43C61-Configuration-Test Scheme Action-Iteration-1/ClearifyUITests-942AD1FB-CAB8-4B46-9AF1-1AC1C31ECB09/StandardOutputAndStandardError.txt
+19:45:35.549 xcodebuild[40022:14663188] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Received sim device notification: {
+    notification = "availableDevices_changed";
+}
+19:45:35.549 xcodebuild[40022:14663188] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Received sim device notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.549 xcodebuild[40022:14681886] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.695 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.695 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:35.696 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booting)";
+    "last_booted_at" = "2026-03-10 19:45:35 +0000";
+    "new_state" = 2;
+    notification = "device_state";
+    "prev_state" = 1;
+}
+19:45:36.166 xcodebuild[40022:14663188] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Received sim device notification: {
+    notification = "availableDevices_changed";
+}
+19:45:36.166 xcodebuild[40022:14663188] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Received sim device notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.169 xcodebuild[40022:14681886] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.170 xcodebuild[40022:14678754] 📱<DVTiPhoneSimulator (0x11b979220), iPhone 17 Pro, unknown class, 26.2 (23C54), ED92AC26-374B-43D3-9DB4-07C62561F4B1> claim LaunchSessionClaim_0x165ed5990 on simulator was issued, 2 claims exist.
+19:45:36.321 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.321 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.321 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.322 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.322 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.322 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.322 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.322 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.322 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.322 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.323 xcodebuild[40022:14663188] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Booted)";
+    "new_state" = 3;
+    notification = "device_state";
+    "prev_state" = 2;
+}
+19:45:36.323 xcodebuild[40022:14663188] Setting up test runner session
+19:45:36.330 xcodebuild[40022:14695358] Sim iPhone 17 Pro: Unregistering for sim device notification with token 5
+19:45:36.330 xcodebuild[40022:14695358] Calling -[SimDevice getenv:error:] for TESTMANAGERD_SIM_SOCK
+19:45:36.339 xcodebuild[40022:14663188] Registering/updating daemon-based crash report observer for process names (
+    xctest,
+    debugserver,
+    FrontBoard,
+    assertiond,
+    runningboardd,
+    SpringBoard,
+    testmanagerd,
+    backboardd,
+    DTServiceHub,
+    Clearify,
+    ClearifyUITests,
+    "ClearifyUITests-Runner"
+)
+19:45:36.552 xcodebuild[40022:14695358] Sim iPhone 17 Pro has testmanagerd socket at /private/tmp/com.apple.launchd.QvFh07SOPP/com.apple.testmanagerd.unix-domain.socket
+19:45:36.552 xcodebuild[40022:14695358] Validating test connection socket path (/private/tmp/com.apple.launchd.QvFh07SOPP/com.apple.testmanagerd.unix-domain.socket)
+19:45:36.552 xcodebuild[40022:14695358] Constructing transport for test connection socket
+19:45:36.552 xcodebuild[40022:14695358] Connected socket 38 to testmanagerd for Sim iPhone 17 Pro
+19:45:36.553 xcodebuild[40022:14695358] Received connection for test runner session
+19:45:36.553 xcodebuild[40022:14695358] Listening for proxy connection request from the test bundle
+19:45:36.553 xcodebuild[40022:14695358] Initiating session with identifier: 34D15590-19F2-4170-BA6E-F6314A1A436D
+19:45:36.561 xcodebuild[40022:14663188] Test runner session acquired connection.
+19:45:42.367 xcodebuild[40022:14695358] Got reply to session initiation request with identifier 34D15590-19F2-4170-BA6E-F6314A1A436D (error: (null))
+19:45:42.454 xcodebuild[40022:14663188] Finished requesting crash reports. Continuing with testing.
+19:45:42.506 xcodebuild[40022:14663188] Launch session started.
+19:45:42.571 xcodebuild[40022:14678754] 📱<DVTiPhoneSimulator (0x11b979220), iPhone 17 Pro, unknown class, 26.2 (23C54), ED92AC26-374B-43D3-9DB4-07C62561F4B1> claim LaunchSessionClaim_0x165ed5990 on simulator was issued, 2 claims exist.
+19:45:42.588 xcodebuild[40022:14695358] 📱<DVTiPhoneSimulator (0x11b979220), iPhone 17 Pro, unknown class, 26.2 (23C54), ED92AC26-374B-43D3-9DB4-07C62561F4B1> claim LaunchSessionClaim_0x165ed5990 on simulator was issued, 2 claims exist.
+19:45:42.588 xcodebuild[40022:14695358] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Registered for sim device notification, got token 8
+19:45:42.592 xcodebuild[40022:14695358] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Unregistering for sim device notification with token 8
+19:45:42.600 xcodebuild[40022:14678754] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Installing app at path: /tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator/ClearifyUITests-Runner.app and options: {
+    SkipWatchAppInstall = 1;
+}
+19:47:20.588 xcodebuild[40022:14678754] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Installed app at path: /tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator/ClearifyUITests-Runner.app and options: {
+    SkipWatchAppInstall = 1;
+}
+19:47:20.615 xcodebuild[40022:14678754] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Launching app with identifier: com.tuesday.clearifyUITests.xctrunner and options: {
+    "activate_suspended" = 1;
+    arguments =     (
+    );
+    environment =     {
+        "APP_DISTRIBUTOR_ID_OVERRIDE" = "com.apple.AppStore";
+        "CA_ASSERT_MAIN_THREAD_TRANSACTIONS" = 0;
+        "CA_DEBUG_TRANSACTIONS" = 0;
+        "DYLD_FRAMEWORK_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator:/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator/PackageFrameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks";
+        "DYLD_INSERT_LIBRARIES" = "/usr/lib/libRPAC.dylib:/Library/Developer/CoreSimulator/Volumes/iOS_23C54/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.2.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libMainThreadChecker.dylib:/usr/lib/libRPAC.dylib";
+        "DYLD_LIBRARY_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib";
+        "LLVM_PROFILE_FILE" = "/var/folders/39/66zjj0r12bqf_1b2mntqzn600000gn/T/com.tuesday.clearifyUITests.xctrunner/6C6937E6-72BC-43C8-A4D2-A933F426EE39-40022-0000065BCAE2238F/FD8847E4-3770-4ACD-B0F6-44E9A6AC8EFE-%p%c.profraw";
+        NSApplicationQuitWithoutSuddenTermination = YES;
+        NSUnbufferedIO = YES;
+        "OS_ACTIVITY_DT_MODE" = YES;
+        "PERFC_ENABLE_EXTENDED_DIAGNOSTIC_FORMAT" = 1;
+        "PERFC_ENABLE_PROFILE_MODE" = 1;
+        "PERFC_RESET_INSERT_LIBRARIES" = 1;
+        "PERFC_SUPPRESS_SYSTEM_REPORTS" = 1;
+        "RUN_DESTINATION_DEVICE_NAME" = "iPhone 17 Pro";
+        "RUN_DESTINATION_DEVICE_PLATFORM_IDENTIFIER" = "com.apple.platform.iphonesimulator";
+        "RUN_DESTINATION_DEVICE_UDID" = "ED92AC26-374B-43D3-9DB4-07C62561F4B1";
+        "SQLITE_ENABLE_THREAD_ASSERTIONS" = 1;
+        TERM = dumb;
+        "XCODE_SCHEME_NAME" = Clearify;
+        "XCODE_TEST_PLAN_NAME" = Clearify;
+        XCTestBundleInjectPath = "/usr/lib/libRPAC.dylib:/Library/Developer/CoreSimulator/Volumes/iOS_23C54/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.2.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libMainThreadChecker.dylib:/usr/lib/libRPAC.dylib";
+        XCTestBundlePath = "PlugIns/ClearifyUITests.xctest";
+        XCTestConfigurationFilePath = "";
+        XCTestSessionIdentifier = "34D15590-19F2-4170-BA6E-F6314A1A436D";
+        "__XCODE_BUILT_PRODUCTS_DIR_PATHS" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator";
+        "__XPC_DYLD_FRAMEWORK_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator";
+        "__XPC_DYLD_LIBRARY_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator";
+        "__XPC_LLVM_PROFILE_FILE" = "/var/folders/39/66zjj0r12bqf_1b2mntqzn600000gn/T/com.tuesday.clearifyUITests.xctrunner/6C6937E6-72BC-43C8-A4D2-A933F426EE39-40022-0000065BCAE2238F/FD8847E4-3770-4ACD-B0F6-44E9A6AC8EFE-%p%c.profraw";
+    };
+    stderr = "/dev/ttys036";
+    stdout = "/dev/ttys036";
+    "terminate_running_process" = 1;
+    "wait_for_debugger" = 1;
+}
+19:49:38.894 xcodebuild[40022:14678754] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Failed to launch app with identifier: com.tuesday.clearifyUITests.xctrunner and options: {
+    "activate_suspended" = 1;
+    arguments =     (
+    );
+    environment =     {
+        "APP_DISTRIBUTOR_ID_OVERRIDE" = "com.apple.AppStore";
+        "CA_ASSERT_MAIN_THREAD_TRANSACTIONS" = 0;
+        "CA_DEBUG_TRANSACTIONS" = 0;
+        "DYLD_FRAMEWORK_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator:/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator/PackageFrameworks:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks";
+        "DYLD_INSERT_LIBRARIES" = "/usr/lib/libRPAC.dylib:/Library/Developer/CoreSimulator/Volumes/iOS_23C54/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.2.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libMainThreadChecker.dylib:/usr/lib/libRPAC.dylib";
+        "DYLD_LIBRARY_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib";
+        "LLVM_PROFILE_FILE" = "/var/folders/39/66zjj0r12bqf_1b2mntqzn600000gn/T/com.tuesday.clearifyUITests.xctrunner/6C6937E6-72BC-43C8-A4D2-A933F426EE39-40022-0000065BCAE2238F/FD8847E4-3770-4ACD-B0F6-44E9A6AC8EFE-%p%c.profraw";
+        NSApplicationQuitWithoutSuddenTermination = YES;
+        NSUnbufferedIO = YES;
+        "OS_ACTIVITY_DT_MODE" = YES;
+        "PERFC_ENABLE_EXTENDED_DIAGNOSTIC_FORMAT" = 1;
+        "PERFC_ENABLE_PROFILE_MODE" = 1;
+        "PERFC_RESET_INSERT_LIBRARIES" = 1;
+        "PERFC_SUPPRESS_SYSTEM_REPORTS" = 1;
+        "RUN_DESTINATION_DEVICE_NAME" = "iPhone 17 Pro";
+        "RUN_DESTINATION_DEVICE_PLATFORM_IDENTIFIER" = "com.apple.platform.iphonesimulator";
+        "RUN_DESTINATION_DEVICE_UDID" = "ED92AC26-374B-43D3-9DB4-07C62561F4B1";
+        "SQLITE_ENABLE_THREAD_ASSERTIONS" = 1;
+        TERM = dumb;
+        "XCODE_SCHEME_NAME" = Clearify;
+        "XCODE_TEST_PLAN_NAME" = Clearify;
+        XCTestBundleInjectPath = "/usr/lib/libRPAC.dylib:/Library/Developer/CoreSimulator/Volumes/iOS_23C54/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.2.simruntime/Contents/Resources/RuntimeRoot/usr/lib/libMainThreadChecker.dylib:/usr/lib/libRPAC.dylib";
+        XCTestBundlePath = "PlugIns/ClearifyUITests.xctest";
+        XCTestConfigurationFilePath = "";
+        XCTestSessionIdentifier = "34D15590-19F2-4170-BA6E-F6314A1A436D";
+        "__XCODE_BUILT_PRODUCTS_DIR_PATHS" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator";
+        "__XPC_DYLD_FRAMEWORK_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator";
+        "__XPC_DYLD_LIBRARY_PATH" = "/tmp/clearify-onboarding-dispatch-dd/Build/Products/Debug-iphonesimulator";
+        "__XPC_LLVM_PROFILE_FILE" = "/var/folders/39/66zjj0r12bqf_1b2mntqzn600000gn/T/com.tuesday.clearifyUITests.xctrunner/6C6937E6-72BC-43C8-A4D2-A933F426EE39-40022-0000065BCAE2238F/FD8847E4-3770-4ACD-B0F6-44E9A6AC8EFE-%p%c.profraw";
+    };
+    stderr = "/dev/ttys036";
+    stdout = "/dev/ttys036";
+    "terminate_running_process" = 1;
+    "wait_for_debugger" = 1;
+} (error = Error Domain=NSMachErrorDomain Code=-308 "(ipc/mig) server died")
+19:49:39.955 xcodebuild[40022:14766786] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Shutting Down)";
+    "new_state" = 4;
+    notification = "device_state";
+    "prev_state" = 3;
+}
+19:49:40.105 xcodebuild[40022:14663188] 📱<DVTiPhoneSimulator (0x11b979220), iPhone 17 Pro, unknown class, 26.2 (23C54), ED92AC26-374B-43D3-9DB4-07C62561F4B1> claim LaunchSessionClaim_0x165ed5990 on simulator was relinquished, 1 claims remain.
+19:49:40.105 xcodebuild[40022:14663188] 📱<DVTiPhoneSimulator (0x11b979220), iPhone 17 Pro, unknown class, 26.2 (23C54), ED92AC26-374B-43D3-9DB4-07C62561F4B1> claim LaunchSessionClaim_0x165ed5990 on simulator was relinquished, 1 claims remain.
+19:49:40.106 xcodebuild[40022:14663188] 📱<DVTiPhoneSimulator (0x11b979220), iPhone 17 Pro, unknown class, 26.2 (23C54), ED92AC26-374B-43D3-9DB4-07C62561F4B1> claim LaunchSessionClaim_0x165ed5990 on simulator was relinquished, 1 claims remain.
+19:49:40.106 xcodebuild[40022:14663188] Launch session expired.
+19:49:40.118 xcodebuild[40022:14766786] XCTHTestOperationStateMachine: Transitioning from state Initial to PendingFinalization
+19:49:40.164 xcodebuild[40022:14663188] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Received sim device notification: {
+    notification = "availableDevices_changed";
+}
+19:49:40.165 xcodebuild[40022:14663188] ED92AC26-374B-43D3-9DB4-07C62561F4B1: Received sim device notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Shutting Down)";
+    "new_state" = 4;
+    notification = "device_state";
+    "prev_state" = 3;
+}
+19:49:40.955 xcodebuild[40022:14766972] /Users/rory/Library/Developer/CoreSimulator/Devices: Received sim device set notification: {
+    device = "iPhone 17 Pro (ED92AC26-374B-43D3-9DB4-07C62561F4B1, iOS 26.2, Shutdown)";
+    "new_state" = 1;
+    notification = "device_state";
+    "prev_state" = 4;
+}
+19:49:40.966 xcodebuild[40022:14766783] <XCTTestRunnerSession: 0x16651f3b0> lost its connection.

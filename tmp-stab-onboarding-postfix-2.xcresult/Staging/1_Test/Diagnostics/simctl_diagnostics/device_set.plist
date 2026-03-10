@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DefaultDevices</key>
+	<dict>
+		<key>com.apple.CoreSimulator.SimRuntime.iOS-26-2</key>
+		<dict>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPad-A16</key>
+			<string>2BC043A0-F60B-459C-9303-74CA5F547618</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPad-Air-11-inch-M3</key>
+			<string>46A0EE06-60BD-48CF-B804-69B1CB5A7630</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPad-Air-13-inch-M3</key>
+			<string>A618731D-BAC1-45B7-BDAA-7ECD602E9143</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPad-Pro-11-inch-M5-12GB</key>
+			<string>51536F02-9D8B-47FA-8F03-3B80957149D3</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPad-Pro-13-inch-M5-12GB</key>
+			<string>D7A53BCC-915C-45B2-8B13-189595F3F9A2</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPad-mini-A17-Pro</key>
+			<string>72638F94-3DA8-4CDB-B50F-D3B648CC34B6</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPhone-16e</key>
+			<string>283799A7-5ACF-4C7E-938E-8968F2FF6517</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPhone-17</key>
+			<string>EC4B5552-9701-4B63-8EC1-B9E34CEE50A9</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro</key>
+			<string>ED92AC26-374B-43D3-9DB4-07C62561F4B1</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro-Max</key>
+			<string>D3A74A52-FCFB-4F45-B476-B9DA6E0B42B6</string>
+			<key>com.apple.CoreSimulator.SimDeviceType.iPhone-Air</key>
+			<string>66363A39-29A7-44A5-BCD1-CD630D3955E0</string>
+		</dict>
+		<key>version</key>
+		<integer>0</integer>
+	</dict>
+	<key>DevicePairs</key>
+	<dict/>
+	<key>Version</key>
+	<integer>0</integer>
+</dict>
+</plist>
