@@ -9,7 +9,7 @@ Make Clearify an airtight, production-grade iOS app by improving trust, product 
 ## Current status
 - Phase: Hardening sprint
 - Active sprint: Sprint 1
-- Overall status: Audit hardening pass implemented — backend session/quota and emulator-backed analyze are now verified live, and remaining live UI verification is blocked by onboarding progression from profile to focus/dashboard
+- Overall status: Audit hardening pass implemented — backend session/quota and emulator-backed analyze are verified live, the flaky onboarding profile-footer transition is now explicitly parked for later investigation, and shell-level UI verification is proceeding through a new authenticated dashboard bootstrap path
 
 ---
 
@@ -37,15 +37,36 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 | M7 | Favorites truth model cleanup | Complete | Extracted a dedicated local-only starred-prompt store, preserved existing IDs, and aligned library UI/copy to device-local behavior |
 | M8 | Saved answers truth model cleanup | Complete | Extracted a dedicated local-only saved-answer store, preserved existing IDs, and aligned Progress and completion copy to the local-archive model |
 | M9 | Home next-action clarity improvements | Complete | Home now centers one recommended next step, clearer session CTA choices, and lower-priority alternate prompt selection |
-| M10 | Practice loop loading, feedback, and retry improvements | Partial | Live backend verification now covers full/quick session starts, fair quota consumption on completion, and emulator-backed analyze; the remaining blocker is the live UI onboarding profile-to-focus transition before the full app loop can be re-verified |
+| M10 | Practice loop loading, feedback, and retry improvements | Partial | Live backend verification now covers full/quick session starts, fair quota consumption on completion, and emulator-backed analyze; the onboarding profile-footer flake is parked, authenticated dashboard/session-entry verification now passes, and the remaining gap is app-side record/analyze/retry/completion/recommendation-refresh verification from the shell |
 | M11 | Completion-state momentum improvements | Partial | Completion-state implementation is present, but it was not exercised through a successful live session in this audit |
 | M12 | Progress usefulness and empty-state improvements | Complete | Progress now answers whether the user is improving, what is weak, and what to practice next using grounded existing signals |
 | M13 | Backend endpoint coverage improvements | Complete | Added route-level tests for auth, validation, gating, fallback, and entitlement-sync behavior across the four critical endpoints |
-| M14 | iOS flow and UI regression coverage | Partial | Deterministic unit coverage exists and passes, but the live onboarding-to-dashboard UI regression is still blocked at the profile-to-focus transition despite targeted step-state hardening and broader live practice-loop UI coverage remains blocked |
+| M14 | iOS flow and UI regression coverage | Partial | Deterministic unit coverage exists and passes; the onboarding profile-footer regression is parked for later investigation, a reliable authenticated dashboard bootstrap now covers shell launch plus full/quick session entry, and broader live practice-loop UI coverage still remains open |
 
 ---
 
 ## Execution log
+
+#### 2026-03-10 - M10-V shell pass - Authenticated dashboard bootstrap and session-entry verification
+- Status: Partial
+- Summary: Explicitly parked the unstable authenticated onboarding profile-footer investigation for this pass and switched forward verification onto a new UITest-only authenticated/onboarding-complete bootstrap path. `UITestBootstrap` can now sign into the local Auth emulator with a deterministic audit account, seed an onboarding-complete profile, and let `RootView` hydrate directly into the main shell without replaying the flaky onboarding footer path. With that entry path in place, I re-ran shell-level UI verification and confirmed the dashboard loads from an already-authenticated state. The next downstream issue turned out to be narrower than onboarding and test-facing rather than a product-flow break: the Home session CTAs were built from stacked title/subtitle labels, so the existing UITest queries for `"Start 3-rep practice"` and `"Take 1 quick drill"` were brittle exact-label matches. I added explicit accessibility identifiers to the two Home session-start controls and updated the UITests to target those controls directly. Serial reruns now pass for authenticated dashboard launch, full-session entry, and quick-drill entry.
+- Files changed:
+  - `ios/Clearify/Sources/App/UITestBootstrap.swift`
+  - `ios/Clearify/Sources/Views/RootView.swift`
+  - `ios/Clearify/Sources/Views/Home/HomeView.swift`
+  - `ios/Clearify/UITests/ClearifyUITests.swift`
+  - `PLANS.md`
+- Tests/checks run:
+  - Re-read `AGENTS.md`, `PLANS.md`, `SPRINT.md`, and the latest M10-V / onboarding-blocker entries before implementation
+  - Confirmed local backend readiness with `curl -sf http://127.0.0.1:5001/clearify-5414d/us-central1/api/health`
+  - `xcodebuild -project ios/Clearify/Clearify.xcodeproj -scheme Clearify -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -derivedDataPath /tmp/clearify-auth-bootstrap-dd test -parallel-testing-enabled NO -only-testing:ClearifyUITests/ClearifyUITests/testAuthenticatedBootstrapLaunchesToDashboard -only-testing:ClearifyUITests/ClearifyUITests/testFullSessionStartsFromDashboard -only-testing:ClearifyUITests/ClearifyUITests/testQuickDrillStartsFromDashboard`
+  - Inspected the intermediate failing xcresult (`/tmp/clearify-auth-bootstrap-dd/Logs/Test/Test-Clearify-2026.03.10_20-57-19-+0000.xcresult`) to confirm the dashboard was loading and the remaining miss was the CTA query target, then reran the same focused UITest set to green after the accessibility-identifier fix (`/tmp/clearify-auth-bootstrap-dd/Logs/Test/Test-Clearify-2026.03.10_21-01-11-+0000.xcresult`)
+- Acceptance criteria result: Partial. This pass now provides a reliable already-authenticated, onboarding-complete entry path and verifies that the app launches into dashboard, starts a full session from dashboard, and starts a quick drill from dashboard without relying on the parked onboarding footer flow. The broader app-side record/upload/analyze/feedback, retry progression, completion state, and recommendation refresh are still not re-verified end to end from the shell in this pass.
+- Risks / follow-ups:
+  - Parked / deferred blocker: the broader onboarding profile-footer dispatch issue remains unresolved and should stay out of scope until shell-level hardening work is exhausted or a separate focused investigation is explicitly resumed.
+  - The new authenticated bootstrap is intentionally UITest-only and guarded to local-backend/emulator usage; it should not be treated as production behavior.
+  - Full practice-loop UI verification still lacks a deterministic app-side recorder/analyze harness from the authenticated shell. Backend analyze/quota behavior remains verified from the prior live emulator-backed work, but the UI path through recording, feedback, retry, completion, and post-completion recommendation refresh is still open.
+- Next recommended milestone: Continue M10-V from the authenticated dashboard shell by adding or using the narrowest deterministic test/debug seam available for the app-side practice loop, then verify record/analyze/feedback, retry progression, completion UI, and recommendation refresh without returning to the parked onboarding footer investigation.
 
 #### 2026-03-10 - M10-V targeted app pass - Profile footer dispatch investigation
 - Status: Partial
@@ -691,7 +712,7 @@ Always choose the first milestone in `SPRINT.md` whose status is not Complete in
 ---
 
 ## Next up
-- Fix the profile-step footer interaction so the visible `Continue` CTA dispatches its action reliably without UITest scroll recovery, then rerun M10-V through dashboard and the already-verified backend analyze path
+- Keep the onboarding profile-footer issue parked for now and continue M10-V from the authenticated dashboard bootstrap path, focusing next on deterministic app-side practice-loop verification from ready-to-record through feedback, retry, completion, and recommendation refresh
 
 ## Execution log
 

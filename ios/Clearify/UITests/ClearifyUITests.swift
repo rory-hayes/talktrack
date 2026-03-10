@@ -25,32 +25,44 @@ final class ClearifyUITests: XCTestCase {
         XCTAssertFalse(app.staticTexts["Create your account"].exists, "Returning user should not see onboarding again")
     }
 
+    func testAuthenticatedBootstrapLaunchesToDashboard() throws {
+        let app = launchAuthenticatedDashboard()
+
+        XCTAssertTrue(app.staticTexts["Start here"].exists, "Expected authenticated dashboard to load")
+        XCTAssertFalse(app.staticTexts["Create your account"].exists, "Authenticated bootstrap should bypass onboarding")
+    }
+
     func testFullSessionStartsFromDashboard() throws {
-        let app = XCUIApplication()
-        app.launchArguments += ["UITEST_RESET_STATE"]
-        app.launch()
-
-        completeOnboarding(in: app)
-        XCTAssertTrue(app.staticTexts["Start here"].waitForExistence(timeout: 15), "Expected dashboard to load")
-
-        tap(button: app.buttons["Start 3-rep practice"])
+        let app = launchAuthenticatedDashboard()
+        tap(button: app.buttons["home.startFullSession"])
 
         XCTAssertTrue(app.staticTexts["Full Session"].waitForExistence(timeout: 15), "Expected full session screen")
         XCTAssertTrue(app.staticTexts["Tap to start your answer"].waitForExistence(timeout: 15), "Expected ready-to-record state")
     }
 
     func testQuickDrillStartsFromDashboard() throws {
-        let app = XCUIApplication()
-        app.launchArguments += ["UITEST_RESET_STATE"]
-        app.launch()
+        let app = launchAuthenticatedDashboard()
 
-        completeOnboarding(in: app)
-        XCTAssertTrue(app.staticTexts["Start here"].waitForExistence(timeout: 15), "Expected dashboard to load")
-
-        tap(button: app.buttons["Take 1 quick drill"])
+        tap(button: app.buttons["home.startQuickDrill"])
 
         XCTAssertTrue(app.staticTexts["Quick Drill"].waitForExistence(timeout: 15), "Expected quick drill screen")
         XCTAssertTrue(app.staticTexts["Tap to start your answer"].waitForExistence(timeout: 15), "Expected ready-to-record state")
+    }
+
+    private func launchAuthenticatedDashboard(resetState: Bool = true) -> XCUIApplication {
+        let app = XCUIApplication()
+        if resetState {
+            app.launchArguments += ["UITEST_RESET_STATE"]
+        }
+        app.launchArguments += ["UITEST_BOOTSTRAP_AUTHENTICATED"]
+        app.launch()
+
+        let dashboardHeader = app.staticTexts["Start here"]
+        if !dashboardHeader.waitForExistence(timeout: 20) {
+            attachDebugState(of: app, named: "authenticated-dashboard-stuck")
+        }
+        XCTAssertTrue(dashboardHeader.waitForExistence(timeout: 20), "Expected authenticated dashboard to load")
+        return app
     }
 
     private func completeOnboarding(in app: XCUIApplication) {

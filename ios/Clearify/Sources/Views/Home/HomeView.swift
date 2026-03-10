@@ -165,6 +165,7 @@ struct HomeView: View {
                     ) {
                         appState.activeSessionContext = SessionContext(mode: viewModel.selectedMode, scenario: scenario, sessionType: .full)
                     }
+                    .accessibilityIdentifier("home.startFullSession")
 
                     homeActionButton(
                         title: "Take 1 quick drill",
@@ -173,6 +174,7 @@ struct HomeView: View {
                     ) {
                         appState.activeSessionContext = SessionContext(mode: viewModel.selectedMode, scenario: scenario, sessionType: .quick)
                     }
+                    .accessibilityIdentifier("home.startQuickDrill")
                 }
             } else {
                 recommendationUnavailableCard

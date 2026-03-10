@@ -14,8 +14,9 @@ struct RootView: View {
                 mainShell
             }
         }
-        .task(id: dependencies.authService.user?.uid) {
+        .task(id: UITestBootstrap.hydrationTaskID(currentUserID: dependencies.authService.user?.uid)) {
             appState.isBootstrapping = true
+            await UITestBootstrap.prepareAuthenticatedDashboardStateIfNeeded(dependencies: dependencies)
             await appState.hydrate(dependencies: dependencies)
         }
         .sheet(item: $appState.activeSessionContext) { context in
